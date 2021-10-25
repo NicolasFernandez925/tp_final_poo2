@@ -1,5 +1,4 @@
-package system;
-
+package Sem_Zona;
 public class Zona {
 
 	public Zona(){};
