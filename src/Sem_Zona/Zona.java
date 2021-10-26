@@ -1,6 +1,14 @@
 package Sem_Zona;
-public class Zona {
+import java.util.ArrayList;
 
+import Estacionamiento.*;
+import PuntoDeVenta.*;
+
+public class Zona {
+	private ArrayList<Estacionamiento> estacionamientos;
+	private ArrayList<PuntoDeVenta> puntosDeVenta;
+	private ArrayList<Integer> puntosGeograficos;
+	
 	public Zona(){};
 	
 	public int cantidadDeEstacionamientos() {

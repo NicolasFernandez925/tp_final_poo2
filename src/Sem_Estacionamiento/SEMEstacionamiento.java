@@ -7,7 +7,7 @@ public class SEMEstacionamiento {
 	private ArrayList<Zona> zonas;
 	
 	public SEMEstacionamiento(){
-		this.zonas = new ArrayList();
+		this.zonas = new ArrayList<Zona>();
 	};
 	
 	public void agregarZona(Zona _zona) {

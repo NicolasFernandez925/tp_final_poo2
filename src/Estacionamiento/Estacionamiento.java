@@ -3,7 +3,6 @@ package Estacionamiento;
 import java.time.LocalTime;
 
 public abstract class Estacionamiento {
-
 	private LocalTime horaDeInicio;	
 	private LocalTime horaDeFinalizacion;
 	private String patente;
