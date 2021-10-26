@@ -9,7 +9,7 @@ public class AppCelularSem implements MovementSensor {
 	private double saldoDisponible;
 	private int coordenadaGPS;
 	private GestorSem gestor;
-	private EstadoApp estado;
+	private EstadoApp estadoMovimiento;
 	private ModoApp modo;
 	
 	public AppCelularSem(int nroCelular, String nroPatente, GestorSem gestor, EstadoApp estado, ModoApp modo) {
@@ -17,8 +17,21 @@ public class AppCelularSem implements MovementSensor {
 		this.nroCelular = nroCelular;
 		this.nroPatente = nroPatente;
 		this.gestor = gestor;
-		this.estado = estado;
+		this.estadoMovimiento = estado;
 		this.modo = modo;
+	}
+	
+	/**
+	 * Metodos que inician el estacionamiento y finaliza el estcionamiento
+	 * de forma manual 
+	 * */
+	
+	public String iniciarEstacionamiento(String nroPatente) {
+		return modo.iniciarEstacionamiento(nroPatente, this.getGestor(), this);
+	}
+	
+	public String finalizarEstacionamiento() {
+		return modo.finalizarEstacionamiento(this.getGestor());
 	}
 	
 	/**
@@ -26,21 +39,20 @@ public class AppCelularSem implements MovementSensor {
 	 * con la deteccion de movimiento 
 	 * */
 	
-	public void comenzoACaminar(){
-		
+	public void comenzoACaminar(){	
 		if(!gestor.tieneEstacionamientoVigente() && this.coordenadaGPSDentroDeUnaZona()) {
-			this.getModo().alertaInicioDeEstacionamiento();
+			this.getModo().alertaInicioDeEstacionamiento(this.getGestor(), this);
 		}
 		
 	}
 	
 	public void comenzoAManejar(){
-		if(gestor.tieneEstacionamientoVigente() && this.estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento()) {
-			this.getModo().alertaDeFinDeEstacionamiento();
+		if(gestor.tieneEstacionamientoVigente() && this.estaEnElMismoPuntoGeograficoDeInicioEstacionamiento()) {
+			this.getModo().alertaDeFinDeEstacionamiento(this.getGestor());
 		}
 	}
 	
-	public Boolean estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento() {
+	public Boolean estaEnElMismoPuntoGeograficoDeInicioEstacionamiento() {
 		return gestor.estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(this.getCoordenadaGPS());
 	}
 
@@ -50,13 +62,13 @@ public class AppCelularSem implements MovementSensor {
 
 	@Override
 	public void driving() {
-		this.getEstado().comenzoAConducir(this);
+		this.getEstadoMovimiento().manejando(this);
 		
 	}
 
 	@Override
 	public void walking() {
-		this.getEstado().comenzoACaminar(this);
+		this.getEstadoMovimiento().caminando(this);
 		
 	}
 	
@@ -88,12 +100,12 @@ public class AppCelularSem implements MovementSensor {
 		this.saldoDisponible = saldoDisponible;
 	}
 
-	public EstadoApp getEstado() {
-		return estado;
+	public EstadoApp getEstadoMovimiento() {
+		return estadoMovimiento;
 	}
 
-	public void setEstado(EstadoApp estado) {
-		this.estado = estado;
+	public void setEstadoMovimiento(EstadoApp estado) {
+		this.estadoMovimiento = estado;
 	}
 
 	public ModoApp getModo() {
@@ -106,6 +118,10 @@ public class AppCelularSem implements MovementSensor {
 
 	public int getCoordenadaGPS() {
 		return coordenadaGPS;
+	}
+	
+	public void setCoordenadaGPS(int coordenada) {
+		this.coordenadaGPS = coordenada;
 	}
 
 	public GestorSem getGestor() {

@@ -3,14 +3,22 @@ package Sem_Estacionamiento;
 public class GestorSem {
 
 	public Boolean tieneEstacionamientoVigente() {
-		return true;
+		return false;
 	}
 	
 	public Boolean estaDentroDeUnaZonaConLaCoordenada(int coordenada) {
-		return false;
+		return true;
 	}
 	
 	public Boolean estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(int coordenada) {
-		return false;
+		return t;
+	}
+	
+	public String iniciarEstacionamiento(String patente) {
+		return "";
+	}
+	
+	public String finalizarEstacionamiento() {
+		return "";
 	}
 }
