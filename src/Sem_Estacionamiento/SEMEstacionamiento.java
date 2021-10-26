@@ -1,9 +1,10 @@
-package system;
+package Sem_Estacionamiento;
 import java.util.ArrayList;
 
+import Sem_Zona.Zona;
 
 public class SEMEstacionamiento {
-	ArrayList<Zona> zonas;
+	private ArrayList<Zona> zonas;
 	
 	public SEMEstacionamiento(){
 		this.zonas = new ArrayList();
@@ -13,7 +14,7 @@ public class SEMEstacionamiento {
 		this.zonas.add(_zona);
 	}
 	
-	public boolean consultarEstacionamiento(int nroDePatente) {
+	public boolean consultarEstacionamiento(String nroDePatente) {
 		return this.zonas.stream().anyMatch(zona -> zona.tieneEstacionamiento(nroDePatente));
 	}
 	

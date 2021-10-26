@@ -1,12 +1,16 @@
-package test;
+package SemEstacionamiento;
 
+import Sem_Estacionamiento.SEMEstacionamiento;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import system.Zona;
-import system.SEMEstacionamiento;
 
-class SEMEstacionamiento_test {
+import Estacionamiento.Estacionamiento;
+import Sem_Estacionamiento.SEMEstacionamiento;
+import Sem_Zona.Zona;
+
+class SEMEstacionamientoTest {
 
 	@Test
 	void test() {

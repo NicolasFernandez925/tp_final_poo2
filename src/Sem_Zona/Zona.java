@@ -1,5 +1,4 @@
-package system;
-
+package Sem_Zona;
 public class Zona {
 
 	public Zona(){};
@@ -8,7 +7,7 @@ public class Zona {
 		return 1;
 	}
 
-	public boolean tieneEstacionamiento(int nroDePatente) {
+	public boolean tieneEstacionamiento(String patente) {
 		// TODO Auto-generated method stub
 		return false;
 	}
