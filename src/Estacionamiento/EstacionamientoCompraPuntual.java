@@ -20,13 +20,6 @@ public class EstacionamientoCompraPuntual extends Estacionamiento {
 		return cantidadDeHoras;
 	}
 
-	/**
-	 * No hace nada, porque el finalizar de un estacionamiento puntual lo establece en el ticket al momento
-	 * de la compra de horas
-	 * */
-	@Override
-	public void finalizar(LocalTime horaFin) {
-		// TODO Auto-generated method stub	
-	}
+
 
 }

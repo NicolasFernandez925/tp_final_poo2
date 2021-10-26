@@ -15,7 +15,9 @@ public abstract class Estacionamiento {
 	}
 	
 	public abstract Boolean estacionamientoVigente();
-	public abstract void finalizar(LocalTime horaFin);
+	
+	// Method HOOK
+	public void finalizar(LocalTime horaFin) {}
 	
 	public LocalTime getHoraDeInicio() {
 		return horaDeInicio;
