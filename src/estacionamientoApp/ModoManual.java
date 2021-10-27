@@ -1,6 +1,6 @@
-package EstacionamientoApp;
+package estacionamientoApp;
 
-import Sem_Estacionamiento.GestorSem;
+import sem_Estacionamiento.GestorSem;
 
 public class ModoManual implements ModoApp {
 

@@ -1,4 +1,4 @@
-package Sem_Estacionamiento;
+package sem_Estacionamiento;
 
 public class GestorSem {
 

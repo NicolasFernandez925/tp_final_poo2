@@ -1,4 +1,4 @@
-package Sem_Inspector;
+package sem_Inspector;
 
 public class Inspector {
 

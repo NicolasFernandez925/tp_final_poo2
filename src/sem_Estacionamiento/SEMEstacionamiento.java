@@ -1,7 +1,7 @@
-package Sem_Estacionamiento;
+package sem_Estacionamiento;
 import java.util.ArrayList;
 
-import Sem_Zona.Zona;
+import sem_Zona.Zona;
 
 public class SEMEstacionamiento {
 	private ArrayList<Zona> zonas;

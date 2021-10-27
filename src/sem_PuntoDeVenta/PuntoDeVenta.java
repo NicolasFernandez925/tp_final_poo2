@@ -1,4 +1,4 @@
-package Sem_PuntoDeVenta;
+package sem_PuntoDeVenta;
 
 public class PuntoDeVenta {
 

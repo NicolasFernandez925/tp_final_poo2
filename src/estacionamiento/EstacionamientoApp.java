@@ -1,4 +1,4 @@
-package Estacionamiento;
+package estacionamiento;
 
 import java.time.LocalTime;
 
