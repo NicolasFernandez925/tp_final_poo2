@@ -9,6 +9,7 @@ public class GestorSem {
 
 	private LocalTime inicioDeJornada;
 	private LocalTime finDeJornada;
+	private LocalTime horaFinal;
 	private double costoPorHora;
 	private ISemEstacionamiento semEstacionamiento;
 	
@@ -58,7 +59,7 @@ public class GestorSem {
 	 * en la franja horaria la hora final de la jornada.
 	 * */
 	
-	private LocalTime calcularTiempoMaximo(double saldoDisponible, LocalTime horaActual) {
+	private  LocalTime calcularTiempoMaximo(double saldoDisponible, LocalTime horaActual) {
 		long minutosDisponibles = (long)this.cantidadDeMinutosDisponibles(saldoDisponible);
 		LocalTime result = horaActual.plusMinutes(minutosDisponibles);
 		return this.estaDentroDeFranjaHoraria(result) ? result : this.getInicioDeJornada();
@@ -81,7 +82,7 @@ public class GestorSem {
 	 * */
 
 	public void generarEstacionamientoPuntual(String patente, int cantidadDeHoras) {
-		LocalTime horaFinal = LocalTime.now().plusHours(cantidadDeHoras);
+		horaFinal = LocalTime.now().plusHours(cantidadDeHoras);
 		if(this.estaDentroDeFranjaHoraria(horaFinal)) {
 			semEstacionamiento.registrarEstacionamiento(new EstacionamientoCompraPuntual(patente,cantidadDeHoras, horaFinal));	
 		}
@@ -119,4 +120,17 @@ public class GestorSem {
 	public ISemEstacionamiento getSemEstacionamiento() {
 		return semEstacionamiento;
 	}
+	public LocalTime getHoraFinal() {
+		return this.horaFinal;
+	}
+	
+
+	public void setInicioDeJornada(LocalTime inicioDeJornada) {
+		this.inicioDeJornada = inicioDeJornada;
+	}
+
+	public void setSemEstacionamiento(ISemEstacionamiento semEstacionamiento) {
+		this.semEstacionamiento = semEstacionamiento;
+	}
+
 }

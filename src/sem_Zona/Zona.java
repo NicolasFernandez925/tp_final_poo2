@@ -63,9 +63,11 @@ public class Zona {
 		this.estacionamientos.add(_estacionamiento);
 	}
 
-	public boolean tieneEstacionamiento(String nroDePatente) {
+	public boolean tieneEstacionamientoVigente(String nroDePatente) {
 		// TODO Auto-generated method stub
-		return false;
+		Estacionamiento estacionamiento = this.estacionamientos.stream().filter(e -> e.getPatente() == nroDePatente).findFirst().get();
+		return estacionamiento.estacionamientoVigente() ? true : false;
+		
 	}
 	
 	

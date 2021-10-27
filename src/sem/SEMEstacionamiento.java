@@ -1,9 +1,11 @@
 package sem;
 import java.util.ArrayList;
+import java.util.List;
 
 import sem_Zona.Zona;
+import sem_estacionamiento.Estacionamiento;
 
-public class SEMEstacionamiento {
+public class SEMEstacionamiento implements ISemEstacionamiento {
 	private ArrayList<Zona> zonas;
 	
 	public SEMEstacionamiento(){
@@ -14,8 +16,15 @@ public class SEMEstacionamiento {
 		this.zonas.add(_zona);
 	}
 	
-	public boolean consultarEstacionamiento(String nroDePatente) {
-		return this.zonas.stream().anyMatch(zona -> zona.tieneEstacionamiento(nroDePatente));
+	public boolean tieneEstacionamientoVigente(String nroDePatente) {
+		return this.zonas.stream().anyMatch(zona -> zona.tieneEstacionamientoVigente(nroDePatente));
+	}
+	
+
+	@Override
+	public Estacionamiento buscarEstacionamientoVigente(String patente) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	public int cantidadDeEstacionamientos() {
@@ -29,7 +38,38 @@ public class SEMEstacionamiento {
 	public Zona getPuntoDeVentaEnLaZonaMasCercana(int coordenada) {
 		return null;
 	}
+
+	@Override
+	public List<Zona> getZonas() {
+		// TODO Auto-generated method stub
+		return this.zonas;
+	}
+
+	@Override
+	public void finalizarEstacionamientos() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean estaDentroDeUnaZonaConLaCoordenada(int coordenada) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(int coordenada) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
-	
-	
+	/**
+	 * Precondicion : Se debe haber cargado previamente almenos 1 zona en el SEM.
+	 * */
+
+	@Override
+	public void registrarEstacionamiento(Estacionamiento e) {
+		Zona zonaRandom = zonas.get(0);
+		zonaRandom.registrarEstacionamiento(e);		
+	}
 }
