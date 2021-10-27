@@ -1,4 +1,4 @@
-package Estacionamiento;
+package test_estacionamiento;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,9 +7,11 @@ import java.time.LocalTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import sem_estacionamiento.EstacionamientoCompraApp;
+
 class EstacionamientoAppTest {
 	
-	EstacionamientoApp sut;
+	EstacionamientoCompraApp sut;
 	LocalTime horaMaxima;
 
 	@BeforeEach
@@ -17,7 +19,7 @@ class EstacionamientoAppTest {
 		horaMaxima = LocalTime.of(18, 00);
 		String patente = "NPM239";
 		int numeroCelular = 111872727;
-		sut = new EstacionamientoApp(patente, numeroCelular, horaMaxima);
+		sut = new EstacionamientoCompraApp(patente, numeroCelular, horaMaxima);
 	}
 
 	@Test

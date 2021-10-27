@@ -1,4 +1,4 @@
-package EstacionamientoApp;
+package test_EstacionamientoApp;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;

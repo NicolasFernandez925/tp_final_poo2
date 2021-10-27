@@ -1,4 +1,4 @@
-package EstacionamientoApp;
+package test_EstacionamientoApp;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -10,10 +10,10 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import estacionamientoApp.AppCelularSem;
-import estacionamientoApp.EstadoApp;
-import estacionamientoApp.ModoApp;
-import sem_Estacionamiento.GestorSem;
+import sem.GestorSem;
+import sem_estacionamientoApp.AppCelularSem;
+import sem_estacionamientoApp.EstadoApp;
+import sem_estacionamientoApp.ModoApp;
 
 class AppCelularSemTest {
 	

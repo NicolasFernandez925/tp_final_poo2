@@ -1,4 +1,4 @@
-package Estacionamiento;
+package test_estacionamiento;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,6 +6,8 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import sem_estacionamiento.EstacionamientoCompraPuntual;
 
 class EstacionamientoCompraPuntualTest {
 

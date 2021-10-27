@@ -1,4 +1,4 @@
-package EstacionamientoApp;
+package test_EstacionamientoApp;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -7,6 +7,9 @@ import static org.mockito.Mockito.any;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import sem_estacionamientoApp.APie;
+import sem_estacionamientoApp.AppCelularSem;
 
 class APieTest {
 	
