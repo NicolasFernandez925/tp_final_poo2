@@ -20,6 +20,12 @@ public class EstacionamientoCompraPuntual extends Estacionamiento {
 		return cantidadDeHoras;
 	}
 
+	@Override
+	public Boolean sonNumerosIguales(int nroCelular) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 
 }

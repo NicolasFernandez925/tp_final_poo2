@@ -1,7 +1,9 @@
 package sem;
 
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
+import sem_estacionamiento.Estacionamiento;
 import sem_estacionamiento.EstacionamientoCompraApp;
 import sem_estacionamiento.EstacionamientoCompraPuntual;
 
@@ -101,10 +103,35 @@ public class GestorSem {
 		return true;
 	}
 	
-	public String finalizarEstacionamiento() {
-		return "";
+	/**
+	 * @param nroCelular : Integer
+	 * @return Un string con los detalles del estacionamiento
+	 * Nota: Puede lanzar Error al no encontrar un estacionamiento vinculado al nroCelular
+	 * */
+	public String finalizarEstacionamiento(int nroCelular) throws Exception {
+		LocalTime horaDeFinalizacion = LocalTime.now();
+		Estacionamiento e = semEstacionamiento.buscarEstacionamientoVigente(nroCelular);
+		e.finalizar(horaDeFinalizacion);
+		long horasConsumidas = this.tiempoTotalEnHorasConsumidas(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
+		double costo = this.costoEstacionamiento(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
+		return this.notificacionFinalizacionDeEstacionamiento(horasConsumidas, e, costo);
 	}
 	
+	private double costoEstacionamiento(LocalTime horaInicio, LocalTime horaFin) {
+		return horaInicio.until(horaFin, ChronoUnit.MINUTES) * this.precioPorMinuto();
+	}
+
+	public String notificacionFinalizacionDeEstacionamiento(long horasConsumidas, Estacionamiento e, double costo) {
+		return "Hora de Inicio: " + e.getHoraDeInicio() + "/n " +
+	           "Hora de Finalización: " + e.getHoraDeFinalizacion() +
+	           "Duracion: " + horasConsumidas +
+	           "Costo " + costo;
+	}
+
+	private long tiempoTotalEnHorasConsumidas(LocalTime horaDeInicio, LocalTime horaDeFinalizacion) {
+		return horaDeInicio.until(horaDeFinalizacion, ChronoUnit.HOURS);
+	}
+
 	public LocalTime getInicioDeJornada() {
 		return inicioDeJornada;
 	}

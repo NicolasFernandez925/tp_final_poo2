@@ -11,9 +11,9 @@ public class ModoAutomatico implements ModoApp {
 	}
 
 	@Override
-	public String alertaDeFinDeEstacionamiento(GestorSem gestor) {
+	public String alertaDeFinDeEstacionamiento(GestorSem gestor, int nroCelular) {
 		// TODO Auto-generated method stub
-		 return gestor.finalizarEstacionamiento();
+		 return gestor.finalizarEstacionamiento(nroCelular);
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class ModoAutomatico implements ModoApp {
 	}
 
 	@Override
-	public String finalizarEstacionamiento(GestorSem gestor) {
+	public String finalizarEstacionamiento(GestorSem gestor, int nroCelular) {
 		// TODO Auto-generated method stub
 		return "No se puede finalizar estacionamiento de forma manual en automatico! por favor, cambiar a Modo manual";
 	}

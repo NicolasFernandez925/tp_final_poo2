@@ -40,8 +40,8 @@ class ModoAutomaticoTest {
 	
 	@Test
 	void testElUsuarioEjecutaElModoAutomaticoEIniciaLaAlertaDeFinalizacionEstacionamiento() {
-		modoAutomaticoSut.alertaDeFinDeEstacionamiento(gestorMock);
-		verify(gestorMock).finalizarEstacionamiento();
+		modoAutomaticoSut.alertaDeFinDeEstacionamiento(gestorMock,nroCelular);
+		verify(gestorMock).finalizarEstacionamiento(nroCelular);
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ class ModoAutomaticoTest {
 	@Test
 	void testElUsuarioEjecutaLaFinalizacionDelEstacionamientoEstandoEnModoAutomatico() {
 		String msgEsperado = "No se puede finalizar estacionamiento de forma manual en automatico! por favor, cambiar a Modo manual";
-		assertEquals(msgEsperado, modoAutomaticoSut.finalizarEstacionamiento(gestorMock));
+		assertEquals(msgEsperado, modoAutomaticoSut.finalizarEstacionamiento(gestorMock,nroCelular));
 	}
 
 }

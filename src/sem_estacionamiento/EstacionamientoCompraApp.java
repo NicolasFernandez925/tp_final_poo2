@@ -18,6 +18,10 @@ public class EstacionamientoCompraApp extends Estacionamiento {
 		return this.estaVigente;
 		
 	}
+	
+	public Boolean sonNumerosIguales(int nroCelular) {
+		return nroCelular == this.getNumeroDeCelular();
+	}
 
 	@Override
 	public void finalizar(LocalTime horaFin) {

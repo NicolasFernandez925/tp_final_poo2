@@ -22,9 +22,17 @@ public class SEMEstacionamiento implements ISemEstacionamiento {
 	
 
 	@Override
-	public Estacionamiento buscarEstacionamientoVigente(String patente) {
-		// TODO Auto-generated method stub
-		return null;
+	public Estacionamiento buscarEstacionamientoVigente(int nroCelular) throws Exception {
+		for(Zona zona : this.getZonas()) {
+			for(Estacionamiento e : zona.getEstacionamientos()) {
+				if(e.estacionamientoVigente() && e.sonNumerosIguales(nroCelular)) {
+					return e;
+				}
+			}
+		}
+		
+		throw new Exception("No se encontro el estacionamiento con el numero de celular asocionado con: " + nroCelular );
+		
 	}
 	
 	public int cantidadDeEstacionamientos() {

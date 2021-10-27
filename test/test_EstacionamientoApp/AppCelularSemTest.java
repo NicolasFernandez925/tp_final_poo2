@@ -73,7 +73,7 @@ class AppCelularSemTest {
 	@Test
 	void testDeFinalizarEstacionamientoDeFormaManual() {	
 		sutApp.finalizarEstacionamiento();	
-		verify(modoAppMock).finalizarEstacionamiento(gestorMock);
+		verify(modoAppMock).finalizarEstacionamiento(gestorMock,nroCelular);
 	}
 	
 	
@@ -146,7 +146,7 @@ class AppCelularSemTest {
 		
 		sutApp.comenzoAManejar();
 
-		verify(modoAppMock).alertaDeFinDeEstacionamiento(gestorMock);
+		verify(modoAppMock).alertaDeFinDeEstacionamiento(gestorMock,nroCelular);
 	}
 
 }

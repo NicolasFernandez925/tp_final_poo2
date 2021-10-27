@@ -39,7 +39,7 @@ class ModoManualTest {
 	@Test
 	void testElUsuarioEjecutaLaFinalizacionDelEstacionamientoEnModoManualYValidaAlertaDeFinalizacion() {
 		String msgEsperado = "Alerta, recuerde finalizar el estacionamiento";
-		assertEquals(msgEsperado, modoManualSut.alertaDeFinDeEstacionamiento(gestorMock));
+		assertEquals(msgEsperado, modoManualSut.alertaDeFinDeEstacionamiento(gestorMock,nroCelular));
 	}
 	
 	@Test
@@ -51,8 +51,8 @@ class ModoManualTest {
 	
 	@Test
 	void testElUsuarioEjecutaEnModoManualLaFinalizacionDelEstacionamiento() {
-		modoManualSut.finalizarEstacionamiento(gestorMock);
-		verify(gestorMock).finalizarEstacionamiento();
+		modoManualSut.finalizarEstacionamiento(gestorMock,nroCelular);
+		verify(gestorMock).finalizarEstacionamiento(nroCelular);
 	}
 
 }

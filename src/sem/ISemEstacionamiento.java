@@ -12,6 +12,6 @@ public interface ISemEstacionamiento {
 	public boolean estaDentroDeUnaZonaConLaCoordenada(int coordenada);
 	public boolean estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(int coordenada);
 	public void registrarEstacionamiento(Estacionamiento e);
-	public Estacionamiento buscarEstacionamientoVigente(String patente);
+	public Estacionamiento buscarEstacionamientoVigente(int nroCelular) throws Exception;
 	public boolean tieneEstacionamientoVigente(String patente);
 }

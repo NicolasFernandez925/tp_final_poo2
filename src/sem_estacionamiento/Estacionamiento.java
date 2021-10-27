@@ -14,9 +14,11 @@ public abstract class Estacionamiento {
 	}
 	
 	public abstract Boolean estacionamientoVigente();
+	public abstract Boolean sonNumerosIguales(int nroCelular);
 	
 	// Method HOOK
 	public void finalizar(LocalTime horaFin) {}
+	
 	
 	public LocalTime getHoraDeInicio() {
 		return horaDeInicio;
