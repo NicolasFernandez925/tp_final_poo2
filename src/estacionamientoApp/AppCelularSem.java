@@ -59,6 +59,14 @@ public class AppCelularSem implements MovementSensor {
 	public Boolean coordenadaGPSDentroDeUnaZona() {
 		return gestor.estaDentroDeUnaZonaConLaCoordenada(this.getCoordenadaGPS());
 	}
+	
+	public double consultarSaldo() {
+		return this.getSaldoDisponible();
+	}
+	
+	public Boolean seEncuentraEnZonaElUsuario(int coordenada) {
+		return gestor.seEncuentraEnZonaElUsuario(coordenada);
+	}
 
 	@Override
 	public void driving() {
