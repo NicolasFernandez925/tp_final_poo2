@@ -84,7 +84,7 @@ class AppCelularSemTest {
 		
 		sutApp.setSaldoDisponible(saldoDisponible);
 		sutApp.setNroCelular(nroCelular);
-		when(gestorMock.tieneEstacionamientoVigente()).thenReturn(false);
+		when(gestorMock.tieneEstacionamientoVigente(patente)).thenReturn(false);
 		when(gestorMock.estaDentroDeUnaZonaConLaCoordenada(coordenadaGPS)).thenReturn(true);
 				
 		sutApp.comenzoACaminar();
@@ -95,7 +95,7 @@ class AppCelularSemTest {
 	@Test 
 	void testAlComenzarACaminarConEstacionamientoVigenteYDentroDeLaZonaConCoordenadaNoIniciaElEstacionamiento() {
 		
-		when(gestorMock.tieneEstacionamientoVigente()).thenReturn(true);
+		when(gestorMock.tieneEstacionamientoVigente(patente)).thenReturn(true);
 		when(gestorMock.estaDentroDeUnaZonaConLaCoordenada(coordenadaGPS)).thenReturn(true);
 		
 		sutApp.comenzoACaminar();
@@ -106,7 +106,7 @@ class AppCelularSemTest {
 	@Test 
 	void testAlComenzarACaminarConEstacionamientoVigenteYNOEstaDentroDeUnaZonaConCoordenadaNoIniciaElEstacionamiento() {
 		
-		when(gestorMock.tieneEstacionamientoVigente()).thenReturn(true);
+		when(gestorMock.tieneEstacionamientoVigente(patente)).thenReturn(true);
 		when(gestorMock.estaDentroDeUnaZonaConLaCoordenada(coordenadaGPS)).thenReturn(false);
 		
 		sutApp.comenzoACaminar();
@@ -119,7 +119,7 @@ class AppCelularSemTest {
 	@Test 
 	void testAlComenzarAConducirConEstacionamientoNoVigenteYEstaEnElMismoPuntoGeograficoNoSeAlertaElInicioDelEstacionamiento() {
 		
-		when(gestorMock.tieneEstacionamientoVigente()).thenReturn(false);
+		when(gestorMock.tieneEstacionamientoVigente(patente)).thenReturn(false);
 		when(gestorMock.estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(coordenadaGPS)).thenReturn(true);
 		
 		sutApp.comenzoAManejar();
@@ -130,7 +130,7 @@ class AppCelularSemTest {
 	@Test 
 	void testAlComenzarAConducirConEstacionamientoVigenteYNOEstaEnElMismoPuntoGeograficoNoSeAlertaElInicioDelEstacionamiento()  {
 		
-		when(gestorMock.tieneEstacionamientoVigente()).thenReturn(true);
+		when(gestorMock.tieneEstacionamientoVigente(patente)).thenReturn(true);
 		when(gestorMock.estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(coordenadaGPS)).thenReturn(false);
 		
 		sutApp.comenzoAManejar();
@@ -141,7 +141,7 @@ class AppCelularSemTest {
 	@Test 
 	void testAlComenzarAConducirConEstacionamientoNoVigenteYEstaEnElMismoPuntoGeograficoSeAlertaElInicioDelEstacionamiento()  {
 		
-		when(gestorMock.tieneEstacionamientoVigente()).thenReturn(true);
+		when(gestorMock.tieneEstacionamientoVigente(patente)).thenReturn(true);
 		when(gestorMock.estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(coordenadaGPS)).thenReturn(true);
 		
 		sutApp.comenzoAManejar();
