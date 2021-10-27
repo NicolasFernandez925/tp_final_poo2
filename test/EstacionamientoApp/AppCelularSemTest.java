@@ -6,7 +6,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
-import org.
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
