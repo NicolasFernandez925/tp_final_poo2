@@ -1,13 +1,13 @@
-package estacionamiento;
+package sem_estacionamiento;
 
 import java.time.LocalTime;
 
-public class EstacionamientoApp extends Estacionamiento {
+public class EstacionamientoCompraApp extends Estacionamiento {
 
 	private Boolean estaVigente;
 	private int numeroDeCelular;
 
-	public EstacionamientoApp(String patente, int numeroDeCelular, LocalTime horaFinal) {
+	public EstacionamientoCompraApp(String patente, int numeroDeCelular, LocalTime horaFinal) {
 		super(patente, horaFinal);
 		this.numeroDeCelular = numeroDeCelular;
 		this.estaVigente = true;

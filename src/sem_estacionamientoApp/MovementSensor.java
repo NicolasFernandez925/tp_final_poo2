@@ -1,4 +1,4 @@
-package estacionamientoApp;
+package sem_estacionamientoApp;
 
 public interface MovementSensor {
 

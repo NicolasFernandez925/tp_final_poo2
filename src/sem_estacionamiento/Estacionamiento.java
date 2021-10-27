@@ -1,4 +1,4 @@
-package estacionamiento;
+package sem_estacionamiento;
 
 import java.time.LocalTime;
 

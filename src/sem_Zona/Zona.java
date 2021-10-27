@@ -2,9 +2,9 @@ package sem_Zona;
 import java.util.ArrayList;
 import java.util.Random;
 
-import estacionamiento.*;
 import sem_Inspector.*;
 import sem_PuntoDeVenta.*;
+import sem_estacionamiento.*;
 
 
 public class Zona {
@@ -12,17 +12,16 @@ public class Zona {
 	private ArrayList<PuntoDeVenta> puntosDeVenta;
 	private ArrayList<Integer> puntosGeograficos;
 	
-	public Zona(){};
+	public Zona(){
+		this.estacionamientos = new ArrayList<Estacionamiento>();
+		this.puntosDeVenta = new ArrayList<PuntoDeVenta>();
+		this.puntosGeograficos = new ArrayList<Integer>();
+	}
 	
 	public int cantidadDeEstacionamientos() {
 		return this.estacionamientos.size();
 	}
 
-	public boolean tieneEstacionamiento(String patente) {
-		// TODO Auto-generated method stub
-		return this.estacionamientos.contains(patente);
-	}
-	
 	public void registrarInspector(Inspector inspector) {
 		
 	}
@@ -43,7 +42,10 @@ public class Zona {
 		return this.puntosGeograficos;
 	}
 	
-	public void setPuntosGeograficos(int puntoGeografico) {
+	public void setPuntosGeograficos(ArrayList<Integer> puntos) {
+		this.puntosGeograficos = puntos;
+	}
+	public void registrarPuntoGeografico(int puntoGeografico) {
 		this.puntosGeograficos.add(puntoGeografico);
 	}
 	
@@ -59,6 +61,11 @@ public class Zona {
 	
 	public void registrarEstacionamiento(Estacionamiento _estacionamiento) {
 		this.estacionamientos.add(_estacionamiento);
+	}
+
+	public boolean tieneEstacionamiento(String nroDePatente) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

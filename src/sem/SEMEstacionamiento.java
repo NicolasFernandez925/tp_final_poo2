@@ -1,4 +1,4 @@
-package sem_Estacionamiento;
+package sem;
 import java.util.ArrayList;
 
 import sem_Zona.Zona;

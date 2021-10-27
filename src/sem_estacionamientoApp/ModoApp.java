@@ -1,6 +1,6 @@
-package estacionamientoApp;
+package sem_estacionamientoApp;
 
-import sem_Estacionamiento.GestorSem;
+import sem.GestorSem;
 
 public interface ModoApp {
 
