@@ -46,8 +46,7 @@ public class GestorSem {
 		LocalTime horaMaximaDeFin;
 		if(saldoDisponible > 0) {			
 			horaMaximaDeFin = this.calcularTiempoMaximo(saldoDisponible, LocalTime.now());		
-			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente, nroCelular, horaMaxima));	
-			//FALTA IMPLEMENTAR EL MSG DETALLANDO CADA OPERACION DEL INICIO DEL ESTACIONAMIENTO
+			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente, nroCelular, horaMaximaDeFin));	
 			return this.notificacionInicioDeEstacionamiento(LocalTime.now(), horaMaximaDeFin);
 		}
 		else {

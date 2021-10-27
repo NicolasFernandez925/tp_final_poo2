@@ -23,6 +23,7 @@ class GestorSemTest {
 	EstacionamientoCompraApp estacionamientoCompraAppMock;
 	String patente;
 	int nroCelular;
+	double saldo;
 	LocalTime horaActual;
 	LocalTime inicioJornada;
 	LocalTime finJornada;
@@ -30,6 +31,7 @@ class GestorSemTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		saldo = 200.0;
 		patente = "Graph123";
 		nroCelular = 11131313;
 		finJornada = LocalTime.of(20, 00);
@@ -99,9 +101,31 @@ class GestorSemTest {
 	}
 	
 	@Test
-	void testFinalizarTodosLosEstacionamientos() throws Exception {
+	void testFinalizarTodosLosEstacionamientos() {
 		sutGestor.finalizarTodosLosEstacionamientos();
 		verify(semEstacionamientoMock).finalizarTodosLosEstacionamientos(finJornada);
 		
 	}
+	
+	/* FALTA IMPLEMENTAR
+	
+	@Test
+	void testInicializacionDeEstacionamientoOK() {
+		
+		LocalTime horaInicio = LocalTime.of(16, 00);
+		LocalTime horaFin = LocalTime.of(17, 50);
+
+	    sutGestor.iniciarEstacionamiento(patente, saldo, nroCelular);
+		verify(semEstacionamientoMock).registrarEstacionamiento(estacionamientoCompraAppMock);
+		
+		String notificacionEsperada = "Hora de Inicio: " + horaInicio + " /n " +
+		           "Hora de Finalización: " + horaFin + " /n " +
+		           "Duracion: " + duracion + " /n " +
+		           "Costo " + costoEsperado;
+		
+		assertEquals(notificacionEsperada, sutGestor.finalizarEstacionamiento(nroCelular));
+		
+	}
+	
+	*/
 }
