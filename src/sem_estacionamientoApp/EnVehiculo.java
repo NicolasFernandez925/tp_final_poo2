@@ -1,5 +1,6 @@
 package sem_estacionamientoApp;
 
+
 public class EnVehiculo implements EstadoApp {
 
 	@Override

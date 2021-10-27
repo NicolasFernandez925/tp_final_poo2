@@ -27,7 +27,7 @@ public class AppCelularSem implements MovementSensor {
 	 * */
 	
 	public String iniciarEstacionamiento(String nroPatente) {
-		return modo.iniciarEstacionamiento(nroPatente, this.getGestor(), this);
+		return modo.iniciarEstacionamiento(nroPatente, this.getGestor(), this, this.getSaldoDisponible(), this.getNroCelular());
 	}
 	
 	public String finalizarEstacionamiento() {
@@ -41,7 +41,7 @@ public class AppCelularSem implements MovementSensor {
 	
 	public void comenzoACaminar(){	
 		if(!gestor.tieneEstacionamientoVigente() && this.coordenadaGPSDentroDeUnaZona()) {
-			this.getModo().alertaInicioDeEstacionamiento(this.getGestor(), this);
+			this.getModo().alertaInicioDeEstacionamiento(this.getGestor(), this, this.getSaldoDisponible(), this.getNroCelular());
 		}
 		
 	}

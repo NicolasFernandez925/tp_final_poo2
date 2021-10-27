@@ -1,6 +1,5 @@
 package test_EstacionamientoApp;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -11,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import sem_estacionamientoApp.AppCelularSem;
 import sem_estacionamientoApp.EnVehiculo;
+import sem_estacionamientoApp.EstadoApp;
 
 class EnVehiculoTest {
 

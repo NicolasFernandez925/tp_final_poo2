@@ -1,11 +1,7 @@
 package test_EstacionamientoApp;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +11,7 @@ import sem_estacionamientoApp.AppCelularSem;
 import sem_estacionamientoApp.EstadoApp;
 import sem_estacionamientoApp.ModoApp;
 
+
 class AppCelularSemTest {
 	
 	AppCelularSem sutApp;
@@ -23,6 +20,7 @@ class AppCelularSemTest {
 	ModoApp modoAppMock;
 	
 	String patente;
+	double saldoDisponible;
 	int nroCelular;
 	int coordenadaGPS;
 
@@ -30,6 +28,7 @@ class AppCelularSemTest {
 	void setUp() throws Exception {
 		patente = "VAS930";
 		coordenadaGPS = 1822717272;
+		saldoDisponible = 200.0;
 		nroCelular = 11267364;
 		gestorMock = mock(GestorSem.class);
 		modoAppMock = mock(ModoApp.class);
@@ -65,8 +64,10 @@ class AppCelularSemTest {
 	
 	@Test
 	void testDeIniciarEstacionamientoDeFormaManual() {	
+		sutApp.setSaldoDisponible(saldoDisponible);
+		sutApp.setNroCelular(nroCelular);
 		sutApp.iniciarEstacionamiento(patente);	
-		verify(modoAppMock).iniciarEstacionamiento(patente, gestorMock, sutApp);
+		verify(modoAppMock).iniciarEstacionamiento(patente, gestorMock, sutApp,saldoDisponible,nroCelular);
 	}
 	
 	@Test
@@ -81,12 +82,14 @@ class AppCelularSemTest {
 	@Test 
 	void testAlComenzarACaminarConEstacionamientoNoVigenteYDentroDeLaZonaConCoordenadaSeAlertaElInicioDelEstacionamiento() {
 		
+		sutApp.setSaldoDisponible(saldoDisponible);
+		sutApp.setNroCelular(nroCelular);
 		when(gestorMock.tieneEstacionamientoVigente()).thenReturn(false);
 		when(gestorMock.estaDentroDeUnaZonaConLaCoordenada(coordenadaGPS)).thenReturn(true);
-		
+				
 		sutApp.comenzoACaminar();
 
-		verify(modoAppMock).alertaInicioDeEstacionamiento(gestorMock, sutApp);
+		verify(modoAppMock).alertaInicioDeEstacionamiento(gestorMock, sutApp, saldoDisponible, nroCelular);
 	}
 	
 	@Test 
@@ -145,35 +148,5 @@ class AppCelularSemTest {
 
 		verify(modoAppMock).alertaDeFinDeEstacionamiento(gestorMock);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*@Test 
-	void testAlComenzarAManejarSeAlertaLaAccionYSeDelegaASuModo() {
-		app.comenzoAManejar();
-		
-		verify(alerta).comenzoAManejar();
-		verify(modo).comenzoAManejar(app, celular);
-	}
-	
-	@Test
-	void testAlComenzarACaminarSeAlertaLaAccionYSeDelegaASuModo() {
-		app.comenzoACaminar();
-		
-		verify(alerta).comenzoACaminar();
-		verify(modo).comenzoACaminar(app, patente, celular);
-	}*/
 
 }

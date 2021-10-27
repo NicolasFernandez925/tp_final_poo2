@@ -1,15 +1,15 @@
 package test_EstacionamientoApp;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import sem.*;
-import sem_estacionamientoApp.*;
+import sem.GestorSem;
+import sem_estacionamientoApp.AppCelularSem;
+import sem_estacionamientoApp.ModoAutomatico;
+
 
 class ModoAutomaticoTest {
 	
@@ -17,10 +17,14 @@ class ModoAutomaticoTest {
 	AppCelularSem appMock;
 	ModoAutomatico modoAutomaticoSut;
 	String patente;
+	double saldoDisponible;
+	int nroCelular;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		patente = "VAS930";
+		nroCelular = 1112233;
+		saldoDisponible = 200.0;
 		gestorMock = mock(GestorSem.class);
 		appMock = mock(AppCelularSem.class);
 		modoAutomaticoSut = new ModoAutomatico();
@@ -28,9 +32,10 @@ class ModoAutomaticoTest {
 
 	@Test
 	void testElUsuarioEjecutaElModoAutomaticoEIniciaLaAlertaDeInicioDeEstacionamiento() {
+		
 		when(appMock.getNroPatente()).thenReturn(patente);
-		modoAutomaticoSut.alertaInicioDeEstacionamiento(gestorMock,appMock);
-		verify(gestorMock).iniciarEstacionamiento(patente);
+		modoAutomaticoSut.alertaInicioDeEstacionamiento(gestorMock,appMock,saldoDisponible,nroCelular);
+		verify(gestorMock).iniciarEstacionamiento(patente,saldoDisponible,nroCelular);
 	}
 	
 	@Test
@@ -42,7 +47,7 @@ class ModoAutomaticoTest {
 	@Test
 	void testElUsuarioEjecutaElIniciarEstacionamientoEstandoEnModoAutomatico() {
 		String msgEsperado = "No se puede iniciar estacionamiento de forma manual en automatico! por favor, cambiar a Modo manual";	
-		assertEquals(msgEsperado, modoAutomaticoSut.iniciarEstacionamiento(patente,gestorMock,appMock));
+		assertEquals(msgEsperado, modoAutomaticoSut.iniciarEstacionamiento(patente,gestorMock,appMock,saldoDisponible,nroCelular));
 	}
 	
 	@Test
