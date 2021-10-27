@@ -1,14 +1,13 @@
 package SemEstacionamiento;
 
-import Sem_Estacionamiento.SEMEstacionamiento;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Estacionamiento.Estacionamiento;
-import Sem_Estacionamiento.SEMEstacionamiento;
-import Sem_Zona.Zona;
+import estacionamiento.Estacionamiento;
+import sem_Estacionamiento.SEMEstacionamiento;
+import sem_Zona.Zona;
 
 class SEMEstacionamientoTest {
 
