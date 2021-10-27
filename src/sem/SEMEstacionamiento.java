@@ -1,4 +1,5 @@
 package sem;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,19 +21,15 @@ public class SEMEstacionamiento implements ISemEstacionamiento {
 		return this.zonas.stream().anyMatch(zona -> zona.tieneEstacionamientoVigente(nroDePatente));
 	}
 	
-
 	@Override
 	public Estacionamiento buscarEstacionamientoVigente(int nroCelular) throws Exception {
-		for(Zona zona : this.getZonas()) {
-			for(Estacionamiento e : zona.getEstacionamientos()) {
-				if(e.estacionamientoVigente() && e.sonNumerosIguales(nroCelular)) {
-					return e;
-				}
+		List<Estacionamiento> estacionamientos = this.todosLosEstacionamientos();
+		for(Estacionamiento e : estacionamientos) {
+			if(e.estacionamientoVigente() && e.sonNumerosIguales(nroCelular)) {
+				return e;
 			}
-		}
-		
-		throw new Exception("No se encontro el estacionamiento con el numero de celular asocionado con: " + nroCelular );
-		
+		}	
+		throw new Exception("No se encontro un estacionamiento vigente con el numero de celular asocionado con: " + nroCelular );	
 	}
 	
 	public int cantidadDeEstacionamientos() {
@@ -49,25 +46,35 @@ public class SEMEstacionamiento implements ISemEstacionamiento {
 
 	@Override
 	public List<Zona> getZonas() {
-		// TODO Auto-generated method stub
 		return this.zonas;
 	}
 
 	@Override
-	public void finalizarEstacionamientos() {
-		// TODO Auto-generated method stub
+	public void finalizarTodosLosEstacionamientos(LocalTime horaFinDeJornada) {
+		List<Estacionamiento> estacionamientos = this.todosLosEstacionamientos();		
+		for(Estacionamiento e : estacionamientos) {
+			if(e.estacionamientoVigente()) {
+				e.finalizar(horaFinDeJornada);
+			}			
+		}	
+	}
+	
+	private List<Estacionamiento> todosLosEstacionamientos() {
+		List<Estacionamiento> estacionamientos = new ArrayList<Estacionamiento>();
+		this.getZonas().stream().forEach(e -> estacionamientos.addAll(e.getEstacionamientos()));
 		
+		return estacionamientos;
 	}
 
 	@Override
 	public boolean estaDentroDeUnaZonaConLaCoordenada(int coordenada) {
-		// TODO Auto-generated method stub
+		// TODO Falta implementar
 		return false;
 	}
 
 	@Override
 	public boolean estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(int coordenada) {
-		// TODO Auto-generated method stub
+		// TODO Falta implementar
 		return false;
 	}
 	

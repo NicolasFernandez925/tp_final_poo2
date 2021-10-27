@@ -71,7 +71,7 @@ class AppCelularSemTest {
 	}
 	
 	@Test
-	void testDeFinalizarEstacionamientoDeFormaManual() {	
+	void testDeFinalizarEstacionamientoDeFormaManual() throws Exception {	
 		sutApp.finalizarEstacionamiento();	
 		verify(modoAppMock).finalizarEstacionamiento(gestorMock,nroCelular);
 	}
@@ -128,7 +128,7 @@ class AppCelularSemTest {
 	}
 	
 	@Test 
-	void testAlComenzarAConducirConEstacionamientoVigenteYNOEstaEnElMismoPuntoGeograficoNoSeAlertaElInicioDelEstacionamiento() {
+	void testAlComenzarAConducirConEstacionamientoVigenteYNOEstaEnElMismoPuntoGeograficoNoSeAlertaElInicioDelEstacionamiento()  {
 		
 		when(gestorMock.tieneEstacionamientoVigente()).thenReturn(true);
 		when(gestorMock.estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(coordenadaGPS)).thenReturn(false);
@@ -139,7 +139,7 @@ class AppCelularSemTest {
 	}
 	
 	@Test 
-	void testAlComenzarAConducirConEstacionamientoNoVigenteYEstaEnElMismoPuntoGeograficoSeAlertaElInicioDelEstacionamiento() {
+	void testAlComenzarAConducirConEstacionamientoNoVigenteYEstaEnElMismoPuntoGeograficoSeAlertaElInicioDelEstacionamiento()  {
 		
 		when(gestorMock.tieneEstacionamientoVigente()).thenReturn(true);
 		when(gestorMock.estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(coordenadaGPS)).thenReturn(true);

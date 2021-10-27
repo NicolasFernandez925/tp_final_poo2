@@ -23,7 +23,7 @@ public class ModoManual implements ModoApp {
 	}
 
 	@Override
-	public String finalizarEstacionamiento(GestorSem gestor, int nroCelular) {
+	public String finalizarEstacionamiento(GestorSem gestor, int nroCelular)  {
 		// TODO Auto-generated method stub
 		return gestor.finalizarEstacionamiento(nroCelular);
 	}

@@ -22,15 +22,17 @@ public class GestorSem {
 		this.semEstacionamiento = semEstacionamiento;
 	}
 
-	public Boolean tieneEstacionamientoVigente() {
-		return false;
+	public Boolean tieneEstacionamientoVigente(String nroPatente) {
+		return semEstacionamiento.tieneEstacionamientoVigente(nroPatente);
 	}
 	
 	public Boolean estaDentroDeUnaZonaConLaCoordenada(int coordenada) {
+		// TODO Falta implementar
 		return true;
 	}
 	
 	public Boolean estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(int coordenada) {
+		// TODO Falta implementar
 		return false;
 	}
 	
@@ -41,16 +43,15 @@ public class GestorSem {
 	 * */
 	
 	public String iniciarEstacionamiento(String patente, double saldoDisponible,int nroCelular) {
-		LocalTime horaMaxima;
-		if(saldoDisponible > 0) {
-			horaMaxima = this.calcularTiempoMaximo(saldoDisponible, LocalTime.now());
-			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente, nroCelular, horaMaxima));
-			
+		LocalTime horaMaximaDeFin;
+		if(saldoDisponible > 0) {			
+			horaMaximaDeFin = this.calcularTiempoMaximo(saldoDisponible, LocalTime.now());		
+			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente, nroCelular, horaMaxima));	
 			//FALTA IMPLEMENTAR EL MSG DETALLANDO CADA OPERACION DEL INICIO DEL ESTACIONAMIENTO
-			return "";
+			return this.notificacionInicioDeEstacionamiento(LocalTime.now(), horaMaximaDeFin);
 		}
 		else {
-			return "Saldo insuficiente para realizar el Inicio del estacionamiento";
+			return "Saldo insuficiente. Estacionamiento no permitido.";
 		}
 	}
 	
@@ -68,15 +69,14 @@ public class GestorSem {
 	}
 	
 	private double cantidadDeMinutosDisponibles(double saldo) {
-		// TODO Auto-generated method stub
 		return saldo / this.precioPorMinuto();
 	}
-
-	private double precioPorMinuto() {
-		// TODO Auto-generated method stub
-		return this.getCostoPorHora() / 60;
-	}
 	
+	private double precioPorMinuto() {
+		double valorMinuto = this.getCostoPorHora() / 60;
+		double roundDbl = Math.round(valorMinuto *100.0)/100.0;
+		return roundDbl;
+	}
 
 	/**
 	 * @param patente: Un String
@@ -95,7 +95,6 @@ public class GestorSem {
 	}
 	
 	private boolean estaDentroDeFranjaHoraria(LocalTime horaMaxima) {
-		// TODO Auto-generated method stub
 		return this.getInicioDeJornada().isBefore(horaMaxima) && this.getFinDeJornada().isAfter(horaMaxima);
 	}
 
@@ -108,28 +107,48 @@ public class GestorSem {
 	 * @return Un string con los detalles del estacionamiento
 	 * Nota: Puede lanzar Error al no encontrar un estacionamiento vinculado al nroCelular
 	 * */
-	public String finalizarEstacionamiento(int nroCelular) throws Exception {
+	public String finalizarEstacionamiento(int nroCelular){
 		LocalTime horaDeFinalizacion = LocalTime.now();
-		Estacionamiento e = semEstacionamiento.buscarEstacionamientoVigente(nroCelular);
-		e.finalizar(horaDeFinalizacion);
-		long horasConsumidas = this.tiempoTotalEnHorasConsumidas(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
-		double costo = this.costoEstacionamiento(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
-		return this.notificacionFinalizacionDeEstacionamiento(horasConsumidas, e, costo);
+		try {
+			Estacionamiento e = semEstacionamiento.buscarEstacionamientoVigente(nroCelular);
+			e.finalizar(horaDeFinalizacion);
+			long minutosConsumidos = this.totalMinutos(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
+			LocalTime horasConsumidas = this.tiempoTotalEnHorasConsumidas(minutosConsumidos);
+			double costo = this.costoEstacionamiento(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
+			return this.notificacionFinalizacionDeEstacionamiento(horasConsumidas, e, costo);
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+		
+	}
+	
+	public void finalizarTodosLosEstacionamientos() {
+		semEstacionamiento.finalizarTodosLosEstacionamientos(this.getFinDeJornada());
+	}
+	
+	private long totalMinutos(LocalTime horaInicio, LocalTime horaFin) {
+		return horaInicio.until(horaFin, ChronoUnit.MINUTES);
 	}
 	
 	private double costoEstacionamiento(LocalTime horaInicio, LocalTime horaFin) {
-		return horaInicio.until(horaFin, ChronoUnit.MINUTES) * this.precioPorMinuto();
+		return this.totalMinutos(horaInicio, horaFin) * this.precioPorMinuto();
 	}
 
-	public String notificacionFinalizacionDeEstacionamiento(long horasConsumidas, Estacionamiento e, double costo) {
-		return "Hora de Inicio: " + e.getHoraDeInicio() + "/n " +
-	           "Hora de Finalización: " + e.getHoraDeFinalizacion() +
-	           "Duracion: " + horasConsumidas +
+	public String notificacionFinalizacionDeEstacionamiento(LocalTime horasConsumidas, Estacionamiento e, double costo) {
+		return "Hora de Inicio: " + e.getHoraDeInicio() + " /n " +
+	           "Hora de Finalización: " + e.getHoraDeFinalizacion() + " /n " +
+	           "Duracion: " + horasConsumidas + " /n " +
 	           "Costo " + costo;
 	}
+	
+	public String notificacionInicioDeEstacionamiento(LocalTime horaDeInicio, LocalTime horaMaximaDeFinalizacion) {
+		return "Hora de Inicio: " + horaDeInicio + " /n " +
+	           "Hora de Finalización: " + horaMaximaDeFinalizacion;
+	}
 
-	private long tiempoTotalEnHorasConsumidas(LocalTime horaDeInicio, LocalTime horaDeFinalizacion) {
-		return horaDeInicio.until(horaDeFinalizacion, ChronoUnit.HOURS);
+	private LocalTime tiempoTotalEnHorasConsumidas(long minutos) {
+		LocalTime time = LocalTime.of(00, 00); 
+		return time.plusMinutes(minutos);
 	}
 
 	public LocalTime getInicioDeJornada() {

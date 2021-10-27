@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import sem.GestorSem;
 import sem.ISemEstacionamiento;
 import sem_estacionamiento.Estacionamiento;
+import sem_estacionamiento.EstacionamientoCompraApp;
 import sem_estacionamiento.EstacionamientoCompraPuntual;
 
 class GestorSemTest {
@@ -18,8 +20,9 @@ class GestorSemTest {
 	GestorSem sutGestor;
 	ISemEstacionamiento semEstacionamientoMock;
 	EstacionamientoCompraPuntual estacionamientoCompraPuntualMock;
-	double monto;
+	EstacionamientoCompraApp estacionamientoCompraAppMock;
 	String patente;
+	int nroCelular;
 	LocalTime horaActual;
 	LocalTime inicioJornada;
 	LocalTime finJornada;
@@ -27,15 +30,21 @@ class GestorSemTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		monto = 100;
 		patente = "Graph123";
+		nroCelular = 11131313;
 		finJornada = LocalTime.of(20, 00);
 		inicioJornada = LocalTime.of(07, 00);
 		horaActual = LocalTime.now();
 		semEstacionamientoMock = mock(ISemEstacionamiento.class);
+		estacionamientoCompraAppMock = mock(EstacionamientoCompraApp.class);
 		estacionamientoCompraPuntualMock = mock(EstacionamientoCompraPuntual.class);
 		sutGestor = new GestorSem(semEstacionamientoMock);
 	}
+	
+	/**
+	 * Este test solo funciona cuando al generar la compra puntual
+	 * esta dentro de horio laboral
+	 * */
 
 	@Test
 	void testGenerarEstacionamientoPuntualDentroDeJornadaLaboral() {	
@@ -55,5 +64,44 @@ class GestorSemTest {
 		verify(semEstacionamientoMock).registrarEstacionamiento(any(Estacionamiento.class));
 		assertEquals(finJornada, sutGestor.getHoraFinal());
 	}
-
+	
+	@Test
+	void testFinalizarEstacionamientoOK() throws Exception {
+		
+		LocalTime horaInicio = LocalTime.of(16, 00);
+		// redondeo el precio por minuto
+		double precioPorMinuto = Math.round(0.6666666667 *100.0)/100.0;
+		LocalTime horaFin = LocalTime.of(17, 50);
+		LocalTime duracion = LocalTime.of(01, 50);
+		double costoEsperado = (horaInicio.until(horaFin, ChronoUnit.MINUTES)) * precioPorMinuto;
+		
+		estacionamientoCompraAppMock.finalizar(horaFin);
+		when(semEstacionamientoMock.buscarEstacionamientoVigente(nroCelular)).thenReturn(estacionamientoCompraAppMock);
+		when(estacionamientoCompraAppMock.getHoraDeInicio()).thenReturn(horaInicio);
+		when(estacionamientoCompraAppMock.getHoraDeFinalizacion()).thenReturn(horaFin);
+		
+		String notificacionEsperada = "Hora de Inicio: " + horaInicio + " /n " +
+		           "Hora de Finalización: " + horaFin + " /n " +
+		           "Duracion: " + duracion + " /n " +
+		           "Costo " + costoEsperado;
+		
+		assertEquals(notificacionEsperada, sutGestor.finalizarEstacionamiento(nroCelular));
+	}
+	
+	@Test
+	void testFinalizarEstacionamientoConErrorPorqueNoEstaRegistrado() throws Exception {
+		LocalTime horaFin = LocalTime.of(17, 50);
+		 when(semEstacionamientoMock.buscarEstacionamientoVigente(nroCelular))
+	      .thenThrow(new Exception("No se encontro un estacionamiento vigente con el numero de celular asocionado con: " + nroCelular ));
+		estacionamientoCompraAppMock.finalizar(horaFin);
+		
+		assertEquals("No se encontro un estacionamiento vigente con el numero de celular asocionado con: " + nroCelular  , sutGestor.finalizarEstacionamiento(nroCelular));
+	}
+	
+	@Test
+	void testFinalizarTodosLosEstacionamientos() throws Exception {
+		sutGestor.finalizarTodosLosEstacionamientos();
+		verify(semEstacionamientoMock).finalizarTodosLosEstacionamientos(finJornada);
+		
+	}
 }

@@ -39,7 +39,7 @@ class ModoAutomaticoTest {
 	}
 	
 	@Test
-	void testElUsuarioEjecutaElModoAutomaticoEIniciaLaAlertaDeFinalizacionEstacionamiento() {
+	void testElUsuarioEjecutaElModoAutomaticoEIniciaLaAlertaDeFinalizacionEstacionamiento() throws Exception {
 		modoAutomaticoSut.alertaDeFinDeEstacionamiento(gestorMock,nroCelular);
 		verify(gestorMock).finalizarEstacionamiento(nroCelular);
 	}

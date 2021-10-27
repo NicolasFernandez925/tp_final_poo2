@@ -50,7 +50,7 @@ class ModoManualTest {
 	}
 	
 	@Test
-	void testElUsuarioEjecutaEnModoManualLaFinalizacionDelEstacionamiento() {
+	void testElUsuarioEjecutaEnModoManualLaFinalizacionDelEstacionamiento() throws Exception {
 		modoManualSut.finalizarEstacionamiento(gestorMock,nroCelular);
 		verify(gestorMock).finalizarEstacionamiento(nroCelular);
 	}
