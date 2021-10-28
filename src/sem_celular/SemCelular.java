@@ -29,7 +29,7 @@ public class SemCelular {
 	
 	}
 
-	private void recargar(double creditoARecargar, int nroCelular) {
+	public void recargar(double creditoARecargar, int nroCelular) {
 		double saldoAnterior = this.getSaldo(nroCelular);
 		saldoAnterior += creditoARecargar;
 		this.getCelulares().put(nroCelular, saldoAnterior);		
@@ -44,7 +44,7 @@ public class SemCelular {
 			this.getCelulares().put(nroCelular, 0.0);
 	}
 	
-	private boolean elCelularYaEstaRegistrado(int nroCelular) {
+	public boolean elCelularYaEstaRegistrado(int nroCelular) {
 		return this.getCelulares().containsKey(nroCelular);
 	}
 
