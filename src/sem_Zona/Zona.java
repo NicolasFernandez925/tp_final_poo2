@@ -11,11 +11,13 @@ public class Zona {
 	private ArrayList<Estacionamiento> estacionamientos;
 	private ArrayList<PuntoDeVenta> puntosDeVenta;
 	private ArrayList<Integer> puntosGeograficos;
+	private Inspector inspector;
 	
 	public Zona(){
 		this.estacionamientos = new ArrayList<Estacionamiento>();
 		this.puntosDeVenta = new ArrayList<PuntoDeVenta>();
 		this.puntosGeograficos = new ArrayList<Integer>();
+//		this.inspector = new Inspector();
 	}
 	
 	public int cantidadDeEstacionamientos() {
@@ -23,7 +25,11 @@ public class Zona {
 	}
 
 	public void registrarInspector(Inspector inspector) {
-		
+		this.inspector = inspector;
+	}
+	
+	public Inspector getInspector() {
+		return this.inspector;
 	}
 	
 	public ArrayList<Estacionamiento> getEstacionamientos(){

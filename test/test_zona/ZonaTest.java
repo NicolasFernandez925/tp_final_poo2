@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import sem_Zona.Zona;
 import sem_estacionamiento.*;
+import sem_Inspector.*;
+import sem_PuntoDeVenta.PuntoDeVenta;
 
 class ZonaTest {
 	
@@ -31,6 +33,10 @@ class ZonaTest {
 	Estacionamiento estacionamiento3;// = new EstacionamientoCompraApp("qwe321", 87645, fin);
 	
 	ArrayList<Integer> puntosGeograficos;
+	
+	Inspector inspector;
+	
+	PuntoDeVenta punto1;
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -55,6 +61,10 @@ class ZonaTest {
 		Collections.addAll(puntosGeograficos, 1, 2, 3 ,4 ,5 ,6 ,7 ,8 ,9, 10, 11);
 		zonaCentro.setPuntosGeograficos(puntosGeograficos);
 		
+		inspector = new Inspector();
+		
+		punto1 = new PuntoDeVenta();
+		
 	}
 	
 	@Test
@@ -71,5 +81,26 @@ class ZonaTest {
 		assertEquals(3, zonaCentro.cantidadDeEstacionamientos());
 	}
 	
+	@Test
+	void testRegistrarInspector() {
+		String inspector_type = new Inspector().getClass().getName();
+		zonaCentro.registrarInspector(inspector);
+		assertNotNull(zonaCentro.getInspector());
+		assertEquals(inspector_type, zonaCentro.getInspector().getClass().getName());
+	}
+	
+	@Test
+	void testRegistrarPuntoDeVenta() {
+		zonaCentro.registrarPuntoDeVenta(punto1);
+		assertNotNull(zonaCentro.getPuntosDeVenta());
+		assertTrue(zonaCentro.getPuntosDeVenta().contains(punto1));
+	}
 
+	@Test
+	void testSetPuntosGeograficos() {
+		ArrayList<Integer> nuevosPuntosGeograficos = new ArrayList<>();
+		Collections.addAll(nuevosPuntosGeograficos, 1, 2, 3 ,4 ,5 ,6 ,7 ,8 ,9, 10, 11);
+		zonaCentro.setPuntosGeograficos(nuevosPuntosGeograficos);
+		assertEquals(nuevosPuntosGeograficos, zonaCentro.getPuntosGeograficos());
+	}
 }
