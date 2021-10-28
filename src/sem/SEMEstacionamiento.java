@@ -17,10 +17,31 @@ public class SEMEstacionamiento implements ISemEstacionamiento {
 		this.zonas.add(_zona);
 	}
 	
+	/**
+	 * @param nroDePatente : String
+	 * @return retorna un Boolean si en alguna zona tiene el estacionamiento valido
+	 * Este metodo se usa para que el Inspector busque a travez de la patente si esta viegente o no 
+	 * */
 	public boolean tieneEstacionamientoVigente(String nroDePatente) {
 		return this.zonas.stream().anyMatch(zona -> zona.tieneEstacionamientoVigente(nroDePatente));
 	}
 	
+	/**
+	 * @param nroDePatente : String
+	 * @param idInspector : ID que representa al inspector en una zona "x"
+	 * @return retorna un booleano indicando si en alguna de las zonas del inspector hay un estacionamiento valido
+	 * Precondicion: El inspector con el ID dado tiene asignado una zona
+	 * */
+	public boolean consultarEstacionamiento(String nroPatente, int idInspector) {
+		Zona zona = this.getZonas().stream().filter(z -> z.tieneAsignadoElInspector(idInspector)).findFirst().get();
+		return zona.getEstacionamientos().stream().anyMatch(e -> e.estacionamientoVigente() && e.getPatente() == nroPatente);
+	}
+	
+	/**
+	 * @param nroDePatente : String
+	 * @return Retorna un Estacionamiento luego de buscar en todas las zonas el estacionamiento vigente
+	 * registrado con el nroCelular dado. En caso que no encuentre un estacionamiento lanza una Exception.
+	 * */
 	@Override
 	public Estacionamiento buscarEstacionamientoVigente(int nroCelular) throws Exception {
 		List<Estacionamiento> estacionamientos = this.todosLosEstacionamientos();
@@ -61,8 +82,7 @@ public class SEMEstacionamiento implements ISemEstacionamiento {
 	
 	private List<Estacionamiento> todosLosEstacionamientos() {
 		List<Estacionamiento> estacionamientos = new ArrayList<Estacionamiento>();
-		this.getZonas().stream().forEach(e -> estacionamientos.addAll(e.getEstacionamientos()));
-		
+		this.getZonas().stream().forEach(e -> estacionamientos.addAll(e.getEstacionamientos()));		
 		return estacionamientos;
 	}
 

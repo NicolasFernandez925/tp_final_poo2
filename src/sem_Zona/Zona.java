@@ -17,7 +17,7 @@ public class Zona {
 		this.estacionamientos = new ArrayList<Estacionamiento>();
 		this.puntosDeVenta = new ArrayList<PuntoDeVenta>();
 		this.puntosGeograficos = new ArrayList<Integer>();
-//		this.inspector = new Inspector();
+
 	}
 	
 	public int cantidadDeEstacionamientos() {
@@ -70,9 +70,11 @@ public class Zona {
 	}
 
 	public boolean tieneEstacionamientoVigente(String nroDePatente) {
-		Estacionamiento estacionamiento = this.estacionamientos.stream().filter(e -> e.getPatente() == nroDePatente && e.estacionamientoVigente()).findFirst().get();
-		return estacionamiento.estacionamientoVigente() ? true : false;
-		
+		return this.estacionamientos.stream().anyMatch( e -> e.getPatente() == nroDePatente && e.estacionamientoVigente());		
+	}
+
+	public boolean tieneAsignadoElInspector(int idInspector) {
+		return idInspector == inspector.getId();
 	}
 	
 	

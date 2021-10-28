@@ -28,6 +28,10 @@ class ZonaTest {
 	int celular2;
 	int celular3;
 	
+	String nombre;
+	int dni;
+	int id;
+	
 	Estacionamiento estacionamiento1; //= new EstacionamientoCompraApp("abc123", 12345, fin);
 	Estacionamiento estacionamiento2; //= new EstacionamientoCompraApp("cba312", 54321, fin);
 	Estacionamiento estacionamiento3;// = new EstacionamientoCompraApp("qwe321", 87645, fin);
@@ -51,6 +55,11 @@ class ZonaTest {
 		patente2 = "cba321";
 		patente3 = "ewq321";
 		
+		//Setup datos del Inspectot
+		nombre = "Pedro";
+		dni = 18237176;
+		id = 15;
+		
 		//Setup estacionamientos
 		estacionamiento1 = new EstacionamientoCompraApp(patente1, celular1, horaFin);
 		estacionamiento2 = new EstacionamientoCompraApp(patente2, celular2, horaFin);
@@ -61,7 +70,7 @@ class ZonaTest {
 		Collections.addAll(puntosGeograficos, 1, 2, 3 ,4 ,5 ,6 ,7 ,8 ,9, 10, 11);
 		zonaCentro.setPuntosGeograficos(puntosGeograficos);
 		
-		inspector = new Inspector();
+		inspector = new Inspector(id,nombre,dni);
 		
 		punto1 = new PuntoDeVenta();
 		
@@ -83,7 +92,7 @@ class ZonaTest {
 	
 	@Test
 	void testRegistrarInspector() {
-		String inspector_type = new Inspector().getClass().getName();
+		String inspector_type = new Inspector(id,nombre,dni).getClass().getName();
 		zonaCentro.registrarInspector(inspector);
 		assertNotNull(zonaCentro.getInspector());
 		assertEquals(inspector_type, zonaCentro.getInspector().getClass().getName());

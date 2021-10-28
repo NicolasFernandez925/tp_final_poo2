@@ -15,4 +15,5 @@ public interface ISemEstacionamiento {
 	public void registrarEstacionamiento(Estacionamiento e);
 	public Estacionamiento buscarEstacionamientoVigente(int nroCelular) throws Exception;
 	public boolean tieneEstacionamientoVigente(String patente);
+	public boolean consultarEstacionamiento(String patente, int idInspector);
 }
