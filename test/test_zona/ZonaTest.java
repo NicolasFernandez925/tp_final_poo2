@@ -1,5 +1,6 @@
 package test_zona;
 
+import static org.junit.Assert.assertNotSame;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalTime;
@@ -111,5 +112,23 @@ class ZonaTest {
 		Collections.addAll(nuevosPuntosGeograficos, 1, 2, 3 ,4 ,5 ,6 ,7 ,8 ,9, 10, 11);
 		zonaCentro.setPuntosGeograficos(nuevosPuntosGeograficos);
 		assertEquals(nuevosPuntosGeograficos, zonaCentro.getPuntosGeograficos());
+	}
+	
+	@Test 
+	void testTienePuntosGeograficos() {
+		assertTrue(zonaCentro.contienePuntoGeografico(2));
+	}
+	
+	@Test
+	void testTieneEstacionamientoVigente() {
+		zonaCentro.registrarEstacionamiento(estacionamiento1);
+		zonaCentro.registrarEstacionamiento(estacionamiento2);
+		zonaCentro.registrarEstacionamiento(estacionamiento3);
+		assertTrue(zonaCentro.tieneEstacionamientoVigente(patente2));
+		
+		String patente4 = "oiu543";
+		
+		assertE
+		ssertionError(zonaCentro.tieneEstacionamientoVigente(patente4));
 	}
 }
