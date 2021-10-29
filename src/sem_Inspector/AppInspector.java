@@ -2,6 +2,7 @@ package sem_Inspector;
 
 import sem.ISemEstacionamiento;
 import sem_Zona.Zona;
+import sem_multa.ISemMulta;
 import sem_multa.Multa;
 
 public class AppInspector {

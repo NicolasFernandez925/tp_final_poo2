@@ -3,7 +3,6 @@ package sem_multa;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import sem_Inspector.ISemMulta;
 
 public class SemMulta implements ISemMulta {
 
