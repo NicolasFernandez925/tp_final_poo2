@@ -62,5 +62,14 @@ class CelularTest {
 		sutCelular.recargarSaldo(montoRecarga, nroCelular);
 		assertEquals(sutCelular.consultarSaldo(nroCelular), 1000.0d);
 	}
-
+	
+	@Test
+	void testDescontarCreditoAUnCeluar() {
+		sutCelular.registrarNumero(nroCelular);
+		sutCelular.recargarSaldo(montoRecarga, nroCelular);
+		double montoADescontar = 200;
+		sutCelular.descontarSaldo(nroCelular, montoADescontar);
+		assertEquals(sutCelular.consultarSaldo(nroCelular), 300.0d);
+	}
+	
 }

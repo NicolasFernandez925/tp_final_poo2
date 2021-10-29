@@ -3,6 +3,7 @@ package sem;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
+import sem_celular.ISemCelular;
 import sem_estacionamiento.Estacionamiento;
 import sem_estacionamiento.EstacionamientoCompraApp;
 import sem_estacionamiento.EstacionamientoCompraPuntual;
@@ -14,6 +15,8 @@ public class GestorSem {
 	private LocalTime horaFinal;
 	private double costoPorHora;
 	private ISemEstacionamiento semEstacionamiento;
+	private ISemCelular celular;
+	
 	
 	public GestorSem(ISemEstacionamiento semEstacionamiento) {
 		this.costoPorHora = 40;
@@ -44,7 +47,7 @@ public class GestorSem {
 	
 	public String iniciarEstacionamiento(String patente, double saldoDisponible,int nroCelular) {
 		LocalTime horaMaximaDeFin;
-		if(saldoDisponible > 0) {			
+		if(celular.consultarSaldo(nroCelular) > 0) {			
 			horaMaximaDeFin = this.calcularTiempoMaximo(saldoDisponible, LocalTime.now());		
 			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente, nroCelular, horaMaximaDeFin));	
 			return this.notificacionInicioDeEstacionamiento(LocalTime.now(), horaMaximaDeFin);
@@ -92,7 +95,7 @@ public class GestorSem {
 			semEstacionamiento.registrarEstacionamiento(new EstacionamientoCompraPuntual(patente,cantidadDeHoras, horaFinal));
 		}
 	}
-	
+
 	private boolean estaDentroDeFranjaHoraria(LocalTime horaMaxima) {
 		return this.getInicioDeJornada().isBefore(horaMaxima) && this.getFinDeJornada().isAfter(horaMaxima);
 	}
@@ -114,6 +117,7 @@ public class GestorSem {
 			long minutosConsumidos = this.totalMinutos(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
 			LocalTime horasConsumidas = this.tiempoTotalEnHorasConsumidas(minutosConsumidos);
 			double costo = this.costoEstacionamiento(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
+			celular.descontarSaldo(nroCelular, costo);
 			return this.notificacionFinalizacionDeEstacionamiento(horasConsumidas, e, costo);
 		} catch (Exception e) {
 			return e.getMessage();

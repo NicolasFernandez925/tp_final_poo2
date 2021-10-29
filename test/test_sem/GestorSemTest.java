@@ -28,7 +28,6 @@ class GestorSemTest {
 	LocalTime inicioJornada;
 	LocalTime finJornada;
 
-
 	@BeforeEach
 	void setUp() throws Exception {
 		saldo = 200.0;
