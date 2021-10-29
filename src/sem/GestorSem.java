@@ -7,6 +7,11 @@ import sem_celular.ISemCelular;
 import sem_estacionamiento.Estacionamiento;
 import sem_estacionamiento.EstacionamientoCompraApp;
 import sem_estacionamiento.EstacionamientoCompraPuntual;
+import sem_notificacion.INotificacion;
+import sem_notificacion.NotificacionError;
+import sem_notificacion.NotificacionFinalizacionEstacionamiento;
+import sem_notificacion.NotificacionInicioDeEstacionamiento;
+import sem_notificacion.NotificacionSaldoInsuficiente;
 
 public class GestorSem {
 
@@ -25,7 +30,7 @@ public class GestorSem {
 		this.semEstacionamiento = semEstacionamiento;
 		this.celular = celular;
 	}
-
+	
 	public Boolean tieneEstacionamientoVigente(String nroPatente) {
 		return semEstacionamiento.tieneEstacionamientoVigente(nroPatente);
 	}
@@ -46,16 +51,17 @@ public class GestorSem {
 	 * @return Un String que representa al msg describiendo los datos del inicio del estcionamiento
 	 * */
 	
-	public String iniciarEstacionamiento(String patente,int nroCelular) {
+	public INotificacion iniciarEstacionamiento(String patente,int nroCelular) {
 		LocalTime horaMaximaDeFin;
+		LocalTime horaActual = LocalTime.now();
 		if(celular.consultarSaldo(nroCelular) > 0) {		
-		
 			horaMaximaDeFin = this.calcularTiempoMaximo(celular.consultarSaldo(nroCelular), LocalTime.now());		
 			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente, nroCelular, horaMaximaDeFin));	
-			return this.notificacionInicioDeEstacionamiento(LocalTime.now(), horaMaximaDeFin);
+			//return this.notificacionInicioDeEstacionamiento(LocalTime.now(), horaMaximaDeFin);
+			return new NotificacionInicioDeEstacionamiento(horaActual, horaMaximaDeFin);
 		}
 		else {
-			return "Saldo insuficiente. Estacionamiento no permitido.";
+			return new NotificacionSaldoInsuficiente();
 		}
 	}
 	
@@ -111,7 +117,7 @@ public class GestorSem {
 	 * @return Un string con los detalles del estacionamiento
 	 * Nota: Puede lanzar Error al no encontrar un estacionamiento vinculado al nroCelular
 	 * */
-	public String finalizarEstacionamiento(int nroCelular){
+	public INotificacion finalizarEstacionamiento(int nroCelular){
 		LocalTime horaDeFinalizacion = LocalTime.now();
 		try {
 			Estacionamiento e = semEstacionamiento.buscarEstacionamientoVigente(nroCelular);
@@ -120,9 +126,10 @@ public class GestorSem {
 			LocalTime horasConsumidas = this.tiempoTotalEnHorasConsumidas(minutosConsumidos);
 			double costo = this.costoEstacionamiento(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
 			celular.descontarSaldo(nroCelular, costo);
-			return this.notificacionFinalizacionDeEstacionamiento(horasConsumidas, e, costo);
+			//return this.notificacionFinalizacionDeEstacionamiento(horasConsumidas, e, costo);
+			return new NotificacionFinalizacionEstacionamiento(horasConsumidas, e.getHoraDeInicio(), e.getHoraDeFinalizacion(), costo);
 		} catch (Exception e) {
-			return e.getMessage();
+		  return new NotificacionError(e.getMessage());
 		}
 		
 	}
@@ -139,7 +146,7 @@ public class GestorSem {
 		return this.totalMinutos(horaInicio, horaFin) * this.precioPorMinuto();
 	}
 
-	public String notificacionFinalizacionDeEstacionamiento(LocalTime horasConsumidas, Estacionamiento e, double costo) {
+	/*public String notificacionFinalizacionDeEstacionamiento(LocalTime horasConsumidas, Estacionamiento e, double costo) {
 		return "Hora de Inicio: " + e.getHoraDeInicio() + " /n " +
 	           "Hora de Finalización: " + e.getHoraDeFinalizacion() + " /n " +
 	           "Duracion: " + horasConsumidas + " /n " +
@@ -150,6 +157,7 @@ public class GestorSem {
 		return "Hora de Inicio: " + horaDeInicio + " /n " +
 	           "Hora de Finalización: " + horaMaximaDeFinalizacion;
 	}
+	*/
 	
 	public double consularSaldo(int nroCelular) {	
 		return celular.consultarSaldo(nroCelular);
@@ -179,7 +187,6 @@ public class GestorSem {
 		return this.horaFinal;
 	}
 	
-
 	public void setInicioDeJornada(LocalTime inicioDeJornada) {
 		this.inicioDeJornada = inicioDeJornada;
 	}
