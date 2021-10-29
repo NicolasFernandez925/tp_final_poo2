@@ -5,9 +5,9 @@ import sem.GestorSem;
 public class ModoAutomatico implements ModoApp {
 
 	@Override
-	public String alertaInicioDeEstacionamiento(GestorSem gestor, AppCelularSem app, double saldoDisponible,  int nroCelular) {
+	public String alertaInicioDeEstacionamiento(GestorSem gestor, AppCelularSem app,  int nroCelular) {
 		// TODO Auto-generated method stub
-		 return gestor.iniciarEstacionamiento(app.getNroPatente(), saldoDisponible, nroCelular);
+		 return gestor.iniciarEstacionamiento(app.getNroPatente(), nroCelular);
 	}
 
 	@Override
@@ -17,7 +17,7 @@ public class ModoAutomatico implements ModoApp {
 	}
 
 	@Override
-	public String iniciarEstacionamiento(String patente, GestorSem gestor, AppCelularSem app,double saldoDisponible, int nroCelular) {
+	public String iniciarEstacionamiento(String patente, GestorSem gestor, AppCelularSem app, int nroCelular) {
 		// TODO Auto-generated method stub
 		return "No se puede iniciar estacionamiento de forma manual en automatico! por favor, cambiar a Modo manual";
 	}
@@ -27,5 +27,4 @@ public class ModoAutomatico implements ModoApp {
 		// TODO Auto-generated method stub
 		return "No se puede finalizar estacionamiento de forma manual en automatico! por favor, cambiar a Modo manual";
 	}
-
 }

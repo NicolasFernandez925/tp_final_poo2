@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import sem.GestorSem;
+import sem_celular.ISemCelular;
 import sem_estacionamientoApp.AppCelularSem;
 import sem_estacionamientoApp.EstadoApp;
 import sem_estacionamientoApp.ModoApp;
@@ -18,9 +19,10 @@ class AppCelularSemTest {
 	GestorSem gestorMock;
 	EstadoApp estadoAppMock;
 	ModoApp modoAppMock;
+	//ISemCelular celularMock;
 	
 	String patente;
-	double saldoDisponible;
+	//double saldoDisponible;
 	int nroCelular;
 	int coordenadaGPS;
 
@@ -28,11 +30,13 @@ class AppCelularSemTest {
 	void setUp() throws Exception {
 		patente = "VAS930";
 		coordenadaGPS = 1822717272;
-		saldoDisponible = 200.0;
+		//saldoDisponible = 200.0;
 		nroCelular = 11267364;
 		gestorMock = mock(GestorSem.class);
 		modoAppMock = mock(ModoApp.class);
 		estadoAppMock = mock(EstadoApp.class);
+		//celularMock = mock(ISemCelular.class);
+		
 		
 		sutApp = new AppCelularSem(nroCelular,patente,gestorMock, estadoAppMock, modoAppMock);
 		sutApp.setCoordenadaGPS(coordenadaGPS);
@@ -64,10 +68,10 @@ class AppCelularSemTest {
 	
 	@Test
 	void testDeIniciarEstacionamientoDeFormaManual() {	
-		sutApp.setSaldoDisponible(saldoDisponible);
+		//sutApp.setSaldoDisponible(saldoDisponible);
 		sutApp.setNroCelular(nroCelular);
 		sutApp.iniciarEstacionamiento(patente);	
-		verify(modoAppMock).iniciarEstacionamiento(patente, gestorMock, sutApp,saldoDisponible,nroCelular);
+		verify(modoAppMock).iniciarEstacionamiento(patente, gestorMock, sutApp,nroCelular);
 	}
 	
 	@Test
@@ -82,14 +86,14 @@ class AppCelularSemTest {
 	@Test 
 	void testAlComenzarACaminarConEstacionamientoNoVigenteYDentroDeLaZonaConCoordenadaSeAlertaElInicioDelEstacionamiento() {
 		
-		sutApp.setSaldoDisponible(saldoDisponible);
-		sutApp.setNroCelular(nroCelular);
+		//sutApp.setSaldoDisponible(saldoDisponible);
+		//sutApp.setNroCelular(nroCelular);
 		when(gestorMock.tieneEstacionamientoVigente(patente)).thenReturn(false);
 		when(gestorMock.estaDentroDeUnaZonaConLaCoordenada(coordenadaGPS)).thenReturn(true);
 				
 		sutApp.comenzoACaminar();
 
-		verify(modoAppMock).alertaInicioDeEstacionamiento(gestorMock, sutApp, saldoDisponible, nroCelular);
+		verify(modoAppMock).alertaInicioDeEstacionamiento(gestorMock, sutApp, nroCelular);
 	}
 	
 	@Test 
