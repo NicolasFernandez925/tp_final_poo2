@@ -1,7 +1,7 @@
 package test_zona;
 
-import static org.junit.Assert.assertNotSame;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -33,9 +33,9 @@ class ZonaTest {
 	int dni;
 	int id;
 	
-	Estacionamiento estacionamiento1; //= new EstacionamientoCompraApp("abc123", 12345, fin);
-	Estacionamiento estacionamiento2; //= new EstacionamientoCompraApp("cba312", 54321, fin);
-	Estacionamiento estacionamiento3;// = new EstacionamientoCompraApp("qwe321", 87645, fin);
+	Estacionamiento estacionamiento1;
+	Estacionamiento estacionamiento2;
+	Estacionamiento estacionamiento3;
 	
 	ArrayList<Integer> puntosGeograficos;
 	
@@ -125,10 +125,7 @@ class ZonaTest {
 		zonaCentro.registrarEstacionamiento(estacionamiento2);
 		zonaCentro.registrarEstacionamiento(estacionamiento3);
 		assertTrue(zonaCentro.tieneEstacionamientoVigente(patente2));
-		
 		String patente4 = "oiu543";
-		
-		assertE
-		ssertionError(zonaCentro.tieneEstacionamientoVigente(patente4));
+		assertFalse(zonaCentro.tieneEstacionamientoVigente(patente4));
 	}
 }

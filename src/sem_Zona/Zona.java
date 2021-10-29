@@ -9,13 +9,13 @@ import sem_estacionamiento.*;
 
 public class Zona {
 	private ArrayList<Estacionamiento> estacionamientos;
-	private ArrayList<PuntoDeVenta> puntosDeVenta;
+	private ArrayList<ISEMPuntoDeVenta> puntosDeVenta;
 	private ArrayList<Integer> puntosGeograficos;
 	private Inspector inspector;
 	
 	public Zona(){
 		this.estacionamientos = new ArrayList<Estacionamiento>();
-		this.puntosDeVenta = new ArrayList<PuntoDeVenta>();
+		this.puntosDeVenta = new ArrayList<ISEMPuntoDeVenta>();
 		this.puntosGeograficos = new ArrayList<Integer>();
 
 	}
@@ -59,7 +59,8 @@ public class Zona {
 		return this.puntosGeograficos.contains(puntoGeografico);
 	}
 	
-	public PuntoDeVenta getPuntoDeVentaRandom() {
+	public ISEMPuntoDeVenta getPuntoDeVentaRandom() {
+		//precondicion, tiene que haber algun puto de venta.
 		Random random = new Random();
 		int randomSelector = random.nextInt(this.puntosDeVenta.size());
 		return this.puntosDeVenta.get(randomSelector);
@@ -76,9 +77,4 @@ public class Zona {
 	public boolean tieneAsignadoElInspector(int idInspector) {
 		return idInspector == inspector.getId();
 	}
-	
-	
-
-	
-	
 }
