@@ -3,7 +3,7 @@ package sem_celular;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SemCelular {
+public class SemCelular implements ISemCelular {
 
 	private Map<Integer, Double> celulares;
 	
@@ -27,6 +27,12 @@ public class SemCelular {
 			this.recargar(creditoARecargar, nroCelular);
 		}
 	
+	}
+	
+	public void descontarSaldo(int nroCelular, double monto) {
+		double saldoAnterior = this.getSaldo(nroCelular);
+		saldoAnterior -= monto;
+		this.getCelulares().put(nroCelular, saldoAnterior);
 	}
 
 	public void recargar(double creditoARecargar, int nroCelular) {
@@ -55,4 +61,5 @@ public class SemCelular {
 	private double getSaldo(int nroCelular) {
 		return this.getCelulares().get(nroCelular);
 	}
+
 }

@@ -17,23 +17,23 @@ class ModoManualTest {
 	AppCelularSem appMock;
 	ModoManual modoManualSut;
 	String patente;
-	double saldoDisponible;
+	//double saldoDisponible;
 	int nroCelular;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		patente = "VAS930";
 		nroCelular = 128281281;
-		saldoDisponible = 200.0;
+		//saldoDisponible = 200.0;
 		gestorMock = mock(GestorSem.class);
 		appMock = mock(AppCelularSem.class);
 		modoManualSut = new ModoManual();
 	}
-
+	
 	@Test
 	void testElUsuarioEjecutaElInicioDelEstacionamientoEnModoManualYValidaAlertaDeInicio() {
 		String msgEsperado = "Alerta, recuerde iniciar el estacionamiento";
-		assertEquals(msgEsperado, modoManualSut.alertaInicioDeEstacionamiento(gestorMock,appMock,saldoDisponible,nroCelular));
+		assertEquals(msgEsperado, modoManualSut.alertaInicioDeEstacionamiento(gestorMock,appMock,nroCelular));
 	}
 	
 	@Test
@@ -45,8 +45,8 @@ class ModoManualTest {
 	@Test
 	void testElUsuarioEjecutaEnModoManualElInicioDeEstacionamiento() {
 		when(appMock.getNroPatente()).thenReturn(patente);
-		modoManualSut.iniciarEstacionamiento(patente,gestorMock,appMock,saldoDisponible,nroCelular);
-		verify(gestorMock).iniciarEstacionamiento(patente,saldoDisponible,nroCelular);
+		modoManualSut.iniciarEstacionamiento(patente,gestorMock,appMock,nroCelular);
+		verify(gestorMock).iniciarEstacionamiento(patente,nroCelular);
 	}
 	
 	@Test

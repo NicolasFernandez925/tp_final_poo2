@@ -17,14 +17,14 @@ class ModoAutomaticoTest {
 	AppCelularSem appMock;
 	ModoAutomatico modoAutomaticoSut;
 	String patente;
-	double saldoDisponible;
+	//double saldoDisponible;
 	int nroCelular;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		patente = "VAS930";
 		nroCelular = 1112233;
-		saldoDisponible = 200.0;
+		//saldoDisponible = 200.0;
 		gestorMock = mock(GestorSem.class);
 		appMock = mock(AppCelularSem.class);
 		modoAutomaticoSut = new ModoAutomatico();
@@ -32,10 +32,10 @@ class ModoAutomaticoTest {
 
 	@Test
 	void testElUsuarioEjecutaElModoAutomaticoEIniciaLaAlertaDeInicioDeEstacionamiento() {
-		
+
 		when(appMock.getNroPatente()).thenReturn(patente);
-		modoAutomaticoSut.alertaInicioDeEstacionamiento(gestorMock,appMock,saldoDisponible,nroCelular);
-		verify(gestorMock).iniciarEstacionamiento(patente,saldoDisponible,nroCelular);
+		modoAutomaticoSut.alertaInicioDeEstacionamiento(gestorMock,appMock,nroCelular);
+		verify(gestorMock).iniciarEstacionamiento(patente,nroCelular);
 	}
 	
 	@Test
@@ -47,7 +47,7 @@ class ModoAutomaticoTest {
 	@Test
 	void testElUsuarioEjecutaElIniciarEstacionamientoEstandoEnModoAutomatico() {
 		String msgEsperado = "No se puede iniciar estacionamiento de forma manual en automatico! por favor, cambiar a Modo manual";	
-		assertEquals(msgEsperado, modoAutomaticoSut.iniciarEstacionamiento(patente,gestorMock,appMock,saldoDisponible,nroCelular));
+		assertEquals(msgEsperado, modoAutomaticoSut.iniciarEstacionamiento(patente,gestorMock,appMock,nroCelular));
 	}
 	
 	@Test

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import sem.GestorSem;
 import sem.ISemEstacionamiento;
+import sem_celular.ISemCelular;
 import sem_estacionamiento.Estacionamiento;
 import sem_estacionamiento.EstacionamientoCompraApp;
 import sem_estacionamiento.EstacionamientoCompraPuntual;
@@ -21,17 +22,17 @@ class GestorSemTest {
 	ISemEstacionamiento semEstacionamientoMock;
 	EstacionamientoCompraPuntual estacionamientoCompraPuntualMock;
 	EstacionamientoCompraApp estacionamientoCompraAppMock;
+	ISemCelular celularMock;
 	String patente;
 	int nroCelular;
-	double saldo;
+	//double saldo;
 	LocalTime horaActual;
 	LocalTime inicioJornada;
 	LocalTime finJornada;
 
-
 	@BeforeEach
 	void setUp() throws Exception {
-		saldo = 200.0;
+		//saldo = 200.0;
 		patente = "Graph123";
 		nroCelular = 11131313;
 		finJornada = LocalTime.of(20, 00);
@@ -40,7 +41,8 @@ class GestorSemTest {
 		semEstacionamientoMock = mock(ISemEstacionamiento.class);
 		estacionamientoCompraAppMock = mock(EstacionamientoCompraApp.class);
 		estacionamientoCompraPuntualMock = mock(EstacionamientoCompraPuntual.class);
-		sutGestor = new GestorSem(semEstacionamientoMock);
+		celularMock = mock(ISemCelular.class);
+		sutGestor = new GestorSem(semEstacionamientoMock, celularMock);
 	}
 	
 	/**
@@ -106,16 +108,14 @@ class GestorSemTest {
 		verify(semEstacionamientoMock).finalizarTodosLosEstacionamientos(finJornada);
 		
 	}
-	
-	/* FALTA IMPLEMENTAR
-	
-	@Test
+		
+	/*@Test
 	void testInicializacionDeEstacionamientoOK() {
 		
 		LocalTime horaInicio = LocalTime.of(16, 00);
 		LocalTime horaFin = LocalTime.of(17, 50);
-
-	    sutGestor.iniciarEstacionamiento(patente, saldo, nroCelular);
+		when(celularMock.consultarSaldo(nroCelular)).thenReturn(200.0d);
+	    sutGestor.iniciarEstacionamiento(patente,nroCelular);
 		verify(semEstacionamientoMock).registrarEstacionamiento(estacionamientoCompraAppMock);
 		
 		String notificacionEsperada = "Hora de Inicio: " + horaInicio + " /n " +
@@ -126,6 +126,6 @@ class GestorSemTest {
 		assertEquals(notificacionEsperada, sutGestor.finalizarEstacionamiento(nroCelular));
 		
 	}
-	
 	*/
+
 }
