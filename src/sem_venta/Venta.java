@@ -1,16 +1,18 @@
 package sem_venta;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import sem_PuntoDeVenta.PuntoDeVenta;
 
 public abstract class Venta {
 	private int nroDeControl = 0;
+	@SuppressWarnings("unused")
 	private PuntoDeVenta puntoDeVenta;
 	private LocalTime hora;
-	private LocalTime fecha;
+	private LocalDate fecha;
 	
-	public Venta(PuntoDeVenta puntoDeVenta, LocalTime hora, LocalTime fecha) {
+	public Venta(PuntoDeVenta puntoDeVenta, LocalTime hora, LocalDate fecha) {
 		this.puntoDeVenta = puntoDeVenta;
 		this.hora = hora;
 		this.fecha  = fecha;
@@ -26,7 +28,7 @@ public abstract class Venta {
 		return this.nroDeControl;
 	}
 	
-	public LocalTime getFecha() {
+	public LocalDate getFecha() {
 		return this.fecha;
 	}
 	

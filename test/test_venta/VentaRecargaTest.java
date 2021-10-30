@@ -2,6 +2,7 @@ package test_venta;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,7 @@ class VentaRecargaTest {
 	int coordenadaPV;
 	
 	LocalTime hora;
-	LocalTime fecha;
+	LocalDate fecha;
 	
 	//Atributos de ventaRecarga
 	int celular;
@@ -38,8 +39,11 @@ class VentaRecargaTest {
 		idPV = 123455;
 		coordenadaPV = 60552;
 		
-		hora = LocalTime.of(LocalTime.now().getHour(),0);
-		fecha = LocalTime.now().get;
+		hora = LocalTime.now();
+		fecha = LocalDate.now();
+		LocalDate fec = LocalDate.now()
+		
+		
 		
 	}
 	
