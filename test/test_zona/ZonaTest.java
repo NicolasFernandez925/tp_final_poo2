@@ -33,6 +33,9 @@ class ZonaTest {
 	int dni;
 	int id;
 	
+	int idPV;
+	int coordenadaPV;
+	
 	Estacionamiento estacionamiento1;
 	Estacionamiento estacionamiento2;
 	Estacionamiento estacionamiento3;
@@ -56,10 +59,14 @@ class ZonaTest {
 		patente2 = "cba321";
 		patente3 = "ewq321";
 		
-		//Setup datos del Inspectot
+		//Setup datos del Inspector
 		nombre = "Pedro";
 		dni = 18237176;
 		id = 15;
+		
+		//Setup punto de venta
+		idPV = 1;
+		coordenadaPV = 504;
 		
 		//Setup estacionamientos
 		estacionamiento1 = new EstacionamientoCompraApp(patente1, celular1, horaFin);
@@ -73,7 +80,7 @@ class ZonaTest {
 		
 		inspector = new Inspector(id,nombre,dni);
 		
-		punto1 = new PuntoDeVenta();
+		punto1 = new PuntoDeVenta(idPV, coordenadaPV);
 		
 	}
 	
