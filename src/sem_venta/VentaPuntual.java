@@ -2,16 +2,19 @@ package sem_venta;
 
 import java.time.LocalTime;
 
+import sem_PuntoDeVenta.PuntoDeVenta;
+
 public class VentaPuntual extends Venta {
-
-	public VentaPuntual(LocalTime hora, LocalTime fecha) {
-		super(hora, fecha);
-		// TODO Auto-generated constructor stub
-	}
+	private int horas;
+	private String patente;
 	
-	public VentaRecarga(LocalTime hora, LocalTime fecha) {
-		super(hora, fecha);
-		// TODO Auto-generated constructor stub
+	public VentaPuntual(int horasCompradas, String nroPatente, PuntoDeVenta puntoDeVenta, LocalTime hora, LocalTime fecha) {
+		super(puntoDeVenta, hora, fecha);
+		this.horas = horasCompradas;
+		this.patente = nroPatente;
 	}
 
+	public int getCantidadDeHoras() {
+		return this.horas;
+	}
 }

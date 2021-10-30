@@ -2,16 +2,19 @@ package sem_venta;
 
 import java.time.LocalTime;
 
+import sem_PuntoDeVenta.PuntoDeVenta;
+
 public abstract class Venta {
-	private int nroDeControl;
-	
-	// el localtime.now no tiene fecha + hora?
+	private int nroDeControl = 0;
+	private PuntoDeVenta puntoDeVenta;
 	private LocalTime hora;
 	private LocalTime fecha;
 	
-	public Venta(LocalTime hora, LocalTime fecha) {
+	public Venta(PuntoDeVenta puntoDeVenta, LocalTime hora, LocalTime fecha) {
+		this.puntoDeVenta = puntoDeVenta;
 		this.hora = hora;
 		this.fecha  = fecha;
+		this.nroDeControl = this.generarNumeroDeControl();
 	}
 	
 	public LocalTime getHora() {
@@ -27,17 +30,7 @@ public abstract class Venta {
 		return this.fecha;
 	}
 	
-	
-	//Estos dos metodos parecen de PuntoDeVenta mas que de la venta misma
-	public int totalDeHorasVendidas() {
-		//que vendria a ser el total de horas?
-		return 1; 
-	}
-	
-	public double totalMontoDeRecargas() {
-		return 1;
-	}
-	
+
 	
 
 }

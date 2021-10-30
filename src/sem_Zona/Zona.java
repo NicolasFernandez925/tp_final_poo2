@@ -36,11 +36,11 @@ public class Zona {
 		return this.estacionamientos;
 	}
 	
-	public ArrayList<PuntoDeVenta> getPuntosDeVenta() {
+	public ArrayList<ISEMPuntoDeVenta> getPuntosDeVenta() {
 		return this.puntosDeVenta;
 	}
 	
-	public void registrarPuntoDeVenta(PuntoDeVenta puntoDeVenta) {
+	public void registrarPuntoDeVenta(ISEMPuntoDeVenta puntoDeVenta) {
 		this.puntosDeVenta.add(puntoDeVenta);
 	}
 	
@@ -60,7 +60,7 @@ public class Zona {
 	}
 	
 	public ISEMPuntoDeVenta getPuntoDeVentaRandom() {
-		//precondicion, tiene que haber algun puto de venta.
+		//precondicion: tiene que haber algun puto de venta.
 		Random random = new Random();
 		int randomSelector = random.nextInt(this.puntosDeVenta.size());
 		return this.puntosDeVenta.get(randomSelector);
