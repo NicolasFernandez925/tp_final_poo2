@@ -2,18 +2,18 @@ package sem_venta;
 
 
 public class Numerador {
-	private static int numeroDeControl;
+	private int numeroDeControl;
 	
 	public Numerador() {
-		Numerador.numeroDeControl = 0;
+		numeroDeControl = 0;
 	}
 	
-	public static int siguienteNroDeControl() {
+	public int siguienteNroDeControl() {
 		numeroDeControl += 1;
 		return numeroDeControl;
 	}
 	
-	public static void resetContador() {
+	public void resetNumerador() {
 		numeroDeControl = 0;
 	}
 }

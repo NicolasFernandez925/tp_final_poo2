@@ -13,11 +13,11 @@ public abstract class Venta {
 	private LocalDate fecha;
 
 
-	public Venta(PuntoDeVenta puntoDeVenta, LocalTime hora, LocalDate fecha) {
+	public Venta(PuntoDeVenta puntoDeVenta, int nroControl) {
 		this.puntoDeVenta = puntoDeVenta;
 		this.hora = LocalTime.now();
 		this.fecha  = LocalDate.now();
-		this.nroDeControl =  Numerador.siguienteNroDeControl();
+		this.nroDeControl =  nroControl;
 	}
 	
 	public LocalTime getHora() {

@@ -10,8 +10,8 @@ public class VentaPuntual extends Venta {
 	@SuppressWarnings("unused")
 	private String patente;
 	
-	public VentaPuntual(int horasCompradas, String nroPatente, PuntoDeVenta puntoDeVenta, LocalTime hora, LocalDate fecha) {
-		super(puntoDeVenta, hora, fecha);
+	public VentaPuntual(int horasCompradas, String nroPatente, PuntoDeVenta puntoDeVenta, int nroControl) {
+		super(puntoDeVenta, nroControl);
 		this.horas = horasCompradas;
 		this.patente = nroPatente;
 	}

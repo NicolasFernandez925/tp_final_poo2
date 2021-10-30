@@ -11,8 +11,8 @@ public class VentaRecarga extends Venta {
 	private int nroCelular;
 	private double monto;
 	
-	public VentaRecarga(int celular, double monto, PuntoDeVenta puntoDeVenta, LocalTime hora, LocalDate fecha) {
-		super(puntoDeVenta, hora, fecha);
+	public VentaRecarga(int celular, double monto, PuntoDeVenta puntoDeVenta, int nroControl) {
+		super(puntoDeVenta, nroControl);
 
 		this.nroCelular = celular;
 		this.monto = monto;
