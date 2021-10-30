@@ -1,10 +1,5 @@
 package sem_estacionamiento;
-
-import java.time.LocalDate;
 import java.time.LocalTime;
-
-import sem.GestorSem;
-import sem.SEMEstacionamiento;
 
 public class EstacionamientoCompraApp extends Estacionamiento {
 
