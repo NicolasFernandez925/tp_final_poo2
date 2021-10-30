@@ -42,7 +42,7 @@ public class PuntoDeVenta implements ISEMPuntoDeVenta{
 	
 	public int totalDeHorasVendidas() {
 	
-		return ventasPuntuales.stream().mapToInt(VentaPuntual::getHoras).sum(); 
+		return ventasPuntuales.stream().mapToInt(VentaPuntual::getCantidadDeHoras).sum(); 
 	}
 	
 	public double totalMontoDeRecargas() {
