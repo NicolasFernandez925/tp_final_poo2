@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import sem_PuntoDeVenta.PuntoDeVenta;
-import sem_venta.Numerador;
 import sem_venta.VentaRecarga;
 
 class VentaRecargaTest {
@@ -45,10 +44,10 @@ class VentaRecargaTest {
 	
 	@Test
 	void testRegistrarVentaRecarga() {
-		vRecarga = new VentaRecarga(celular, monto, pv, hora, fecha);
+		vRecarga = new VentaRecarga(celular, monto, pv, pv.asignarSiguienteNroDeControl());
 		assertNotNull(vRecarga);
 		
-		String ventaRecargaType = new VentaRecarga(celular, monto, pv, hora, fecha).getClass().getName();
+		String ventaRecargaType = new VentaRecarga(celular, monto, pv, pv.asignarSiguienteNroDeControl()).getClass().getName();
 		assertEquals(ventaRecargaType , vRecarga.getClass().getName());
 
 	}
@@ -56,7 +55,7 @@ class VentaRecargaTest {
 	@Test
 	void testGetMonto() {
 		double montoTest = 5042;
-		vRecarga = new VentaRecarga(celular, montoTest, pv, hora, fecha);
+		vRecarga = new VentaRecarga(celular, montoTest, pv, pv.asignarSiguienteNroDeControl());
 		
 		assertEquals(5042, vRecarga.getMonto());
 	}
@@ -64,36 +63,39 @@ class VentaRecargaTest {
 	@Test
 	void testGetNroCelular() {
 		int celularTest = 1231025123;
-		vRecarga = new VentaRecarga(celularTest, monto, pv, hora, fecha);
+		vRecarga = new VentaRecarga(celularTest, monto, pv, pv.asignarSiguienteNroDeControl());
 
 		assertEquals(1231025123, vRecarga.getNroCelular());
 	}
 	
 	@Test
 	void testGetFecha() {
-		vRecarga = new VentaRecarga(celular, monto, pv, hora, fecha);
+		vRecarga = new VentaRecarga(celular, monto, pv, pv.asignarSiguienteNroDeControl());
 		
+		assertNotNull(vRecarga.getFecha());
 		assertEquals(fecha, vRecarga.getFecha());
+
+		//modifico la fecha para obtener un resultado diferente
+		fecha = fecha.plusDays(2);
+		assertNotEquals(fecha, vRecarga.getFecha());
 	}
 	
 	@Test
 	void testGetHora() {
 		LocalTime horaTest = LocalTime.now();
-		vRecarga = new VentaRecarga(celular, monto, pv, horaTest, fecha);
-		
-		//Testeo por las horas en concreto porque la variable difiere por algunas milesimas con la hora de la venta.
-		assertEquals(horaTest.getHour(), vRecarga.getHora().getHour());
+		vRecarga = new VentaRecarga(celular, monto, pv, pv.asignarSiguienteNroDeControl());
+	
+		assertNotEquals(horaTest, vRecarga.getHora());
+		assertNotNull(vRecarga.getHora());
 	}
 	
 	@Test
 	void testGeneraNumeroDeControl() {
-		//TODO: definir como debe quedar el numerador
-		Numerador.resetContador();
 		
-		vRecarga = new VentaRecarga(celular, monto, pv, hora, fecha);
+		vRecarga = new VentaRecarga(celular, monto, pv, pv.asignarSiguienteNroDeControl());
 		assertEquals(1, vRecarga.getNroDeControl());
 		
-		VentaRecarga vRecarga2 = new VentaRecarga(celular, monto, pv, hora, fecha);
+		VentaRecarga vRecarga2 = new VentaRecarga(celular, monto, pv, pv.asignarSiguienteNroDeControl());
 		assertEquals(2, vRecarga2.getNroDeControl());
 	}
 

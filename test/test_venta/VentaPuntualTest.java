@@ -41,16 +41,15 @@ class VentaPuntualTest {
 		patente = "las123";
 		horasCompradas = 4;
 		
-		vPuntual = new VentaPuntual(horasCompradas, patente, pv, hora, fecha);
 	}
 	
 	
 	@Test
 	void testRegistrarVentaPuntual() {
-		vPuntual = new VentaPuntual(horasCompradas, patente, pv, hora, fecha);
+		vPuntual = new VentaPuntual(horasCompradas, patente, pv, pv.asignarSiguienteNroDeControl());
 		assertNotNull(vPuntual);
 		
-		String VentaPuntualType = new VentaPuntual(horasCompradas, patente, pv, hora, fecha).getClass().getName();
+		String VentaPuntualType = new VentaPuntual(horasCompradas, patente, pv, pv.asignarSiguienteNroDeControl()).getClass().getName();
 		assertEquals(VentaPuntualType , vPuntual.getClass().getName());
 
 	}
@@ -58,36 +57,47 @@ class VentaPuntualTest {
 	@Test
 	void testGetCantidadDeHoras() {
 		int horasCompradasTest = 10;
-		vPuntual = new VentaPuntual(horasCompradasTest, patente, pv, hora, fecha);
+		vPuntual = new VentaPuntual(horasCompradasTest, patente, pv, pv.asignarSiguienteNroDeControl());
 
 		assertEquals(10, vPuntual.getCantidadDeHoras());
 	}
 	
 	@Test
 	void testGetFecha() {
-		vPuntual = new VentaPuntual(horasCompradas, patente, pv, hora, fecha);
+		vPuntual = new VentaPuntual(horasCompradas, patente, pv, pv.asignarSiguienteNroDeControl());
 		
+		assertNotNull(vPuntual.getFecha());
 		assertEquals(fecha, vPuntual.getFecha());
+
+		//modifico la fecha para obtener un resultado diferente
+		fecha = fecha.plusDays(2);
+		assertNotEquals(fecha, vPuntual.getFecha());		
+		
 	}
 	
 	@Test
 	void testGetHora() {
 		LocalTime horaTest = LocalTime.now();
-		vPuntual = new VentaPuntual(horasCompradas, patente, pv, horaTest, fecha);
+		vPuntual = new VentaPuntual(horasCompradas, patente, pv, pv.asignarSiguienteNroDeControl());
 		
-		//Testeo por las horas en concreto porque la variable difiere por algunas milesimas con la hora de la venta.
-		assertEquals(horaTest.getHour(), vPuntual.getHora().getHour());
+		assertNotEquals(horaTest, vPuntual.getHora());
+		assertNotNull(vPuntual.getHora());
+		
 	}
 	
 	@Test
 	void testGeneraNumeroDeControl() {
-		//TODO: definir como debe quedar el numerador
-		Numerador.resetContador();
 		
-		vPuntual = new VentaPuntual(horasCompradas, patente, pv, hora, fecha);
+		vPuntual = new VentaPuntual(horasCompradas, patente, pv, pv.asignarSiguienteNroDeControl());
 		assertEquals(1, vPuntual.getNroDeControl());
 		
-		VentaPuntual vPuntual2 = new VentaPuntual(horasCompradas, patente, pv, hora, fecha);
+		VentaPuntual vPuntual2 = new VentaPuntual(horasCompradas, patente, pv, pv.asignarSiguienteNroDeControl());
 		assertEquals(2, vPuntual2.getNroDeControl());
+		
+		VentaPuntual vPuntual3 = new VentaPuntual(horasCompradas, patente, pv, pv.asignarSiguienteNroDeControl());
+		assertEquals(3, vPuntual3.getNroDeControl());
+		
+		VentaPuntual vPuntual4 = new VentaPuntual(horasCompradas, patente, pv, pv.asignarSiguienteNroDeControl());
+		assertNotEquals(2, vPuntual4.getNroDeControl());
 	}
 }
