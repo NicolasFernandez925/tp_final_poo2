@@ -1,6 +1,10 @@
 package sem_estacionamiento;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+
+import sem.GestorSem;
+import sem.SEMEstacionamiento;
 
 public class EstacionamientoCompraApp extends Estacionamiento {
 
@@ -46,4 +50,32 @@ public class EstacionamientoCompraApp extends Estacionamiento {
 		this.numeroDeCelular = numeroDeCelular;
 	}
 
+	public void actualizarHorario(int minutos) {
+		LocalTime nuevoHorarioFinalizacion = this.getHoraDeFinalizacion().plusMinutes(minutos);
+		this.setHoraDeFinalizacion(nuevoHorarioFinalizacion);
+	}
+	
+	public void establecerHoraFinEstacionamiento(LocalTime horaFin) {
+		this.setHoraDeFinalizacion(horaFin);
+	}
+	
+	public void costo() {
+		//TODO
+	}
+	
+	public LocalTime getHoraMaxima() {
+		//Testear si funca ok l,a hora
+		LocalTime horaMaxima =  LocalTime.of(20, 0);
+		return this.tieneSaldo() ?  horaMaxima : this.horasQueAlcanzan();
+	}
+
+	public boolean tieneSaldo() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public LocalTime horasQueAlcanzan() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

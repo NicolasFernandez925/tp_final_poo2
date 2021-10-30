@@ -19,6 +19,14 @@ public class EstacionamientoCompraPuntual extends Estacionamiento {
 	public int getCantidadDeHoras() {
 		return cantidadDeHoras;
 	}
+	
+	public void setCantidadDeHoras(int cantidadDeHoras) {
+		this.cantidadDeHoras = cantidadDeHoras;
+	}
+	
+	public void establecerHoraFinEstacionamiento(LocalTime horaFin) {
+		this.setHoraDeFinalizacion(horaFin);
+	}
 
 	@Override
 	public Boolean sonNumerosIguales(int nroCelular) {
