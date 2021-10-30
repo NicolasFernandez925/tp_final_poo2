@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,6 @@ import sem_notificacion.INotificacion;
 import sem_notificacion.NotificacionError;
 import sem_notificacion.NotificacionFinalizacionEstacionamiento;
 import sem_notificacion.NotificacionInicioDeEstacionamiento;
-import sem_notificacion.NotificacionSaldoInsuficiente;
 
 class GestorSemTest {
 	
@@ -34,7 +32,7 @@ class GestorSemTest {
 	LocalTime horaActual;
 	LocalTime inicioJornada;
 	LocalTime finJornada;
-
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		patente = "Graph123";
@@ -132,7 +130,7 @@ class GestorSemTest {
 	    
 		verify(semEstacionamientoMock, never()).registrarEstacionamiento(any(Estacionamiento.class));
 		
-		assertTrue(sutGestor.iniciarEstacionamiento(patente,nroCelular) instanceof NotificacionSaldoInsuficiente);
+		assertTrue(sutGestor.iniciarEstacionamiento(patente,nroCelular) instanceof NotificacionError);
 		
 	}
 

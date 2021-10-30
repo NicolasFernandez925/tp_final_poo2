@@ -11,7 +11,6 @@ import sem_notificacion.INotificacion;
 import sem_notificacion.NotificacionError;
 import sem_notificacion.NotificacionFinalizacionEstacionamiento;
 import sem_notificacion.NotificacionInicioDeEstacionamiento;
-import sem_notificacion.NotificacionSaldoInsuficiente;
 
 public class GestorSem {
 
@@ -61,7 +60,7 @@ public class GestorSem {
 			return new NotificacionInicioDeEstacionamiento(horaActual, horaMaximaDeFin);
 		}
 		else {
-			return new NotificacionSaldoInsuficiente();
+			return new NotificacionError("Saldo insuficiente. Estacionamiento no permitido.");
 		}
 	}
 	

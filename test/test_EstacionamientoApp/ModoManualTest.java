@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import sem.GestorSem;
 import sem_estacionamientoApp.AppCelularSem;
 import sem_estacionamientoApp.ModoManual;
+import sem_notificacion.NotificacionAlertaFinalizacionEstacionamiento;
+import sem_notificacion.NotificacionAlertaInicioDeEstacionamiento;
+import sem_notificacion.NotificacionError;
 
 
 class ModoManualTest {
@@ -17,7 +20,6 @@ class ModoManualTest {
 	AppCelularSem appMock;
 	ModoManual modoManualSut;
 	String patente;
-	//double saldoDisponible;
 	int nroCelular;
 
 	@BeforeEach
@@ -32,14 +34,12 @@ class ModoManualTest {
 	
 	@Test
 	void testElUsuarioEjecutaElInicioDelEstacionamientoEnModoManualYValidaAlertaDeInicio() {
-		String msgEsperado = "Alerta, recuerde iniciar el estacionamiento";
-		assertEquals(msgEsperado, modoManualSut.alertaInicioDeEstacionamiento(gestorMock,appMock,nroCelular));
+		assertTrue(modoManualSut.alertaInicioDeEstacionamiento(gestorMock,appMock,nroCelular) instanceof NotificacionAlertaInicioDeEstacionamiento);
 	}
 	
 	@Test
 	void testElUsuarioEjecutaLaFinalizacionDelEstacionamientoEnModoManualYValidaAlertaDeFinalizacion() {
-		String msgEsperado = "Alerta, recuerde finalizar el estacionamiento";
-		assertEquals(msgEsperado, modoManualSut.alertaDeFinDeEstacionamiento(gestorMock,nroCelular));
+		assertTrue(modoManualSut.alertaDeFinDeEstacionamiento(gestorMock,nroCelular) instanceof NotificacionAlertaFinalizacionEstacionamiento);
 	}
 	
 	@Test

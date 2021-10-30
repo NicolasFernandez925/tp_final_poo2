@@ -1,6 +1,7 @@
 package sem_estacionamientoApp;
 
 import sem.GestorSem;
+import sem_notificacion.INotificacion;
 
 public class AppCelularSem implements MovementSensor {
 
@@ -26,11 +27,11 @@ public class AppCelularSem implements MovementSensor {
 	 * de forma manual 
 	 * */
 	
-	public String iniciarEstacionamiento(String nroPatente) {
+	public INotificacion iniciarEstacionamiento(String nroPatente) {
 		return modo.iniciarEstacionamiento(nroPatente, this.getGestor(), this, this.getNroCelular());
 	}
 	
-	public String finalizarEstacionamiento()  {
+	public INotificacion finalizarEstacionamiento()  {
 		return modo.finalizarEstacionamiento(this.getGestor(), this.getNroCelular());
 	}
 	
