@@ -1,17 +1,18 @@
 package sem_estacionamientoApp;
 
 import sem.GestorSem;
+import sem_notificacion.INotificacion;
 
 public class ModoAutomatico implements ModoApp {
 
 	@Override
-	public String alertaInicioDeEstacionamiento(GestorSem gestor, AppCelularSem app,  int nroCelular) {
+	public INotificacion alertaInicioDeEstacionamiento(GestorSem gestor, AppCelularSem app,  int nroCelular) {
 		// TODO Auto-generated method stub
 		 return gestor.iniciarEstacionamiento(app.getNroPatente(), nroCelular);
 	}
 
 	@Override
-	public String alertaDeFinDeEstacionamiento(GestorSem gestor, int nroCelular) {
+	public INotificacion alertaDeFinDeEstacionamiento(GestorSem gestor, int nroCelular) {
 		// TODO Auto-generated method stub
 		 return gestor.finalizarEstacionamiento(nroCelular);
 	}
