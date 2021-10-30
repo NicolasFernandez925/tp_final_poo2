@@ -7,6 +7,6 @@ public interface ModoApp {
 
 	public INotificacion alertaInicioDeEstacionamiento(GestorSem gestor, AppCelularSem app,int nroCelular);
 	public INotificacion alertaDeFinDeEstacionamiento(GestorSem gestor, int nroCelular) ;
-	public String iniciarEstacionamiento(String patente, GestorSem gestor, AppCelularSem app, int nroCelular);
-	public String finalizarEstacionamiento(GestorSem gestor, int nroCelular) ;
+	public INotificacion iniciarEstacionamiento(String patente, GestorSem gestor, AppCelularSem app, int nroCelular);
+	public INotificacion finalizarEstacionamiento(GestorSem gestor, int nroCelular) ;
 }

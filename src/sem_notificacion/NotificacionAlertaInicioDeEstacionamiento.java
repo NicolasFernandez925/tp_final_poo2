@@ -2,9 +2,15 @@ package sem_notificacion;
 
 public class NotificacionAlertaInicioDeEstacionamiento implements INotificacion {
 
+	private String msg;
+	
+	public NotificacionAlertaInicioDeEstacionamiento(String msg) {
+		this.msg = msg;
+	}
+	
 	@Override
 	public String mensaje() {
-		return "Alerta, recuerde iniciar el estacionamiento";
+		return this.msg;
 	}
 
 }

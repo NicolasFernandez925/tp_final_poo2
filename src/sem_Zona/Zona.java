@@ -23,7 +23,7 @@ public class Zona {
 	public int cantidadDeEstacionamientos() {
 		return this.estacionamientos.size();
 	}
-
+	
 	public void registrarInspector(Inspector inspector) {
 		this.inspector = inspector;
 	}

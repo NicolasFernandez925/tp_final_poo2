@@ -11,11 +11,11 @@ public abstract class Venta {
 	private PuntoDeVenta puntoDeVenta;
 	private LocalTime hora;
 	private LocalDate fecha;
-	
+
 	public Venta(PuntoDeVenta puntoDeVenta, LocalTime hora, LocalDate fecha) {
 		this.puntoDeVenta = puntoDeVenta;
-		this.hora = hora;
-		this.fecha  = fecha;
+		this.hora = LocalTime.now();
+		this.fecha  = LocalDate.now();
 		this.nroDeControl = this.generarNumeroDeControl();
 	}
 	

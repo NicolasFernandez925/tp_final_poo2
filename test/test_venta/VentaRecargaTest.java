@@ -38,13 +38,12 @@ class VentaRecargaTest {
 	void setUp() throws Exception{
 		idPV = 123455;
 		coordenadaPV = 60552;
-		
+
 		hora = LocalTime.now();
 		fecha = LocalDate.now();
-		LocalDate fec = LocalDate.now()
+		LocalDate fec = LocalDate.now();
 		
-		
-		
+	
 	}
 	
 	

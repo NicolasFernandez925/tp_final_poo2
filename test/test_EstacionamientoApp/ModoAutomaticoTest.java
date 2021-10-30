@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import sem.GestorSem;
 import sem_estacionamientoApp.AppCelularSem;
 import sem_estacionamientoApp.ModoAutomatico;
+import sem_notificacion.NotificacionError;
 
 
 class ModoAutomaticoTest {
@@ -17,14 +18,12 @@ class ModoAutomaticoTest {
 	AppCelularSem appMock;
 	ModoAutomatico modoAutomaticoSut;
 	String patente;
-	//double saldoDisponible;
 	int nroCelular;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		patente = "VAS930";
 		nroCelular = 1112233;
-		//saldoDisponible = 200.0;
 		gestorMock = mock(GestorSem.class);
 		appMock = mock(AppCelularSem.class);
 		modoAutomaticoSut = new ModoAutomatico();
@@ -32,7 +31,6 @@ class ModoAutomaticoTest {
 
 	@Test
 	void testElUsuarioEjecutaElModoAutomaticoEIniciaLaAlertaDeInicioDeEstacionamiento() {
-
 		when(appMock.getNroPatente()).thenReturn(patente);
 		modoAutomaticoSut.alertaInicioDeEstacionamiento(gestorMock,appMock,nroCelular);
 		verify(gestorMock).iniciarEstacionamiento(patente,nroCelular);
@@ -41,19 +39,17 @@ class ModoAutomaticoTest {
 	@Test
 	void testElUsuarioEjecutaElModoAutomaticoEIniciaLaAlertaDeFinalizacionEstacionamiento() throws Exception {
 		modoAutomaticoSut.alertaDeFinDeEstacionamiento(gestorMock,nroCelular);
-		verify(gestorMock).finalizarEstacionamiento(nroCelular);
+		verify(gestorMock).finalizarEstacionamiento(nroCelular);	
 	}
 	
 	@Test
 	void testElUsuarioEjecutaElIniciarEstacionamientoEstandoEnModoAutomatico() {
-		String msgEsperado = "No se puede iniciar estacionamiento de forma manual en automatico! por favor, cambiar a Modo manual";	
-		assertEquals(msgEsperado, modoAutomaticoSut.iniciarEstacionamiento(patente,gestorMock,appMock,nroCelular));
+		assertTrue(modoAutomaticoSut.iniciarEstacionamiento(patente,gestorMock,appMock,nroCelular) instanceof NotificacionError);
 	}
 	
 	@Test
 	void testElUsuarioEjecutaLaFinalizacionDelEstacionamientoEstandoEnModoAutomatico() {
-		String msgEsperado = "No se puede finalizar estacionamiento de forma manual en automatico! por favor, cambiar a Modo manual";
-		assertEquals(msgEsperado, modoAutomaticoSut.finalizarEstacionamiento(gestorMock,nroCelular));
+		assertTrue(modoAutomaticoSut.iniciarEstacionamiento(patente,gestorMock,appMock,nroCelular) instanceof NotificacionError);
 	}
 
 }
