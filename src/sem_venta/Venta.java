@@ -6,25 +6,25 @@ import java.time.LocalTime;
 import sem_PuntoDeVenta.PuntoDeVenta;
 
 public abstract class Venta {
-	private int nroDeControl = 0;
+	private int nroDeControl;
 	@SuppressWarnings("unused")
 	private PuntoDeVenta puntoDeVenta;
 	private LocalTime hora;
 	private LocalDate fecha;
 
+
 	public Venta(PuntoDeVenta puntoDeVenta, LocalTime hora, LocalDate fecha) {
 		this.puntoDeVenta = puntoDeVenta;
 		this.hora = LocalTime.now();
 		this.fecha  = LocalDate.now();
-		this.nroDeControl = this.generarNumeroDeControl();
+		this.nroDeControl =  Numerador.siguienteNroDeControl();
 	}
 	
 	public LocalTime getHora() {
 		return this.hora;
 	}
 	
-	public int generarNumeroDeControl() {
-		this.nroDeControl += 1;
+	public int getNroControl() {
 		return this.nroDeControl;
 	}
 	
@@ -32,6 +32,10 @@ public abstract class Venta {
 		return this.fecha;
 	}
 	
+	//Metodo para testear
+	public int getNroDeControl() {
+		return nroDeControl;
+	}
 
 	
 
