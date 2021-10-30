@@ -25,7 +25,7 @@ public class Multa {
 		return zona;
 	}
 	
-	public int idInspector() {
+	public int getIdInspector() {
 		return idInspector;
 	}
 

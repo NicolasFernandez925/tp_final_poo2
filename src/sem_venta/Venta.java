@@ -1,5 +1,6 @@
 package sem_venta;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import sem_PuntoDeVenta.PuntoDeVenta;
@@ -8,12 +9,12 @@ public abstract class Venta {
 	private int nroDeControl = 0;
 	private PuntoDeVenta puntoDeVenta;
 	private LocalTime hora;
-	private LocalTime fecha;
+	private LocalDate fecha;
 	
-	public Venta(PuntoDeVenta puntoDeVenta, LocalTime hora, LocalTime fecha) {
+	public Venta(PuntoDeVenta puntoDeVenta) {
 		this.puntoDeVenta = puntoDeVenta;
-		this.hora = hora;
-		this.fecha  = fecha;
+		this.hora = LocalTime.now();
+		this.fecha  = LocalDate.now();
 		this.nroDeControl = this.generarNumeroDeControl();
 	}
 	
@@ -26,7 +27,7 @@ public abstract class Venta {
 		return this.nroDeControl;
 	}
 	
-	public LocalTime getFecha() {
+	public LocalDate getFecha() {
 		return this.fecha;
 	}
 	

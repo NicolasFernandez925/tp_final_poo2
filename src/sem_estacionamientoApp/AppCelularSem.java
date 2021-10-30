@@ -21,7 +21,7 @@ public class AppCelularSem implements MovementSensor {
 		this.estadoMovimiento = estado;
 		this.modo = modo;
 	}
-	
+
 	/**
 	 * Metodos que inician el estacionamiento y finaliza el estcionamiento
 	 * de forma manual 

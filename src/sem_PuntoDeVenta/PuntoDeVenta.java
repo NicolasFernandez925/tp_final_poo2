@@ -9,8 +9,11 @@ import sem_venta.VentaRecarga;
 public class PuntoDeVenta implements ISEMPuntoDeVenta{
 	private int coordenada;
 	private int id;
-	private ArrayList<VentaRecarga> recargas; 
-	private ArrayList<VentaPuntual> ventasPuntuales; 
+	// Aca podria ser una lista de tipo venta, en vez que haya 2 arrays tanto para recargas
+	// como para ventas puntuales. Los metodos 
+	private ArrayList<Venta> ventas; 
+	//private ArrayList<VentaRecarga> recargas; 
+	//private ArrayList<VentaPuntual> ventasPuntuales; 
 	
 	public PuntoDeVenta(int id, int coordenada) {
 		this.id = id;
@@ -39,8 +42,10 @@ public class PuntoDeVenta implements ISEMPuntoDeVenta{
 		return this.coordenada;
 	}
 	
-	
-	public int totalDeHorasVendidas() {
+	// Estos metodos  podrian quitarse ya que fueron opcionales, no los pide el TP
+	// ademas que eso nos complica para calcularlo ya que se plante solo tener un array de Ventas y no 
+	// de c/u
+	/*public int totalDeHorasVendidas() {
 	
 		return ventasPuntuales.stream().mapToInt(VentaPuntual::getCantidadDeHoras).sum(); 
 	}
@@ -48,6 +53,7 @@ public class PuntoDeVenta implements ISEMPuntoDeVenta{
 	public double totalMontoDeRecargas() {
 		return 1;
 	}
+	*/
 	
 
 }

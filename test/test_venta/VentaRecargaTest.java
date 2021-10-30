@@ -39,7 +39,7 @@ class VentaRecargaTest {
 		coordenadaPV = 60552;
 		
 		hora = LocalTime.of(LocalTime.now().getHour(),0);
-		fecha = LocalTime.now().get;
+		//fecha = LocalTime.now().get;
 		
 	}
 	
