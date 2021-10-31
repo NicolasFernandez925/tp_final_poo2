@@ -1,7 +1,7 @@
 package sem_Inspector;
 
 public class Inspector {
-	
+
 	private String nombre;
 	private int id;
 	private int dni;

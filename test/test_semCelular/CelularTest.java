@@ -1,9 +1,11 @@
-package sem_celular;
+package test_semCelular;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import sem_celular.SemCelular;
 
 class CelularTest {
 	

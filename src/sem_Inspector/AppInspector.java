@@ -24,7 +24,7 @@ public class AppInspector {
 		
 	}
 	
-	public boolean consultarEstacionamientoVigente(String nroPatente) {
+	private boolean consultarEstacionamientoVigente(String nroPatente) {
 		return semEstacionamiento.consultarEstacionamiento(nroPatente, this.getId());
 	}
 	
