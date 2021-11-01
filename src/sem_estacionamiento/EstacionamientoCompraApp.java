@@ -17,7 +17,7 @@ public class EstacionamientoCompraApp extends Estacionamiento {
 		return this.estaVigente;
 		
 	}
-	
+
 	public Boolean sonNumerosIguales(int nroCelular) {
 		return nroCelular == this.getNumeroDeCelular();
 	}
@@ -44,7 +44,8 @@ public class EstacionamientoCompraApp extends Estacionamiento {
 	public void setNumeroDeCelular(int numeroDeCelular) {
 		this.numeroDeCelular = numeroDeCelular;
 	}
-
+	// Este metodo se anulario ya que desde el gestor se calcula y luego se utiliza el set para actualizar el nuevo
+	// horario de fin
 	public void actualizarHorario(int minutos) {
 		LocalTime nuevoHorarioFinalizacion = this.getHoraDeFinalizacion().plusMinutes(minutos);
 		this.setHoraDeFinalizacion(nuevoHorarioFinalizacion);

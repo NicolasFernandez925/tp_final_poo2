@@ -57,7 +57,7 @@ public class SEMEstacionamiento implements ISemEstacionamiento {
 	public int cantidadDeEstacionamientos() {
 		return  this.zonas.stream().map(Zona :: cantidadDeEstacionamientos).reduce(0, (subtotal, valor) -> subtotal + valor);
 	}
-	
+
 	public int cantidadDeZonas() {
 		return (int) this.zonas.stream().count();
 	}

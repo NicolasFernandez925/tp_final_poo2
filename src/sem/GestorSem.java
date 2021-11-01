@@ -33,7 +33,7 @@ public class GestorSem {
 	public Boolean tieneEstacionamientoVigente(String nroPatente) {
 		return semEstacionamiento.tieneEstacionamientoVigente(nroPatente);
 	}
-	
+
 	public Boolean estaDentroDeUnaZonaConLaCoordenada(int coordenada) {
 		return semEstacionamiento.estaDentroDeUnaZonaConLaCoordenada(coordenada);
 	}
@@ -69,7 +69,7 @@ public class GestorSem {
 	 * en la franja horaria la hora final de la jornada.
 	 * */
 	
-	private  LocalTime calcularTiempoMaximo(double saldoDisponible, LocalTime horaActual) {
+	private LocalTime calcularTiempoMaximo(double saldoDisponible, LocalTime horaActual) {
 		long minutosDisponibles = (long)this.cantidadDeMinutosDisponibles(saldoDisponible);
 		LocalTime result = horaActual.plusMinutes(minutosDisponibles);
 		return this.estaDentroDeFranjaHoraria(result) ? result : this.getInicioDeJornada();
@@ -104,10 +104,6 @@ public class GestorSem {
 	private boolean estaDentroDeFranjaHoraria(LocalTime horaMaxima) {
 		return this.getInicioDeJornada().isBefore(horaMaxima) && this.getFinDeJornada().isAfter(horaMaxima);
 	}
-
-	public Boolean seEncuentraEnZonaElUsuario(int coordenada) {
-		return true;
-	}
 	
 	/**
 	 * @param nroCelular : Integer
@@ -128,6 +124,26 @@ public class GestorSem {
 		  return new NotificacionError(e.getMessage());
 		}
 		
+	}
+	
+	/**
+	 * @param nroCelular es el numero del celular en el cual se hizo una recarga.
+	 * montoCargado es el monto de carga que luego se utiliza para calcular la cantidad
+	 * el equivalente en minutos
+	 * 
+	 * Nota: Este metodo actualiza el horario MAXIMO cuando se realiza una recarga desde un punto de venta
+	 * para un estacionamiento via App que YA SE ENCUENTRA INICIADO.
+	 * */
+	
+	public void actualizarHorarioEstacionamiento(int nroCelular, double montoCargado) {
+		try {
+			Estacionamiento e = semEstacionamiento.buscarEstacionamientoVigente(nroCelular);
+			LocalTime horaMaximaDeFin = this.calcularTiempoMaximo(montoCargado, LocalTime.now());
+			e.setHoraDeFinalizacion(horaMaximaDeFin);
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());   
+		}
 	}
 	
 	public void finalizarTodosLosEstacionamientos() {
@@ -169,15 +185,4 @@ public class GestorSem {
 	public LocalTime getHoraFinal() {
 		return this.horaFinal;
 	}
-	
-	public void setInicioDeJornada(LocalTime inicioDeJornada) {
-		this.inicioDeJornada = inicioDeJornada;
-	}
-
-	public void setSemEstacionamiento(ISemEstacionamiento semEstacionamiento) {
-		this.semEstacionamiento = semEstacionamiento;
-	}
-
-
-
 }

@@ -7,6 +7,7 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.stubbing.OngoingStubbing;
 
 import sem.GestorSem;
 import sem.ISemEstacionamiento;
@@ -52,6 +53,14 @@ class GestorSemTest {
 	 * Este test solo funciona cuando al generar la compra puntual
 	 * esta dentro de horio laboral
 	 * */
+	
+	@Test
+	void testMetodosGettersAndSetters() {	
+		assertEquals(sutGestor.getCostoPorHora(), 40);
+		assertEquals(sutGestor.getSemEstacionamiento(), semEstacionamientoMock);
+		assertEquals(sutGestor.getFinDeJornada(), finJornada);
+		assertEquals(sutGestor.getInicioDeJornada(), inicioJornada);
+	}
 
 	@Test
 	void testGenerarEstacionamientoPuntualDentroDeJornadaLaboral() {	
@@ -80,12 +89,10 @@ class GestorSemTest {
 		LocalTime horaInicio = LocalTime.of(16, 00);
 		LocalTime horaFin = LocalTime.of(17, 50);
 		
-		estacionamientoCompraAppMock.finalizar(horaFin);
-		
 		when(semEstacionamientoMock.buscarEstacionamientoVigente(nroCelular)).thenReturn(estacionamientoCompraAppMock);
 		when(estacionamientoCompraAppMock.getHoraDeInicio()).thenReturn(horaInicio);
 		when(estacionamientoCompraAppMock.getHoraDeFinalizacion()).thenReturn(horaFin);
-	
+			
 		assertTrue(sutGestor.finalizarEstacionamiento(nroCelular) instanceof NotificacionFinalizacionEstacionamiento);
 	}
 	
@@ -120,7 +127,7 @@ class GestorSemTest {
 		assertTrue(sutGestor.iniciarEstacionamiento(patente,nroCelular) instanceof NotificacionInicioDeEstacionamiento);
 		
 	}
-	
+
 	@Test
 	void testNoSePuedeIniciarEstacionamientoPorSaldoInsuficiente() {
 		
@@ -132,6 +139,30 @@ class GestorSemTest {
 		
 		assertTrue(sutGestor.iniciarEstacionamiento(patente,nroCelular) instanceof NotificacionError);
 		
+	}
+	
+	@Test
+	void testActualizarHorarioMaximoLuegoDeUnaRecargaConUnEstacionamientoYaIniciadoOK() throws Exception {	
+		double monto = 200;
+
+		when(semEstacionamientoMock.buscarEstacionamientoVigente(nroCelular)).thenReturn(estacionamientoCompraAppMock);
+		sutGestor.actualizarHorarioEstacionamiento(nroCelular, monto);
+		verify(estacionamientoCompraAppMock).setHoraDeFinalizacion(any(LocalTime.class));
+	}
+	
+	@Test
+	void testActualizarHorarioMaximoLuegoDeUnaRecargaConUnEstacionamientoNOIniciadoError() throws Exception {	
+		double monto = 200;
+		 when(semEstacionamientoMock.buscarEstacionamientoVigente(nroCelular))
+	      .thenThrow(new Exception("Error"));
+		sutGestor.actualizarHorarioEstacionamiento(nroCelular, monto);
+		verify(estacionamientoCompraAppMock, never()).setHoraDeFinalizacion(any(LocalTime.class));
+	}
+	
+	@Test
+	void testConsultarSaldo() {	
+		sutGestor.consularSaldo(nroCelular);
+		verify(celularMock).consultarSaldo(nroCelular);
 	}
 
 }

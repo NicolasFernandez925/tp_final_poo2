@@ -52,7 +52,7 @@ public class AppCelularSem implements MovementSensor {
 			this.getModo().alertaDeFinDeEstacionamiento(this.getGestor(), this.getNroCelular());
 		}
 	}
-	
+
 	public Boolean estaEnElMismoPuntoGeograficoDeInicioEstacionamiento() {
 		return gestor.estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(this.getCoordenadaGPS());
 	}
@@ -65,10 +65,6 @@ public class AppCelularSem implements MovementSensor {
 		return gestor.consularSaldo(this.getNroCelular());
 	}
 	
-	public Boolean seEncuentraEnZonaElUsuario(int coordenada) {
-		return gestor.seEncuentraEnZonaElUsuario(coordenada);
-	}
-
 	@Override
 	public void driving() {
 		this.getEstadoMovimiento().manejando(this);
