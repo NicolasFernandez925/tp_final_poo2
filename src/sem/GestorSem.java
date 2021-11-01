@@ -35,8 +35,7 @@ public class GestorSem {
 	}
 	
 	public Boolean estaDentroDeUnaZonaConLaCoordenada(int coordenada) {
-		// TODO Falta implementar
-		return true;
+		return semEstacionamiento.estaDentroDeUnaZonaConLaCoordenada(coordenada);
 	}
 	
 	public Boolean estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(int coordenada) {
@@ -56,7 +55,6 @@ public class GestorSem {
 		if(celular.consultarSaldo(nroCelular) > 0) {		
 			horaMaximaDeFin = this.calcularTiempoMaximo(celular.consultarSaldo(nroCelular), LocalTime.now());		
 			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente, nroCelular, horaMaximaDeFin));	
-			//return this.notificacionInicioDeEstacionamiento(LocalTime.now(), horaMaximaDeFin);
 			return new NotificacionInicioDeEstacionamiento(horaActual, horaMaximaDeFin);
 		}
 		else {
@@ -125,7 +123,6 @@ public class GestorSem {
 			LocalTime horasConsumidas = this.tiempoTotalEnHorasConsumidas(minutosConsumidos);
 			double costo = this.costoEstacionamiento(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
 			celular.descontarSaldo(nroCelular, costo);
-			//return this.notificacionFinalizacionDeEstacionamiento(horasConsumidas, e, costo);
 			return new NotificacionFinalizacionEstacionamiento(horasConsumidas, e.getHoraDeInicio(), e.getHoraDeFinalizacion(), costo);
 		} catch (Exception e) {
 		  return new NotificacionError(e.getMessage());
@@ -145,19 +142,6 @@ public class GestorSem {
 		return this.totalMinutos(horaInicio, horaFin) * this.precioPorMinuto();
 	}
 
-	/*public String notificacionFinalizacionDeEstacionamiento(LocalTime horasConsumidas, Estacionamiento e, double costo) {
-		return "Hora de Inicio: " + e.getHoraDeInicio() + " /n " +
-	           "Hora de Finalización: " + e.getHoraDeFinalizacion() + " /n " +
-	           "Duracion: " + horasConsumidas + " /n " +
-	           "Costo " + costo;
-	}
-	
-	public String notificacionInicioDeEstacionamiento(LocalTime horaDeInicio, LocalTime horaMaximaDeFinalizacion) {
-		return "Hora de Inicio: " + horaDeInicio + " /n " +
-	           "Hora de Finalización: " + horaMaximaDeFinalizacion;
-	}
-	*/
-	
 	public double consularSaldo(int nroCelular) {	
 		return celular.consultarSaldo(nroCelular);
 	}

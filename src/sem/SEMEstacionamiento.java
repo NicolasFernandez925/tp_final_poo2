@@ -89,8 +89,7 @@ public class SEMEstacionamiento implements ISemEstacionamiento {
 
 	@Override
 	public boolean estaDentroDeUnaZonaConLaCoordenada(int coordenada) {
-		// TODO Falta implementar
-		return false;
+		return this.getZonas().stream().anyMatch( z -> z.contienePuntoGeografico(coordenada));
 	}
 
 	@Override

@@ -9,9 +9,7 @@ import org.junit.jupiter.api.Test;
 import sem.GestorSem;
 import sem_estacionamientoApp.AppCelularSem;
 import sem_estacionamientoApp.ModoManual;
-import sem_notificacion.NotificacionAlertaFinalizacionEstacionamiento;
 import sem_notificacion.NotificacionAlertaDeEstacionamiento;
-import sem_notificacion.NotificacionError;
 
 
 class ModoManualTest {

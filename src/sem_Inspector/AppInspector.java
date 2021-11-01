@@ -11,10 +11,10 @@ public class AppInspector {
 	private ISemMulta semMulta;
 	private ISemEstacionamiento semEstacionamiento;
 	
-	public AppInspector(ISemEstacionamiento semEstacionamiento, ISemMulta semMulta) {
+	public AppInspector(ISemEstacionamiento semEstacionamiento, ISemMulta semMulta, int idInspector) {
 		this.semEstacionamiento = semEstacionamiento;
 		this.semMulta = semMulta;
-		this.id = 15;
+		this.id = idInspector;
 	}
 	
 	public void registrarMulta(String patente,Zona zona) {
@@ -24,7 +24,7 @@ public class AppInspector {
 		
 	}
 	
-	public boolean consultarEstacionamientoVigente(String nroPatente) {
+	private boolean consultarEstacionamientoVigente(String nroPatente) {
 		return semEstacionamiento.consultarEstacionamiento(nroPatente, this.getId());
 	}
 	

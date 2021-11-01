@@ -2,7 +2,6 @@ package sem_estacionamientoApp;
 
 import sem.GestorSem;
 import sem_notificacion.INotificacion;
-import sem_notificacion.NotificacionAlertaFinalizacionEstacionamiento;
 import sem_notificacion.NotificacionAlertaDeEstacionamiento;
 
 public class ModoManual implements ModoApp {

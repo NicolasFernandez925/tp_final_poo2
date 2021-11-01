@@ -27,11 +27,8 @@ class AppInspectorTest {
 		zonaMock = mock(Zona.class);
 		patente = "IUQ273";
 		idInspector = 1221;
-		sutAppInspector = new AppInspector(semEstacionamientoMock,semMultaMock);
+		sutAppInspector = new AppInspector(semEstacionamientoMock,semMultaMock,idInspector);
 	}
-
-	
-	//Nose porque estos test no funancionan :/
 	
 	@Test
 	void testRegistrarMultaConPatenteNoVigente() {		
