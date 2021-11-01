@@ -10,7 +10,7 @@ import sem.GestorSem;
 import sem_estacionamientoApp.AppCelularSem;
 import sem_estacionamientoApp.ModoManual;
 import sem_notificacion.NotificacionAlertaFinalizacionEstacionamiento;
-import sem_notificacion.NotificacionAlertaInicioDeEstacionamiento;
+import sem_notificacion.NotificacionAlertaDeEstacionamiento;
 import sem_notificacion.NotificacionError;
 
 
@@ -34,12 +34,12 @@ class ModoManualTest {
 	
 	@Test
 	void testElUsuarioEjecutaElInicioDelEstacionamientoEnModoManualYValidaAlertaDeInicio() {
-		assertTrue(modoManualSut.alertaInicioDeEstacionamiento(gestorMock,appMock,nroCelular) instanceof NotificacionAlertaInicioDeEstacionamiento);
+		assertTrue(modoManualSut.alertaInicioDeEstacionamiento(gestorMock,appMock,nroCelular) instanceof NotificacionAlertaDeEstacionamiento);
 	}
 	
 	@Test
 	void testElUsuarioEjecutaLaFinalizacionDelEstacionamientoEnModoManualYValidaAlertaDeFinalizacion() {
-		assertTrue(modoManualSut.alertaDeFinDeEstacionamiento(gestorMock,nroCelular) instanceof NotificacionAlertaFinalizacionEstacionamiento);
+		assertTrue(modoManualSut.alertaDeFinDeEstacionamiento(gestorMock,nroCelular) instanceof NotificacionAlertaDeEstacionamiento);
 	}
 	
 	@Test

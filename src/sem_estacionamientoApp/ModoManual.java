@@ -3,18 +3,18 @@ package sem_estacionamientoApp;
 import sem.GestorSem;
 import sem_notificacion.INotificacion;
 import sem_notificacion.NotificacionAlertaFinalizacionEstacionamiento;
-import sem_notificacion.NotificacionAlertaInicioDeEstacionamiento;
+import sem_notificacion.NotificacionAlertaDeEstacionamiento;
 
 public class ModoManual implements ModoApp {
 
 	@Override
 	public INotificacion alertaInicioDeEstacionamiento(GestorSem gestor, AppCelularSem app, int nroCelular) {
-		return new NotificacionAlertaInicioDeEstacionamiento("Alerta, recuerde iniciar el estacionamiento");
+		return new NotificacionAlertaDeEstacionamiento("Alerta, recuerde iniciar el estacionamiento");
 	}
 
 	@Override
 	public INotificacion alertaDeFinDeEstacionamiento(GestorSem gestor, int nroCelular) {
-		return new NotificacionAlertaFinalizacionEstacionamiento("Alerta, recuerde finalizar el estacionamiento");
+		return new NotificacionAlertaDeEstacionamiento("Alerta, recuerde finalizar el estacionamiento");
 	}
 	
 	@Override

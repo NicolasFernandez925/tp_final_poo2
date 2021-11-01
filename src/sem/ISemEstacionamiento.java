@@ -5,7 +5,6 @@ import sem_estacionamiento.Estacionamiento;
 import java.time.LocalTime;
 import java.util.List;
 
-
 public interface ISemEstacionamiento {
 	public void agregarZona(Zona zona);
 	public List<Zona> getZonas();

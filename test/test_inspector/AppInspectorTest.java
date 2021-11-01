@@ -41,8 +41,7 @@ class AppInspectorTest {
 	}
 	
 	@Test
-	void testRegistrarMultaConPatenteVigenteNoTerminaRegistrandola() {	
-	
+	void testRegistrarMultaConPatenteVigenteNoTerminaRegistrandola() {		
 		when(semEstacionamientoMock.consultarEstacionamiento(patente, idInspector)).thenReturn(true);
 		sutAppInspector.registrarMulta(patente, zonaMock);
 		verify(semMultaMock, never()).registrarMulta(any(Multa.class));
