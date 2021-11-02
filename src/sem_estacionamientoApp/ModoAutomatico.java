@@ -8,7 +8,7 @@ public class ModoAutomatico implements ModoApp {
 
 	@Override
 	public INotificacion alertaInicioDeEstacionamiento(GestorSem gestor, AppCelularSem app,  int nroCelular) {
-		 return gestor.iniciarEstacionamiento(app.getNroPatente(), nroCelular);
+		 return gestor.iniciarEstacionamiento(app.getNroPatente(), nroCelular, app.getCoordenadaGPS());
 	}
 
 	@Override

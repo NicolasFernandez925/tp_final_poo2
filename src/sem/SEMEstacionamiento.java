@@ -92,10 +92,10 @@ public class SEMEstacionamiento implements ISemEstacionamiento {
 		return this.getZonas().stream().anyMatch( z -> z.contienePuntoGeografico(coordenada));
 	}
 
+
 	@Override
-	public boolean estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(int coordenada) {
-		// TODO Falta implementar
-		return false;
+	public boolean estaEnElMismoPuntoGeograficoDeInicioEstaciomiento(int coordenada, String patente) {
+		return this.getZonas().stream().anyMatch(z -> z.coincidePuntoGeografico(coordenada, patente));
 	}
 	
 	/**

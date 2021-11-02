@@ -6,8 +6,8 @@ public class EstacionamientoCompraApp extends Estacionamiento {
 	private Boolean estaVigente;
 	private int numeroDeCelular;
 
-	public EstacionamientoCompraApp(String patente, int numeroDeCelular, LocalTime horaFinal) {
-		super(patente, horaFinal);
+	public EstacionamientoCompraApp(String patente,int puntoGeografico, int numeroDeCelular, LocalTime horaFinal) {
+		super(patente, horaFinal, puntoGeografico);
 		this.numeroDeCelular = numeroDeCelular;
 		this.estaVigente = true;
 	}
@@ -44,13 +44,13 @@ public class EstacionamientoCompraApp extends Estacionamiento {
 	public void setNumeroDeCelular(int numeroDeCelular) {
 		this.numeroDeCelular = numeroDeCelular;
 	}
-	// Este metodo se anulario ya que desde el gestor se calcula y luego se utiliza el set para actualizar el nuevo
-	// horario de fin
-	public void actualizarHorario(int minutos) {
-		LocalTime nuevoHorarioFinalizacion = this.getHoraDeFinalizacion().plusMinutes(minutos);
-		this.setHoraDeFinalizacion(nuevoHorarioFinalizacion);
-	}
-	
+//	// Este metodo se anulario ya que desde el gestor se calcula y luego se utiliza el set para actualizar el nuevo
+//	// horario de fin
+//	public void actualizarHorario(int minutos) {
+//		LocalTime nuevoHorarioFinalizacion = this.getHoraDeFinalizacion().plusMinutes(minutos);
+//		this.setHoraDeFinalizacion(nuevoHorarioFinalizacion);
+//	}
+//	
 	public void establecerHoraFinEstacionamiento(LocalTime horaFin) {
 		this.setHoraDeFinalizacion(horaFin);
 	}

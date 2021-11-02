@@ -6,11 +6,13 @@ public abstract class Estacionamiento {
 	private LocalTime horaDeInicio;	
 	private LocalTime horaDeFinalizacion;
 	private String patente;
+	private int puntoGeografico;
 	
-	public Estacionamiento(String patente, LocalTime horafinal) {
+	public Estacionamiento(String patente, LocalTime horafinal, int puntoGeografico) {
 		this.patente = patente;
 		this.horaDeInicio = LocalTime.now();
 		this.horaDeFinalizacion = horafinal;
+		this.puntoGeografico = puntoGeografico;
 	}
 	
 	public abstract Boolean estacionamientoVigente();
@@ -37,11 +39,16 @@ public abstract class Estacionamiento {
 	}
 
 	public String getPatente() {
-		return patente;
+		return this.patente;
 	}
 
 	public void setPatente(String patente) {
 		this.patente = patente;
+	}
+
+	public int getPuntoGeografico() {
+		// TODO Auto-generated method stub
+		return this.puntoGeografico;
 	}
 
 

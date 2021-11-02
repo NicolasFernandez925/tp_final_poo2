@@ -6,8 +6,8 @@ public class EstacionamientoCompraPuntual extends Estacionamiento {
 
 	private int cantidadDeHoras;
 
-	public EstacionamientoCompraPuntual(String patente, int horas, LocalTime horaFinal) {
-		super(patente, horaFinal);
+	public EstacionamientoCompraPuntual(String patente, int puntoGeografico, int horas, LocalTime horaFinal) {
+		super(patente, horaFinal, puntoGeografico);
 		this.cantidadDeHoras = horas;		
 	}
 

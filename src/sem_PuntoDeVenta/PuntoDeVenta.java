@@ -23,18 +23,22 @@ public class PuntoDeVenta implements ISEMPuntoDeVenta{
 	@Override
 	public void venderHoras(int horas) {
 		// TODO Auto-generated method stub
+		//GestorSEM Generar estacionamiento pUtual
 		
 	}
 
 	@Override
 	public void hacerRecarga(int nroCelular, int monto) {
+		//TODO: llamar al celular para recargar(nro, monto) y GestorSEM actualizar. Llamar a registrarVenta
 		VentaRecarga venta = new VentaRecarga(nroCelular, monto, this, this.asignarSiguienteNroDeControl());
-		this.ventas.add(venta);
+
 	}
 
 	@Override
 	public void registrarVenta(Venta venta) {
 		// TODO Auto-generated method stub
+		//Agregar venta a la lista.
+		this.ventas.add(venta);
 		
 	}
 	

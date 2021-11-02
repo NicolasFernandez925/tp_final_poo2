@@ -1,8 +1,5 @@
 package sem_venta;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import sem_PuntoDeVenta.PuntoDeVenta;
 
 public class VentaPuntual extends Venta {

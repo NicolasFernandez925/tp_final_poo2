@@ -38,9 +38,10 @@ public class GestorSem {
 		return semEstacionamiento.estaDentroDeUnaZonaConLaCoordenada(coordenada);
 	}
 	
-	public Boolean estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(int coordenada) {
+	public Boolean estaEnElMismoPuntoGeograficoDeInicioEstaciomiento(int coordenada, String nroPatente) {
 		// TODO Falta implementar
-		return false;
+		
+		return semEstacionamiento.estaEnElMismoPuntoGeograficoDeInicioEstaciomiento(coordenada, nroPatente);
 	}
 	
 	/**
@@ -49,12 +50,12 @@ public class GestorSem {
 	 * @return Un String que representa al msg describiendo los datos del inicio del estcionamiento
 	 * */
 	
-	public INotificacion iniciarEstacionamiento(String patente,int nroCelular) {
+	public INotificacion iniciarEstacionamiento(String patente,int nroCelular,int puntoGeografico) {
 		LocalTime horaMaximaDeFin;
 		LocalTime horaActual = LocalTime.now();
 		if(celular.consultarSaldo(nroCelular) > 0) {		
 			horaMaximaDeFin = this.calcularTiempoMaximo(celular.consultarSaldo(nroCelular), LocalTime.now());		
-			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente, nroCelular, horaMaximaDeFin));	
+			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente,puntoGeografico, nroCelular, horaMaximaDeFin));	
 			return new NotificacionInicioDeEstacionamiento(horaActual, horaMaximaDeFin);
 		}
 		else {
@@ -90,14 +91,14 @@ public class GestorSem {
 	 * @param cantidadDeHoras: Un Integer
 	 * */
 
-	public void generarEstacionamientoPuntual(String patente, int cantidadDeHoras) {
+	public void generarEstacionamientoPuntual(String patente,int puntoGeografico, int cantidadDeHoras) {
 		horaFinal = LocalTime.now().plusHours(cantidadDeHoras);
 		if(this.estaDentroDeFranjaHoraria(horaFinal)) {
-			semEstacionamiento.registrarEstacionamiento(new EstacionamientoCompraPuntual(patente,cantidadDeHoras, horaFinal));	
+			semEstacionamiento.registrarEstacionamiento(new EstacionamientoCompraPuntual(patente, puntoGeografico, cantidadDeHoras, horaFinal));	
 		}
 		else {
 			horaFinal =  this.getFinDeJornada();
-			semEstacionamiento.registrarEstacionamiento(new EstacionamientoCompraPuntual(patente,cantidadDeHoras, horaFinal));
+			semEstacionamiento.registrarEstacionamiento(new EstacionamientoCompraPuntual(patente, puntoGeografico, cantidadDeHoras, horaFinal));
 		}
 	}
 

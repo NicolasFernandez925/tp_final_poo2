@@ -18,7 +18,7 @@ public class ModoManual implements ModoApp {
 	
 	@Override
 	public INotificacion iniciarEstacionamiento(String patente,GestorSem gestor, AppCelularSem app, int nroCelular) {
-		return gestor.iniciarEstacionamiento(app.getNroPatente(),nroCelular);
+		return gestor.iniciarEstacionamiento(app.getNroPatente(),nroCelular, app.getCoordenadaGPS());
 		
 	}
 

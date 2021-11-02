@@ -77,4 +77,8 @@ public class Zona {
 	public boolean tieneAsignadoElInspector(int idInspector) {
 		return idInspector == inspector.getId();
 	}
+	
+	public boolean coincidePuntoGeografico(int coordenada, String patente) {
+		return this.getEstacionamientos().stream().filter(e -> e.getPatente() == patente).anyMatch( e -> e.getPuntoGeografico() == coordenada);
+	}
 }

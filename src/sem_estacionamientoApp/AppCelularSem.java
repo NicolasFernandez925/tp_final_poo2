@@ -54,7 +54,7 @@ public class AppCelularSem implements MovementSensor {
 	}
 
 	public Boolean estaEnElMismoPuntoGeograficoDeInicioEstacionamiento() {
-		return gestor.estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(this.getCoordenadaGPS());
+		return gestor.estaEnElMismoPuntoGeograficoDeInicioEstaciomiento(this.getCoordenadaGPS(), this.getNroPatente());
 	}
 
 	public Boolean coordenadaGPSDentroDeUnaZona() {

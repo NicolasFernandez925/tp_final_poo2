@@ -10,7 +10,7 @@ public interface ISemEstacionamiento {
 	public List<Zona> getZonas();
 	public void finalizarTodosLosEstacionamientos(LocalTime horaFinDeJornada);
 	public boolean estaDentroDeUnaZonaConLaCoordenada(int coordenada);
-	public boolean estaEnElMismoPuntoGeograficoDeInicioEstcaiomiento(int coordenada);
+	public boolean estaEnElMismoPuntoGeograficoDeInicioEstaciomiento(int coordenada, String patente);
 	public void registrarEstacionamiento(Estacionamiento e);
 	public Estacionamiento buscarEstacionamientoVigente(int nroCelular) throws Exception;
 	public boolean tieneEstacionamientoVigente(String patente);
