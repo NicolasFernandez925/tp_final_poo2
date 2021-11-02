@@ -3,6 +3,9 @@ package test_multa;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,6 +43,17 @@ class MultaTest {
 	void testGetZona() {
 		assertEquals(zonaMock, sutMulta.getZona());
 	}
+	
+	@Test
+	void testGetHora() {
+		assertEquals(LocalTime.now().withNano(0), sutMulta.getHora().withNano(0));
+	}
+	
+	@Test
+	void testGetFecha() {
+		assertEquals(LocalDate.now(), sutMulta.getFecha());
+	}
+
 
 
 }

@@ -53,7 +53,7 @@ public class GestorSem implements IGestorSem, ISubject{
 	 * @param saldoDisponible: Double
 	 * @return Un String que representa al msg describiendo los datos del inicio del estcionamiento
 	 * */
-	
+
 	public INotificacion iniciarEstacionamiento(String patente,int nroCelular,int puntoGeografico) {
 		LocalTime horaMaximaDeFin;
 		LocalTime horaActual = LocalTime.now();
@@ -158,7 +158,7 @@ public class GestorSem implements IGestorSem, ISubject{
 	public void finalizarTodosLosEstacionamientos() {
 		semEstacionamiento.finalizarTodosLosEstacionamientos(this.getFinDeJornada());
 	}
-	
+
 	private long totalMinutos(LocalTime horaInicio, LocalTime horaFin) {
 		return horaInicio.until(horaFin, ChronoUnit.MINUTES);
 	}

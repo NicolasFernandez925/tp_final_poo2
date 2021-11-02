@@ -52,8 +52,9 @@ class SemMultaTest {
 	
 	@Test
 	void testCantidadDeMultas() {
-		assertEquals(2,sutSemMulta.getMultas().size());
+		assertEquals(2,sutSemMulta.cantidadDeMultas());
 	}
+	
 	
 	@Test
 	void testGetMultasDeUnaPatenteEspecifica() {

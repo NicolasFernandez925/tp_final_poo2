@@ -7,7 +7,6 @@ public class AppCelularSem implements MovementSensor {
 
 	private int nroCelular;
 	private String nroPatente;
-	private double saldoDisponible;
 	private int coordenadaGPS;
 	private GestorSem gestor;
 	private EstadoApp estadoMovimiento;
@@ -95,14 +94,6 @@ public class AppCelularSem implements MovementSensor {
 
 	public void setNroPatente(String nroPatente) {
 		this.nroPatente = nroPatente;
-	}
-
-	public double getSaldoDisponible() {
-		return saldoDisponible;
-	}
-
-	public void setSaldoDisponible(double saldoDisponible) {
-		this.saldoDisponible = saldoDisponible;
 	}
 
 	public EstadoApp getEstadoMovimiento() {
