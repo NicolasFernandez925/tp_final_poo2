@@ -12,7 +12,7 @@ import sem_notificacion.NotificacionError;
 import sem_notificacion.NotificacionFinalizacionEstacionamiento;
 import sem_notificacion.NotificacionInicioDeEstacionamiento;
 
-public class GestorSem {
+public class GestorSem implements IGestorSem{
 
 	private LocalTime inicioDeJornada;
 	private LocalTime finDeJornada;
@@ -39,8 +39,6 @@ public class GestorSem {
 	}
 	
 	public Boolean estaEnElMismoPuntoGeograficoDeInicioEstaciomiento(int coordenada, String nroPatente) {
-		// TODO Falta implementar
-		
 		return semEstacionamiento.estaEnElMismoPuntoGeograficoDeInicioEstaciomiento(coordenada, nroPatente);
 	}
 	
@@ -55,7 +53,7 @@ public class GestorSem {
 		LocalTime horaActual = LocalTime.now();
 		if(celular.consultarSaldo(nroCelular) > 0) {		
 			horaMaximaDeFin = this.calcularTiempoMaximo(celular.consultarSaldo(nroCelular), LocalTime.now());		
-			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente,puntoGeografico, nroCelular, horaMaximaDeFin));	
+			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente,horaMaximaDeFin, nroCelular, puntoGeografico));	
 			return new NotificacionInicioDeEstacionamiento(horaActual, horaMaximaDeFin);
 		}
 		else {
@@ -94,11 +92,11 @@ public class GestorSem {
 	public void generarEstacionamientoPuntual(String patente,int puntoGeografico, int cantidadDeHoras) {
 		horaFinal = LocalTime.now().plusHours(cantidadDeHoras);
 		if(this.estaDentroDeFranjaHoraria(horaFinal)) {
-			semEstacionamiento.registrarEstacionamiento(new EstacionamientoCompraPuntual(patente, puntoGeografico, cantidadDeHoras, horaFinal));	
+			semEstacionamiento.registrarEstacionamiento(new EstacionamientoCompraPuntual(patente, horaFinal, puntoGeografico, cantidadDeHoras));	
 		}
 		else {
 			horaFinal =  this.getFinDeJornada();
-			semEstacionamiento.registrarEstacionamiento(new EstacionamientoCompraPuntual(patente, puntoGeografico, cantidadDeHoras, horaFinal));
+			semEstacionamiento.registrarEstacionamiento(new EstacionamientoCompraPuntual(patente, horaFinal, puntoGeografico, cantidadDeHoras));
 		}
 	}
 
@@ -185,5 +183,10 @@ public class GestorSem {
 	}
 	public LocalTime getHoraFinal() {
 		return this.horaFinal;
+	}
+
+	@Override
+	public GestorSem getGestorSem() {
+		return this;
 	}
 }

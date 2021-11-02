@@ -6,11 +6,13 @@ public class EstacionamientoCompraPuntual extends Estacionamiento {
 
 	private int cantidadDeHoras;
 
-	public EstacionamientoCompraPuntual(String patente, int puntoGeografico, int horas, LocalTime horaFinal) {
+	public EstacionamientoCompraPuntual(String patente, LocalTime horaFinal, int puntoGeografico, int horas) {
+		//super(patente, puntoGeografico);
 		super(patente, horaFinal, puntoGeografico);
+		
 		this.cantidadDeHoras = horas;		
 	}
-
+	
 	@Override
 	public Boolean estacionamientoVigente() {
 		return this.getHoraDeFinalizacion().isAfter(LocalTime.now());

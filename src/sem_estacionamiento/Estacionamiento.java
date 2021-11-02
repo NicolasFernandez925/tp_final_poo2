@@ -8,10 +8,10 @@ public abstract class Estacionamiento {
 	private String patente;
 	private int puntoGeografico;
 	
-	public Estacionamiento(String patente, LocalTime horafinal, int puntoGeografico) {
+	public Estacionamiento(String patente, LocalTime horaFinal, int puntoGeografico) {
 		this.patente = patente;
 		this.horaDeInicio = LocalTime.now();
-		this.horaDeFinalizacion = horafinal;
+		this.horaDeFinalizacion = horaFinal;
 		this.puntoGeografico = puntoGeografico;
 	}
 	
