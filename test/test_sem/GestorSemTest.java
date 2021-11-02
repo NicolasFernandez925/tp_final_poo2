@@ -78,7 +78,7 @@ class GestorSemTest {
 	
 	@Test
 	void testErrorAlGenerarEstacionamientoPuntualFueraDeLaJornadaLaboral() {	
-		int horasTotales = 10;
+		int horasTotales = 15;
 		sutGestor.generarEstacionamientoPuntual(patente, coordenadaEstacionamiento, horasTotales);
 		
 		verify(semEstacionamientoMock).registrarEstacionamiento(any(Estacionamiento.class));
@@ -160,11 +160,31 @@ class GestorSemTest {
 		sutGestor.actualizarHorarioEstacionamiento(nroCelular, monto);
 		verify(estacionamientoCompraAppMock, never()).setHoraDeFinalizacion(any(LocalTime.class));
 	}
-	
+
 	@Test
 	void testConsultarSaldo() {	
 		sutGestor.consularSaldo(nroCelular);
 		verify(celularMock).consultarSaldo(nroCelular);
+	}
+	
+	@Test
+	void testTieneEstacionamientoVigente() {	
+		sutGestor.tieneEstacionamientoVigente(patente);
+		verify(semEstacionamientoMock).tieneEstacionamientoVigente(patente);
+	}
+	
+	@Test
+	void testLaCoordenadaGPSDelCelularEstaDentroDeUnaZonaConIgualLaCoordenada() {	
+		int coordenda = 12345;
+		sutGestor.estaDentroDeUnaZonaConLaCoordenada(coordenda);
+		verify(semEstacionamientoMock).estaDentroDeUnaZonaConLaCoordenada(coordenda);
+	}
+	
+	@Test
+	void testEstaEnElMismoPuntoGeograficoDeInicioEstaciomientoDelUsuario() {	
+		int coordenda = 12345;
+		sutGestor.estaEnElMismoPuntoGeograficoDeInicioEstaciomiento(coordenda, patente);
+		verify(semEstacionamientoMock).estaEnElMismoPuntoGeograficoDeInicioEstaciomiento(coordenda, patente);
 	}
 
 }

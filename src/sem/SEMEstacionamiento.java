@@ -61,10 +61,6 @@ public class SEMEstacionamiento implements ISemEstacionamiento {
 	public int cantidadDeZonas() {
 		return (int) this.zonas.stream().count();
 	}
-	
-	public Zona getPuntoDeVentaEnLaZonaMasCercana(int coordenada) {
-		return null;
-	}
 
 	@Override
 	public List<Zona> getZonas() {
