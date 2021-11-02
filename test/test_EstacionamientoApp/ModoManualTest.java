@@ -19,11 +19,13 @@ class ModoManualTest {
 	ModoManual modoManualSut;
 	String patente;
 	int nroCelular;
+	int coordenada;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		patente = "VAS930";
 		nroCelular = 128281281;
+		coordenada = 4;
 		//saldoDisponible = 200.0;
 		gestorMock = mock(GestorSem.class);
 		appMock = mock(AppCelularSem.class);
@@ -43,8 +45,9 @@ class ModoManualTest {
 	@Test
 	void testElUsuarioEjecutaEnModoManualElInicioDeEstacionamiento() {
 		when(appMock.getNroPatente()).thenReturn(patente);
+		when(appMock.getCoordenadaGPS()).thenReturn(coordenada);
 		modoManualSut.iniciarEstacionamiento(patente,gestorMock,appMock,nroCelular);
-		verify(gestorMock).iniciarEstacionamiento(patente,nroCelular);
+		verify(gestorMock).iniciarEstacionamiento(patente,nroCelular, coordenada);
 	}
 	
 	@Test

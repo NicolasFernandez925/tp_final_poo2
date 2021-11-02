@@ -33,11 +33,13 @@ class GestorSemTest {
 	LocalTime horaActual;
 	LocalTime inicioJornada;
 	LocalTime finJornada;
+	int coordenadaEstacionamiento;
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		patente = "Graph123";
 		nroCelular = 11131313;
+		coordenadaEstacionamiento = 4;
 		finJornada = LocalTime.of(20, 00);
 		inicioJornada = LocalTime.of(07, 00);
 		horaActual = LocalTime.now();
@@ -66,7 +68,7 @@ class GestorSemTest {
 	void testGenerarEstacionamientoPuntualDentroDeJornadaLaboral() {	
 		int horasTotales = 1;
 		
-		sutGestor.generarEstacionamientoPuntual(patente, horasTotales);
+		sutGestor.generarEstacionamientoPuntual(patente,coordenadaEstacionamiento, horasTotales);
 		verify(semEstacionamientoMock).registrarEstacionamiento(any(Estacionamiento.class));
 		assertEquals(LocalTime.now().plusHours(1).withNano(0), sutGestor.getHoraFinal().withNano(0));
 	}
@@ -77,7 +79,7 @@ class GestorSemTest {
 	@Test
 	void testErrorAlGenerarEstacionamientoPuntualFueraDeLaJornadaLaboral() {	
 		int horasTotales = 10;
-		sutGestor.generarEstacionamientoPuntual(patente, horasTotales);
+		sutGestor.generarEstacionamientoPuntual(patente, coordenadaEstacionamiento, horasTotales);
 		
 		verify(semEstacionamientoMock).registrarEstacionamiento(any(Estacionamiento.class));
 		assertEquals(finJornada, sutGestor.getHoraFinal());
@@ -120,11 +122,11 @@ class GestorSemTest {
 		
 		when(celularMock.consultarSaldo(nroCelular)).thenReturn(200.0d);
 		
-	    sutGestor.iniciarEstacionamiento(patente,nroCelular);
+	    sutGestor.iniciarEstacionamiento(patente,nroCelular, coordenadaEstacionamiento);
 	    
 		verify(semEstacionamientoMock).registrarEstacionamiento(any(Estacionamiento.class));
 		
-		assertTrue(sutGestor.iniciarEstacionamiento(patente,nroCelular) instanceof NotificacionInicioDeEstacionamiento);
+		assertTrue(sutGestor.iniciarEstacionamiento(patente,nroCelular, coordenadaEstacionamiento) instanceof NotificacionInicioDeEstacionamiento);
 		
 	}
 
@@ -133,11 +135,11 @@ class GestorSemTest {
 		
 		when(celularMock.consultarSaldo(nroCelular)).thenReturn(0d);
 		
-	    sutGestor.iniciarEstacionamiento(patente,nroCelular);
+	    sutGestor.iniciarEstacionamiento(patente,nroCelular, coordenadaEstacionamiento);
 	    
 		verify(semEstacionamientoMock, never()).registrarEstacionamiento(any(Estacionamiento.class));
 		
-		assertTrue(sutGestor.iniciarEstacionamiento(patente,nroCelular) instanceof NotificacionError);
+		assertTrue(sutGestor.iniciarEstacionamiento(patente,nroCelular, coordenadaEstacionamiento) instanceof NotificacionError);
 		
 	}
 	

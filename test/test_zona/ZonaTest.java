@@ -46,6 +46,8 @@ class ZonaTest {
 	
 	PuntoDeVenta punto1;
 	
+	int coordenadaEstacionamiento;
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		zonaCentro = new Zona();
@@ -69,9 +71,10 @@ class ZonaTest {
 		coordenadaPV = 504;
 		
 		//Setup estacionamientos
-		estacionamiento1 = new EstacionamientoCompraApp(patente1, celular1, horaFin);
-		estacionamiento2 = new EstacionamientoCompraApp(patente2, celular2, horaFin);
-		estacionamiento3 = new EstacionamientoCompraApp(patente3, celular3, horaFin);
+		coordenadaEstacionamiento = 7;
+		estacionamiento1 = new EstacionamientoCompraApp(patente1, celular1,coordenadaEstacionamiento, horaFin);
+		estacionamiento2 = new EstacionamientoCompraApp(patente2, celular2,coordenadaEstacionamiento, horaFin);
+		estacionamiento3 = new EstacionamientoCompraApp(patente3, celular3,coordenadaEstacionamiento, horaFin);
 		
 		//Setup puntos geograficos
 		puntosGeograficos = new ArrayList<>();

@@ -19,7 +19,8 @@ class EstacionamientoCompraPuntualTest {
 		LocalTime horaFinal = LocalTime.of(20, 00);
 		String patente = "VAS930";
 		int cantidadHoras = 2;
-		sut = new EstacionamientoCompraPuntual(patente, cantidadHoras, horaFinal);
+		int coordenada = 5;
+		sut = new EstacionamientoCompraPuntual(patente, coordenada, cantidadHoras, horaFinal);
 		
 	}
 

@@ -19,7 +19,8 @@ class EstacionamientoAppTest {
 		horaMaxima = LocalTime.of(18, 00);
 		String patente = "NPM239";
 		int numeroCelular = 111872727;
-		sut = new EstacionamientoCompraApp(patente, numeroCelular, horaMaxima);
+		int coordenada = 5;
+		sut = new EstacionamientoCompraApp(patente, numeroCelular,coordenada, horaMaxima);
 	}
 
 	@Test

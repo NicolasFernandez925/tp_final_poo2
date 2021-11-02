@@ -19,11 +19,13 @@ class ModoAutomaticoTest {
 	ModoAutomatico modoAutomaticoSut;
 	String patente;
 	int nroCelular;
-
+	int coordenada;
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		patente = "VAS930";
 		nroCelular = 1112233;
+		coordenada = 4;
 		gestorMock = mock(GestorSem.class);
 		appMock = mock(AppCelularSem.class);
 		modoAutomaticoSut = new ModoAutomatico();
@@ -32,8 +34,9 @@ class ModoAutomaticoTest {
 	@Test
 	void testElUsuarioEjecutaElModoAutomaticoEIniciaLaAlertaDeInicioDeEstacionamiento() {
 		when(appMock.getNroPatente()).thenReturn(patente);
+		when(appMock.getCoordenadaGPS()).thenReturn(coordenada);
 		modoAutomaticoSut.alertaInicioDeEstacionamiento(gestorMock,appMock,nroCelular);
-		verify(gestorMock).iniciarEstacionamiento(patente,nroCelular);
+		verify(gestorMock).iniciarEstacionamiento(patente,nroCelular, coordenada);
 	}
 	
 	@Test
