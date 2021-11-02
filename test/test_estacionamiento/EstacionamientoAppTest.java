@@ -20,7 +20,7 @@ class EstacionamientoAppTest {
 		String patente = "NPM239";
 		int numeroCelular = 111872727;
 		int coordenada = 5;
-		sut = new EstacionamientoCompraApp(patente, numeroCelular,coordenada, horaMaxima);
+		sut = new EstacionamientoCompraApp(patente, horaMaxima,coordenada, numeroCelular);
 	}
 
 	@Test

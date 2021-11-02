@@ -1,6 +1,7 @@
 package test_venta;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -8,7 +9,11 @@ import java.time.LocalTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import sem.GestorSem;
+import sem.IGestorSem;
 import sem_PuntoDeVenta.PuntoDeVenta;
+import sem_celular.ISemCelular;
+import sem_celular.SemCelular;
 import sem_venta.Numerador;
 import sem_venta.VentaPuntual;
 
@@ -29,6 +34,9 @@ class VentaPuntualTest {
 	
 	VentaPuntual vPuntual;
 
+	ISemCelular celular;
+	IGestorSem gestor;
+	
 	@BeforeEach
 	void setUp() throws Exception{
 		idPV = 123455;
@@ -37,7 +45,11 @@ class VentaPuntualTest {
 		hora = LocalTime.now();
 		fecha = LocalDate.now();
 
-		pv = new PuntoDeVenta(idPV, coordenadaPV);
+		
+		gestor = mock(GestorSem.class);
+		celular = mock(SemCelular.class);
+		
+		pv = new PuntoDeVenta(idPV, coordenadaPV, gestor, celular);
 		patente = "las123";
 		horasCompradas = 4;
 		
