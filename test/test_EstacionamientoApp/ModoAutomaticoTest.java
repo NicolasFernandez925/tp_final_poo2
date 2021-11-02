@@ -52,7 +52,9 @@ class ModoAutomaticoTest {
 	
 	@Test
 	void testElUsuarioEjecutaLaFinalizacionDelEstacionamientoEstandoEnModoAutomatico() {
-		assertTrue(modoAutomaticoSut.iniciarEstacionamiento(patente,gestorMock,appMock,nroCelular) instanceof NotificacionError);
+		assertTrue(modoAutomaticoSut.finalizarEstacionamiento(gestorMock,nroCelular) instanceof NotificacionError);
 	}
+	
+	
 
 }

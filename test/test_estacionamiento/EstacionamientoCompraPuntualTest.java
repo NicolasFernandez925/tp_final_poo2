@@ -12,14 +12,18 @@ import sem_estacionamiento.EstacionamientoCompraPuntual;
 class EstacionamientoCompraPuntualTest {
 
 	EstacionamientoCompraPuntual sut;
-
+	LocalTime horaFinal;
+	String patente;
+	int cantidadHoras;
+	int coordenada;
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		
-		LocalTime horaFinal = LocalTime.of(20, 00);
-		String patente = "VAS930";
-		int cantidadHoras = 2;
-		int coordenada = 5;
+		horaFinal = LocalTime.of(20, 00);
+		patente = "VAS930";
+		cantidadHoras = 2;
+		coordenada = 5;
 		sut = new EstacionamientoCompraPuntual(patente, coordenada, cantidadHoras, horaFinal);
 		
 	}
@@ -46,6 +50,8 @@ class EstacionamientoCompraPuntualTest {
 		assertEquals(horaFin, sut.getHoraDeFinalizacion());
 	}
 	
+	
+	// Este test puede fallar, ya que la hora de finalizacion tiene que ser menor a la hora actual
 	@Test
 	void testEsEstacionamientoPuntualVigente() {
 		assertTrue(sut.estacionamientoVigente());
@@ -59,6 +65,18 @@ class EstacionamientoCompraPuntualTest {
 		sut.setHoraDeFinalizacion(horaFinal);
 		assertFalse(sut.estacionamientoVigente());
 	}
+	
+	@Test
+	void testEsEstablecerHoraFinEstacionamiento() {
+		sut.establecerHoraFinEstacionamiento(horaFinal);
+		assertEquals(sut.getHoraDeFinalizacion(), horaFinal);
+	}
+	
+	@Test
+	void testNoSonNumerosIgualesPorqueEstacionamientoPuntualNoTiene() {
+		assertFalse(sut.sonNumerosIguales(121212));
+	}
+
 
 
 }

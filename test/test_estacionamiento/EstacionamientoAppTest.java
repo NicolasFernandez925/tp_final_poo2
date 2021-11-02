@@ -13,14 +13,49 @@ class EstacionamientoAppTest {
 	
 	EstacionamientoCompraApp sut;
 	LocalTime horaMaxima;
+	int numeroCelular;
+	int coordenada;
+	String patente;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		horaMaxima = LocalTime.of(18, 00);
-		String patente = "NPM239";
-		int numeroCelular = 111872727;
-		int coordenada = 5;
-		sut = new EstacionamientoCompraApp(patente, numeroCelular,coordenada, horaMaxima);
+		patente = "NPM239";
+		numeroCelular = 111872727;
+		coordenada = 5;
+		sut = new EstacionamientoCompraApp(patente,coordenada,numeroCelular, horaMaxima);
+	}
+	
+	@Test
+	void testGettersAndSetters() {
+		
+		//Setters
+		sut.setEstaVigente(true);
+		sut.setHoraDeFinalizacion(horaMaxima);
+		sut.setHoraDeInicio(LocalTime.now());
+		sut.setNumeroDeCelular(numeroCelular);
+		sut.setPatente(patente);
+		
+		//Getters
+		assertEquals(sut.getEstaVigente(), true);
+		assertEquals(sut.getHoraDeFinalizacion(), horaMaxima);
+		assertEquals(sut.getNumeroDeCelular(), numeroCelular);
+		assertEquals(sut.getPuntoGeografico(), coordenada);
+		assertEquals(sut.getPatente(), patente);
+		assertEquals(sut.getHoraDeInicio().withNano(0), LocalTime.now().withNano(0));
+		
+		
+	}
+	
+	@Test
+	void testSonNumerosDeCelularesIguals() {
+		assertTrue(sut.sonNumerosIguales(numeroCelular));
+	}
+	
+	@Test
+	void testEstablecerHoraDeFinDeEstacionamiento() {
+		sut.establecerHoraFinEstacionamiento(horaMaxima);
+		assertEquals(sut.getHoraDeFinalizacion(), horaMaxima);
 	}
 
 	@Test
@@ -41,10 +76,19 @@ class EstacionamientoAppTest {
 		sut.finalizar(horafin);
 		assertEquals(horafin, sut.getHoraDeFinalizacion());
 	}
-	
+
 	@Test
 	void testHorarioMaximoAntesDeFinalizarElEstacionamiento() {
 		assertEquals(horaMaxima, sut.getHoraDeFinalizacion());
 	}
+	
+	@Test
+	void testFinalizarEstacionamiento() {
+		assertEquals(horaMaxima, sut.getHoraDeFinalizacion());
+	}
+	
+	
+
+
 
 }

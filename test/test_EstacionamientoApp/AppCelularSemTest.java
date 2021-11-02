@@ -19,23 +19,20 @@ class AppCelularSemTest {
 	GestorSem gestorMock;
 	EstadoApp estadoAppMock;
 	ModoApp modoAppMock;
-	//ISemCelular celularMock;
 	
 	String patente;
-	//double saldoDisponible;
 	int nroCelular;
 	int coordenadaGPS;
 
 	@BeforeEach
 	void setUp() throws Exception {
+		
 		patente = "VAS930";
 		coordenadaGPS = 1822717272;
-		//saldoDisponible = 200.0;
 		nroCelular = 11267364;
 		gestorMock = mock(GestorSem.class);
 		modoAppMock = mock(ModoApp.class);
 		estadoAppMock = mock(EstadoApp.class);
-		//celularMock = mock(ISemCelular.class);
 		
 		
 		sutApp = new AppCelularSem(nroCelular,patente,gestorMock, estadoAppMock, modoAppMock);
@@ -44,12 +41,21 @@ class AppCelularSemTest {
 	
 	@Test
 	void testConstructor() {	
+		// Method getters
 		assertTrue(sutApp.getNroPatente() == patente);
 		assertTrue(sutApp.getNroCelular() == nroCelular);
+		assertTrue(sutApp.getCoordenadaGPS() == coordenadaGPS);
 		assertTrue(sutApp.getNroPatente() == patente);
 		assertTrue(sutApp.getEstadoMovimiento() == estadoAppMock);
 		assertTrue(sutApp.getModo() == modoAppMock);
 		assertTrue(sutApp.getGestor() == gestorMock);
+		
+		// Method Setters
+		sutApp.setCoordenadaGPS(coordenadaGPS);
+		sutApp.setModo(modoAppMock);
+		sutApp.setNroPatente(patente);
+		sutApp.setNroCelular(nroCelular);
+		sutApp.setEstadoMovimiento(any(EstadoApp.class));
 	}
 
 	@Test
@@ -68,7 +74,6 @@ class AppCelularSemTest {
 	
 	@Test
 	void testDeIniciarEstacionamientoDeFormaManual() {	
-		//sutApp.setSaldoDisponible(saldoDisponible);
 		sutApp.setNroCelular(nroCelular);
 		sutApp.iniciarEstacionamiento(patente);	
 		verify(modoAppMock).iniciarEstacionamiento(patente, gestorMock, sutApp,nroCelular);
@@ -85,9 +90,6 @@ class AppCelularSemTest {
 	
 	@Test 
 	void testAlComenzarACaminarConEstacionamientoNoVigenteYDentroDeLaZonaConCoordenadaSeAlertaElInicioDelEstacionamiento() {
-		
-		//sutApp.setSaldoDisponible(saldoDisponible);
-		//sutApp.setNroCelular(nroCelular);
 		when(gestorMock.tieneEstacionamientoVigente(patente)).thenReturn(false);
 		when(gestorMock.estaDentroDeUnaZonaConLaCoordenada(coordenadaGPS)).thenReturn(true);
 				
@@ -151,6 +153,13 @@ class AppCelularSemTest {
 		sutApp.comenzoAManejar();
 
 		verify(modoAppMock).alertaDeFinDeEstacionamiento(gestorMock,nroCelular);
+	}
+	
+	@Test 
+	void testConsularSaldoALaApp()  {
+		
+		sutApp.consultarSaldo();
+		verify(gestorMock).consularSaldo(nroCelular);
 	}
 
 }

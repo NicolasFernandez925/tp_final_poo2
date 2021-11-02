@@ -20,10 +20,6 @@ public class EstacionamientoCompraPuntual extends Estacionamiento {
 		return cantidadDeHoras;
 	}
 	
-	public void setCantidadDeHoras(int cantidadDeHoras) {
-		this.cantidadDeHoras = cantidadDeHoras;
-	}
-	
 	public void establecerHoraFinEstacionamiento(LocalTime horaFin) {
 		this.setHoraDeFinalizacion(horaFin);
 	}

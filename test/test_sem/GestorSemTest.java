@@ -63,7 +63,8 @@ class GestorSemTest {
 		assertEquals(sutGestor.getFinDeJornada(), finJornada);
 		assertEquals(sutGestor.getInicioDeJornada(), inicioJornada);
 	}
-
+	//este test puede fallar de acuerdo al horario laboral (20.00)
+	
 	@Test
 	void testGenerarEstacionamientoPuntualDentroDeJornadaLaboral() {	
 		int horasTotales = 1;
@@ -78,7 +79,7 @@ class GestorSemTest {
 	
 	@Test
 	void testErrorAlGenerarEstacionamientoPuntualFueraDeLaJornadaLaboral() {	
-		int horasTotales = 15;
+		int horasTotales = 10;
 		sutGestor.generarEstacionamientoPuntual(patente, coordenadaEstacionamiento, horasTotales);
 		
 		verify(semEstacionamientoMock).registrarEstacionamiento(any(Estacionamiento.class));
