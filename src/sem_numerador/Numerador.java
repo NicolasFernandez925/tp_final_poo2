@@ -1,4 +1,4 @@
-package sem_venta;
+package sem_numerador;
 
 
 public class Numerador implements INumerador{

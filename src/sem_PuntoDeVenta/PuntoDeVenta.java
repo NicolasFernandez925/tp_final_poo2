@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import sem.GestorSem;
 import sem.IGestorSem;
 import sem_celular.ISemCelular;
-import sem_venta.Numerador;
+import sem_numerador.Numerador;
 import sem_venta.Venta;
 import sem_venta.VentaPuntual;
 import sem_venta.VentaRecarga;
@@ -30,8 +30,6 @@ public class PuntoDeVenta implements ISEMPuntoDeVenta{
 
 	@Override
 	public void venderHoras(int horas, int puntoGeografico, String nroPatente) {
-		// TODO Auto-generated method stub
-		//GestorSEM Generar estacionamiento puntual
 		this.gestor.getGestorSem().generarEstacionamientoPuntual(nroPatente, puntoGeografico, horas);
 		Venta venta = new VentaPuntual(horas, nroPatente, this, this.asignarSiguienteNroDeControl());
 		this.registrarVenta(venta);
@@ -40,7 +38,6 @@ public class PuntoDeVenta implements ISEMPuntoDeVenta{
 
 	@Override
 	public void hacerRecarga(int monto, int nroCelular) {
-		//TODO: llamar al celular para recargar(nro, monto) y GestorSEM actualizar. Llamar a registrarVenta
 		this.celular.recargarSaldo(monto, nroCelular); 
 		this.gestor.getGestorSem().actualizarHorarioEstacionamiento(nroCelular, monto);
 		VentaRecarga venta = new VentaRecarga(nroCelular, monto, this, this.asignarSiguienteNroDeControl());

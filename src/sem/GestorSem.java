@@ -2,17 +2,21 @@ package sem;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 import sem_celular.ISemCelular;
 import sem_estacionamiento.Estacionamiento;
 import sem_estacionamiento.EstacionamientoCompraApp;
 import sem_estacionamiento.EstacionamientoCompraPuntual;
 import sem_notificacion.INotificacion;
+import sem_notificacion.NotificacionAlertaConsultaDeSaldo;
 import sem_notificacion.NotificacionError;
 import sem_notificacion.NotificacionFinalizacionEstacionamiento;
 import sem_notificacion.NotificacionInicioDeEstacionamiento;
+import sem_observer.IObserver;
+import sem_observer.ISubject;
 
-public class GestorSem implements IGestorSem{
+public class GestorSem implements IGestorSem, ISubject{
 
 	private LocalTime inicioDeJornada;
 	private LocalTime finDeJornada;
@@ -20,6 +24,7 @@ public class GestorSem implements IGestorSem{
 	private double costoPorHora;
 	private ISemEstacionamiento semEstacionamiento;
 	private ISemCelular celular;
+	private ArrayList<IObserver> subscriptores;
 	
 	
 	public GestorSem(ISemEstacionamiento semEstacionamiento, ISemCelular celular) {
@@ -28,6 +33,7 @@ public class GestorSem implements IGestorSem{
 		this.finDeJornada = LocalTime.of(20, 00);
 		this.semEstacionamiento = semEstacionamiento;
 		this.celular = celular;
+		this.subscriptores = new ArrayList<IObserver>();
 	}
 	
 	public Boolean tieneEstacionamientoVigente(String nroPatente) {
@@ -53,8 +59,10 @@ public class GestorSem implements IGestorSem{
 		LocalTime horaActual = LocalTime.now();
 		if(celular.consultarSaldo(nroCelular) > 0) {		
 			horaMaximaDeFin = this.calcularTiempoMaximo(celular.consultarSaldo(nroCelular), LocalTime.now());		
-			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente,horaMaximaDeFin, nroCelular, puntoGeografico));	
-			return new NotificacionInicioDeEstacionamiento(horaActual, horaMaximaDeFin);
+			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente,horaMaximaDeFin, nroCelular, puntoGeografico));
+			INotificacion notificacion = new NotificacionInicioDeEstacionamiento(horaActual, horaMaximaDeFin);
+			this.notificarInicioEstacionamiento(notificacion);
+			return notificacion;
 		}
 		else {
 			return new NotificacionError("Saldo insuficiente. Estacionamiento no permitido.");
@@ -115,10 +123,12 @@ public class GestorSem implements IGestorSem{
 			Estacionamiento e = semEstacionamiento.buscarEstacionamientoVigente(nroCelular);
 			e.finalizar(horaDeFinalizacion);
 			long minutosConsumidos = this.totalMinutos(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
-			LocalTime horasConsumidas = this.tiempoTotalEnHorasConsumidas(minutosConsumidos);
+			LocalTime horasConsumidas = this.tiempoTotalEnHorasConsumidas(minutosConsumidos);	
 			double costo = this.costoEstacionamiento(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
 			celular.descontarSaldo(nroCelular, costo);
-			return new NotificacionFinalizacionEstacionamiento(horasConsumidas, e.getHoraDeInicio(), e.getHoraDeFinalizacion(), costo);
+			INotificacion notificacion = new NotificacionFinalizacionEstacionamiento(horasConsumidas, e.getHoraDeInicio(), e.getHoraDeFinalizacion(), costo);
+			this.notificarInicioEstacionamiento(notificacion);
+			return notificacion;
 		} catch (Exception e) {
 		  return new NotificacionError(e.getMessage());
 		}
@@ -157,8 +167,8 @@ public class GestorSem implements IGestorSem{
 		return this.totalMinutos(horaInicio, horaFin) * this.precioPorMinuto();
 	}
 
-	public double consularSaldo(int nroCelular) {	
-		return celular.consultarSaldo(nroCelular);
+	public INotificacion consultarSaldo(int nroCelular) {	
+		return new NotificacionAlertaConsultaDeSaldo(celular.consultarSaldo(nroCelular), nroCelular);
 	}
 
 	private LocalTime tiempoTotalEnHorasConsumidas(long minutos) {
@@ -189,4 +199,29 @@ public class GestorSem implements IGestorSem{
 	public GestorSem getGestorSem() {
 		return this;
 	}
+
+	@Override
+	public void suscribir(IObserver ob) {
+		this.subscriptores.add(ob);
+		
+	}
+
+	@Override
+	public void desuscribir(IObserver ob) {
+		this.subscriptores.remove(ob);
+		
+	}
+
+	@Override
+	public void notificarInicioEstacionamiento(INotificacion notificacionInicio) {
+		this.subscriptores.stream().forEach(ob -> ob.recibirAlertaFinEstacionamiento(notificacionInicio));;
+	}
+
+	@Override
+	public void notificarFinalizacioNEstacionamiento(INotificacion notificacionFin) {
+
+		this.subscriptores.stream().forEach(ob -> ob.recibirAlertaFinEstacionamiento(notificacionFin));;
+		
+	}
+
 }

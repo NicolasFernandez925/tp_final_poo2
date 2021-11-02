@@ -14,7 +14,7 @@ import sem.IGestorSem;
 import sem_PuntoDeVenta.PuntoDeVenta;
 import sem_celular.ISemCelular;
 import sem_celular.SemCelular;
-import sem_venta.Numerador;
+import sem_numerador.Numerador;
 import sem_venta.VentaPuntual;
 
 

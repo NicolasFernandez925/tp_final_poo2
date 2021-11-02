@@ -61,8 +61,8 @@ public class AppCelularSem implements MovementSensor {
 		return gestor.estaDentroDeUnaZonaConLaCoordenada(this.getCoordenadaGPS());
 	}
 	
-	public double consultarSaldo() {
-		return gestor.consularSaldo(this.getNroCelular());
+	public INotificacion consultarSaldo() {
+		return gestor.consultarSaldo(this.getNroCelular());
 	}
 	
 	@Override

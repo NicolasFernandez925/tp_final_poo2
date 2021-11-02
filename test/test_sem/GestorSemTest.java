@@ -16,6 +16,7 @@ import sem_estacionamiento.Estacionamiento;
 import sem_estacionamiento.EstacionamientoCompraApp;
 import sem_estacionamiento.EstacionamientoCompraPuntual;
 import sem_notificacion.INotificacion;
+import sem_notificacion.NotificacionAlertaConsultaDeSaldo;
 import sem_notificacion.NotificacionError;
 import sem_notificacion.NotificacionFinalizacionEstacionamiento;
 import sem_notificacion.NotificacionInicioDeEstacionamiento;
@@ -163,8 +164,9 @@ class GestorSemTest {
 
 	@Test
 	void testConsultarSaldo() {	
-		sutGestor.consularSaldo(nroCelular);
+		sutGestor.consultarSaldo(nroCelular);
 		verify(celularMock).consultarSaldo(nroCelular);
+		assertTrue(sutGestor.consultarSaldo(nroCelular) instanceof NotificacionAlertaConsultaDeSaldo);
 	}
 	
 	@Test
