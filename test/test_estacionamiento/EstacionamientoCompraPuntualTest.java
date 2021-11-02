@@ -20,7 +20,7 @@ class EstacionamientoCompraPuntualTest {
 		String patente = "VAS930";
 		int cantidadHoras = 2;
 		int coordenada = 5;
-		sut = new EstacionamientoCompraPuntual(patente, horaFinal, cantidadHoras, coordenada);
+		sut = new EstacionamientoCompraPuntual(patente, horaFinal, coordenada, cantidadHoras);
 		
 	}
 
