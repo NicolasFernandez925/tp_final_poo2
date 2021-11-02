@@ -19,12 +19,12 @@ class EstacionamientoCompraPuntualTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		
-		horaFinal = LocalTime.of(20, 00);
-		patente = "VAS930";
-		cantidadHoras = 2;
-		coordenada = 5;
-		sut = new EstacionamientoCompraPuntual(patente, coordenada, cantidadHoras, horaFinal);
+
+		LocalTime horaFinal = LocalTime.of(20, 00);
+		String patente = "VAS930";
+		int cantidadHoras = 2;
+		int coordenada = 5;
+		sut = new EstacionamientoCompraPuntual(patente, horaFinal, coordenada, cantidadHoras);
 		
 	}
 

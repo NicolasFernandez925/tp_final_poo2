@@ -1,7 +1,7 @@
 package test_zona;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -10,7 +10,11 @@ import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import sem.GestorSem;
+import sem.IGestorSem;
 import sem_Zona.Zona;
+import sem_celular.ISemCelular;
+import sem_celular.SemCelular;
 import sem_estacionamiento.*;
 import sem_Inspector.*;
 import sem_PuntoDeVenta.PuntoDeVenta;
@@ -47,6 +51,10 @@ class ZonaTest {
 	PuntoDeVenta punto1;
 	
 	int coordenadaEstacionamiento;
+	int coordenada;
+	
+	ISemCelular celular;
+	IGestorSem gestor;
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -72,9 +80,9 @@ class ZonaTest {
 		
 		//Setup estacionamientos
 		coordenadaEstacionamiento = 7;
-		estacionamiento1 = new EstacionamientoCompraApp(patente1, celular1,coordenadaEstacionamiento, horaFin);
-		estacionamiento2 = new EstacionamientoCompraApp(patente2, celular2,coordenadaEstacionamiento, horaFin);
-		estacionamiento3 = new EstacionamientoCompraApp(patente3, celular3,coordenadaEstacionamiento, horaFin);
+		estacionamiento1 = new EstacionamientoCompraApp(patente1, horaFin,coordenadaEstacionamiento, celular1);
+		estacionamiento2 = new EstacionamientoCompraApp(patente2, horaFin,coordenadaEstacionamiento, celular2);
+		estacionamiento3 = new EstacionamientoCompraApp(patente3, horaFin,coordenadaEstacionamiento, celular3);
 		
 		//Setup puntos geograficos
 		puntosGeograficos = new ArrayList<>();
@@ -83,8 +91,12 @@ class ZonaTest {
 		
 		inspector = new Inspector(id,nombre,dni);
 		
-		punto1 = new PuntoDeVenta(idPV, coordenadaPV);
+		gestor = mock(GestorSem.class);
+		celular = mock(SemCelular.class);
 		
+		punto1 = new PuntoDeVenta(idPV, coordenadaPV, gestor, celular);
+		
+		coordenada = 6;
 	}
 	
 	@Test
@@ -137,5 +149,10 @@ class ZonaTest {
 		assertTrue(zonaCentro.tieneEstacionamientoVigente(patente2));
 		String patente4 = "oiu543";
 		assertFalse(zonaCentro.tieneEstacionamientoVigente(patente4));
+	}
+	
+	@Test
+	void registrarPuntoGeografico() {
+		zonaCentro.registrarPuntoGeografico(coordenada);
 	}
 }

@@ -6,7 +6,7 @@ public class EstacionamientoCompraApp extends Estacionamiento {
 	private Boolean estaVigente;
 	private int numeroDeCelular;
 
-	public EstacionamientoCompraApp(String patente,int puntoGeografico, int numeroDeCelular, LocalTime horaFinal) {
+	public EstacionamientoCompraApp(String patente, LocalTime horaFinal, int puntoGeografico, int numeroDeCelular) {
 		super(patente, horaFinal, puntoGeografico);
 		this.numeroDeCelular = numeroDeCelular;
 		this.estaVigente = true;
@@ -18,15 +18,15 @@ public class EstacionamientoCompraApp extends Estacionamiento {
 		
 	}
 
-	public Boolean sonNumerosIguales(int nroCelular) {
-		return nroCelular == this.getNumeroDeCelular();
-	}
-
 	@Override
 	public void finalizar(LocalTime horaFin) {
 		this.setEstaVigente(false);
 		this.setHoraDeFinalizacion(horaFin);
 		
+	}
+	
+	public Boolean sonNumerosIguales(int nroCelular) {
+		return nroCelular == this.getNumeroDeCelular();
 	}
 	
 	public Boolean getEstaVigente() {

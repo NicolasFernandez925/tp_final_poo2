@@ -1,7 +1,11 @@
 package sem_PuntoDeVenta;
 
+
 import java.util.ArrayList;
 
+import sem.GestorSem;
+import sem.IGestorSem;
+import sem_celular.ISemCelular;
 import sem_venta.Numerador;
 import sem_venta.Venta;
 import sem_venta.VentaPuntual;
@@ -12,32 +16,39 @@ public class PuntoDeVenta implements ISEMPuntoDeVenta{
 	private int id;
 	private Numerador numerador;
 	private ArrayList<Venta> ventas; 
+	private IGestorSem gestor;
+	private ISemCelular celular;
 
 	
-	public PuntoDeVenta(int id, int coordenada) {
+	public PuntoDeVenta(int id, int coordenada, IGestorSem gestor, ISemCelular celular) {
 		this.id = id;
 		this.coordenada = coordenada;
 		this.numerador = new Numerador();
+		this.gestor = gestor;
+		this.celular = celular;
 	}
 
 	@Override
-	public void venderHoras(int horas) {
+	public void venderHoras(int horas, int puntoGeografico, String nroPatente) {
 		// TODO Auto-generated method stub
-		//GestorSEM Generar estacionamiento pUtual
+		//GestorSEM Generar estacionamiento puntual
+		this.gestor.getGestorSem().generarEstacionamientoPuntual(nroPatente, puntoGeografico, horas);
+		Venta venta = new VentaPuntual(horas, nroPatente, this, this.asignarSiguienteNroDeControl());
+		this.registrarVenta(venta);
 		
 	}
 
 	@Override
-	public void hacerRecarga(int nroCelular, int monto) {
+	public void hacerRecarga(int monto, int nroCelular) {
 		//TODO: llamar al celular para recargar(nro, monto) y GestorSEM actualizar. Llamar a registrarVenta
+		this.celular.recargarSaldo(monto, nroCelular); 
+		this.gestor.getGestorSem().actualizarHorarioEstacionamiento(nroCelular, monto);
 		VentaRecarga venta = new VentaRecarga(nroCelular, monto, this, this.asignarSiguienteNroDeControl());
-
+		this.registrarVenta(venta);
 	}
 
 	@Override
 	public void registrarVenta(Venta venta) {
-		// TODO Auto-generated method stub
-		//Agregar venta a la lista.
 		this.ventas.add(venta);
 		
 	}
@@ -47,7 +58,7 @@ public class PuntoDeVenta implements ISEMPuntoDeVenta{
 	}
 
 	public int asignarSiguienteNroDeControl() {
-		return numerador.siguienteNroDeControl();
+		return numerador.siguienteNumero();
 	}
 
 }

@@ -23,7 +23,7 @@ class EstacionamientoAppTest {
 		patente = "NPM239";
 		numeroCelular = 111872727;
 		coordenada = 5;
-		sut = new EstacionamientoCompraApp(patente,coordenada,numeroCelular, horaMaxima);
+		sut = new EstacionamientoCompraApp(patente,horaMaxima,coordenada,numeroCelular);
 	}
 	
 	@Test
