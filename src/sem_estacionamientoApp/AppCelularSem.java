@@ -26,29 +26,29 @@ public class AppCelularSem implements MovementSensor {
 	 * de forma manual 
 	 * */
 	
-	public INotificacion iniciarEstacionamiento(String nroPatente) {
-		return modo.iniciarEstacionamiento(nroPatente, this.getGestor(), this, this.getNroCelular());
+	public INotificacion iniciarEstacionamiento(String nroPatente, int nroCelular, int puntoGeografico) {
+		return gestor.iniciarEstacionamiento(nroPatente, nroCelular, puntoGeografico);
 	}
 	
-	public INotificacion finalizarEstacionamiento()  {
-		return modo.finalizarEstacionamiento(this.getGestor(), this.getNroCelular());
+	public INotificacion finalizarEstacionamiento(int nroCelular)  {
+		return gestor.finalizarEstacionamiento(nroCelular);
 	}
 	
 	/**
 	 * Metodos que inician el estacionamiento y finaliza el estacionamiento
-	 * con la deteccion de movimiento 
+	 * con la deteccion de movimiento ( Modo manual, Modo Automático )
 	 * */
 	
 	public void comenzoACaminar(){	
 		if(!gestor.tieneEstacionamientoVigente(this.getNroPatente()) && this.coordenadaGPSDentroDeUnaZona()) {
-			this.getModo().alertaInicioDeEstacionamiento(this.getGestor(), this, this.getNroCelular());
+			this.getModo().iniciarEstacionamiento(this);
 		}
 		
 	}
 	
 	public void comenzoAManejar(){
 		if(gestor.tieneEstacionamientoVigente(this.getNroPatente()) && this.estaEnElMismoPuntoGeograficoDeInicioEstacionamiento()) {
-			this.getModo().alertaDeFinDeEstacionamiento(this.getGestor(), this.getNroCelular());
+			this.getModo().finalizarEstacionamiento(this);
 		}
 	}
 

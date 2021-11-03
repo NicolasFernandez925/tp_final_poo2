@@ -26,7 +26,6 @@ class ModoManualTest {
 		patente = "VAS930";
 		nroCelular = 128281281;
 		coordenada = 4;
-		//saldoDisponible = 200.0;
 		gestorMock = mock(GestorSem.class);
 		appMock = mock(AppCelularSem.class);
 		modoManualSut = new ModoManual();
@@ -34,26 +33,12 @@ class ModoManualTest {
 	
 	@Test
 	void testElUsuarioEjecutaElInicioDelEstacionamientoEnModoManualYValidaAlertaDeInicio() {
-		assertTrue(modoManualSut.alertaInicioDeEstacionamiento(gestorMock,appMock,nroCelular) instanceof NotificacionAlertaDeEstacionamiento);
+		assertTrue(modoManualSut.iniciarEstacionamiento(appMock) instanceof NotificacionAlertaDeEstacionamiento);
 	}
 	
 	@Test
 	void testElUsuarioEjecutaLaFinalizacionDelEstacionamientoEnModoManualYValidaAlertaDeFinalizacion() {
-		assertTrue(modoManualSut.alertaDeFinDeEstacionamiento(gestorMock,nroCelular) instanceof NotificacionAlertaDeEstacionamiento);
+		assertTrue(modoManualSut.finalizarEstacionamiento(appMock) instanceof NotificacionAlertaDeEstacionamiento);
 	}
 	
-	@Test
-	void testElUsuarioEjecutaEnModoManualElInicioDeEstacionamiento() {
-		when(appMock.getNroPatente()).thenReturn(patente);
-		when(appMock.getCoordenadaGPS()).thenReturn(coordenada);
-		modoManualSut.iniciarEstacionamiento(patente,gestorMock,appMock,nroCelular);
-		verify(gestorMock).iniciarEstacionamiento(patente,nroCelular, coordenada);
-	}
-	
-	@Test
-	void testElUsuarioEjecutaEnModoManualLaFinalizacionDelEstacionamiento() throws Exception {
-		modoManualSut.finalizarEstacionamiento(gestorMock,nroCelular);
-		verify(gestorMock).finalizarEstacionamiento(nroCelular);
-	}
-
 }

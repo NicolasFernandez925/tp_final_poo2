@@ -38,7 +38,7 @@ class AppCelularSemTest {
 		sutApp = new AppCelularSem(nroCelular,patente,gestorMock, estadoAppMock, modoAppMock);
 		sutApp.setCoordenadaGPS(coordenadaGPS);
 	}
-	
+
 	@Test
 	void testConstructor() {	
 		// Method getters
@@ -75,14 +75,14 @@ class AppCelularSemTest {
 	@Test
 	void testDeIniciarEstacionamientoDeFormaManual() {	
 		sutApp.setNroCelular(nroCelular);
-		sutApp.iniciarEstacionamiento(patente);	
-		verify(modoAppMock).iniciarEstacionamiento(patente, gestorMock, sutApp,nroCelular);
+		sutApp.iniciarEstacionamiento(patente, nroCelular, coordenadaGPS);	
+		verify(gestorMock).iniciarEstacionamiento(patente, nroCelular, coordenadaGPS);
 	}
 	
 	@Test
 	void testDeFinalizarEstacionamientoDeFormaManual() throws Exception {	
-		sutApp.finalizarEstacionamiento();	
-		verify(modoAppMock).finalizarEstacionamiento(gestorMock,nroCelular);
+		sutApp.finalizarEstacionamiento(nroCelular);	
+		verify(gestorMock).finalizarEstacionamiento(nroCelular);
 	}
 	
 	
@@ -95,7 +95,7 @@ class AppCelularSemTest {
 				
 		sutApp.comenzoACaminar();
 
-		verify(modoAppMock).alertaInicioDeEstacionamiento(gestorMock, sutApp, nroCelular);
+		verify(modoAppMock).iniciarEstacionamiento(sutApp);
 	}
 	
 	@Test 
@@ -152,7 +152,7 @@ class AppCelularSemTest {
 		
 		sutApp.comenzoAManejar();
 
-		verify(modoAppMock).alertaDeFinDeEstacionamiento(gestorMock,nroCelular);
+		verify(modoAppMock).finalizarEstacionamiento(sutApp);
 	}
 	
 	@Test 

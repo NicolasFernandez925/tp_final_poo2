@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import sem.GestorSem;
 import sem_estacionamientoApp.AppCelularSem;
 import sem_estacionamientoApp.ModoAutomatico;
-import sem_notificacion.NotificacionError;
 
 
 class ModoAutomaticoTest {
@@ -32,29 +31,18 @@ class ModoAutomaticoTest {
 	}
 
 	@Test
-	void testElUsuarioEjecutaElModoAutomaticoEIniciaLaAlertaDeInicioDeEstacionamiento() {
+	void testElUsuarioEjecutaElModoAutomaticoEIniciarEstacionamiento() {
 		when(appMock.getNroPatente()).thenReturn(patente);
+		when(appMock.getNroCelular()).thenReturn(nroCelular);
 		when(appMock.getCoordenadaGPS()).thenReturn(coordenada);
-		modoAutomaticoSut.alertaInicioDeEstacionamiento(gestorMock,appMock,nroCelular);
-		verify(gestorMock).iniciarEstacionamiento(patente,nroCelular, coordenada);
+		modoAutomaticoSut.iniciarEstacionamiento(appMock);
+		verify(appMock).iniciarEstacionamiento(patente,nroCelular, coordenada);
 	}
 	
 	@Test
-	void testElUsuarioEjecutaElModoAutomaticoEIniciaLaAlertaDeFinalizacionEstacionamiento() throws Exception {
-		modoAutomaticoSut.alertaDeFinDeEstacionamiento(gestorMock,nroCelular);
-		verify(gestorMock).finalizarEstacionamiento(nroCelular);	
+	void testElUsuarioEjecutaElModoAutomaticoElFinalizarEstacionamiento() {
+		when(appMock.getNroCelular()).thenReturn(nroCelular);		
+		modoAutomaticoSut.finalizarEstacionamiento(appMock);
+		verify(appMock).finalizarEstacionamiento(nroCelular);
 	}
-	
-	@Test
-	void testElUsuarioEjecutaElIniciarEstacionamientoEstandoEnModoAutomatico() {
-		assertTrue(modoAutomaticoSut.iniciarEstacionamiento(patente,gestorMock,appMock,nroCelular) instanceof NotificacionError);
-	}
-	
-	@Test
-	void testElUsuarioEjecutaLaFinalizacionDelEstacionamientoEstandoEnModoAutomatico() {
-		assertTrue(modoAutomaticoSut.finalizarEstacionamiento(gestorMock,nroCelular) instanceof NotificacionError);
-	}
-	
-	
-
 }

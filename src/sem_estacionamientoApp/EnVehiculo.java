@@ -4,10 +4,7 @@ package sem_estacionamientoApp;
 public class EnVehiculo implements EstadoApp {
 
 	@Override
-	public void manejando(AppCelularSem app) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void manejando(AppCelularSem app) {}
 
 	@Override
 	public void caminando(AppCelularSem app) {
