@@ -1,7 +1,6 @@
-package sem_observer;
+package sem_alarmas;
 
 import sem_notificacion.INotificacion;
-import sem_alarmas.IObserver;
 
 public interface ISubject {
 	void suscribir(IObserver ob);
