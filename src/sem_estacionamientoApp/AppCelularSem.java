@@ -20,7 +20,6 @@ public class AppCelularSem implements MovementSensor {
 		this.estadoMovimiento = estado;
 		this.modo = modo;
 	}
-
 	/**
 	 * Metodos que inician el estacionamiento y finaliza el estcionamiento
 	 * de forma manual 
@@ -32,6 +31,10 @@ public class AppCelularSem implements MovementSensor {
 	
 	public INotificacion finalizarEstacionamiento(int nroCelular)  {
 		return gestor.finalizarEstacionamiento(nroCelular);
+	}
+	
+	public void informar(String msg)  {
+		System.out.println(msg);
 	}
 	
 	/**
@@ -60,7 +63,7 @@ public class AppCelularSem implements MovementSensor {
 		return gestor.estaDentroDeUnaZonaConLaCoordenada(this.getCoordenadaGPS());
 	}
 	
-	public INotificacion consultarSaldo() {
+	public INotificacion consultarSaldo() {	
 		return gestor.consultarSaldo(this.getNroCelular());
 	}
 	

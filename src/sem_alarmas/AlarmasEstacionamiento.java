@@ -31,9 +31,9 @@ public class AlarmasEstacionamiento implements ISubject {
 		
 	}
 
-	@Override
+	/*@Override
 	public void notiticacionRecargaSaldo(INotificacion notificacion) {
 		this.suscriptores.stream().forEach(s -> s.recibirAlertaRecarga(notificacion));
 		
-	}
+	}*/
 }

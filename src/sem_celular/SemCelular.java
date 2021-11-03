@@ -19,6 +19,7 @@ public class SemCelular implements ISemCelular {
 	 * */
 	
 	public void recargarSaldo(double creditoARecargar, int nroCelular) {
+		
 		if(this.elCelularYaEstaRegistrado(nroCelular)) {
 			this.recargar(creditoARecargar, nroCelular);
 		}
@@ -26,6 +27,7 @@ public class SemCelular implements ISemCelular {
 			this.registrarNumero(nroCelular);
 			this.recargar(creditoARecargar, nroCelular);
 		}
+		//alarmaEstacionamiento.notiticacionRecargaSaldo();
 	
 	}
 	

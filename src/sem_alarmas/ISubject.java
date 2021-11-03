@@ -7,5 +7,5 @@ public interface ISubject {
 	void desuscribir(IObserver ob);
 	void notificarInicioEstacionamiento(INotificacion notificacion);
 	void notificarFinalizacioNEstacionamiento(INotificacion notificacion);
-	void notiticacionRecargaSaldo(INotificacion notificacion);
+	//void notiticacionRecargaSaldo(INotificacion notificacion);
 }

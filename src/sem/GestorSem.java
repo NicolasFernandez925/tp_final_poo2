@@ -13,8 +13,8 @@ import sem_notificacion.NotificacionAlertaConsultaDeSaldo;
 import sem_notificacion.NotificacionError;
 import sem_notificacion.NotificacionFinalizacionEstacionamiento;
 import sem_notificacion.NotificacionInicioDeEstacionamiento;
-import sem_observer.IObserver;
-import sem_observer.ISubject;
+import sem_alarmas.IObserver;
+import sem_alarmas.ISubject;
 
 public class GestorSem implements IGestorSem, ISubject{
 
@@ -35,7 +35,7 @@ public class GestorSem implements IGestorSem, ISubject{
 		this.celular = celular;
 		this.subscriptores = new ArrayList<IObserver>();
 	}
-	
+
 	public Boolean tieneEstacionamientoVigente(String nroPatente) {
 		return semEstacionamiento.tieneEstacionamientoVigente(nroPatente);
 	}
