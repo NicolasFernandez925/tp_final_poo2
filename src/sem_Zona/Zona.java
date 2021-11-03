@@ -62,7 +62,7 @@ public class Zona {
 	public ISEMPuntoDeVenta getPuntoDeVentaRandom() {
 		//precondicion: tiene que haber algun puto de venta.
 		Random random = new Random();
-		int randomSelector = random.nextInt(this.puntosDeVenta.size());
+		int randomSelector = random.nextInt(this.puntosDeVenta.size() - 1);
 		return this.puntosDeVenta.get(randomSelector);
 	}
 	
@@ -75,7 +75,14 @@ public class Zona {
 	}
 
 	public boolean tieneAsignadoElInspector(int idInspector) {
-		return idInspector == inspector.getId();
+		try {
+			return idInspector == inspector.getId();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Debe asignar un inspector al menos");
+			return false;
+		}
+		
 	}
 	
 	public boolean coincidePuntoGeografico(int coordenada, String patente) {

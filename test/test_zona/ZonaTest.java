@@ -152,7 +152,41 @@ class ZonaTest {
 	}
 	
 	@Test
-	void registrarPuntoGeografico() {
+	void testRegistrarPuntoGeografico() {
+		//Revisar este test
 		zonaCentro.registrarPuntoGeografico(coordenada);
+	}
+	
+	@Test
+	void testGetEstacionamientos() {
+		zonaCentro.registrarEstacionamiento(estacionamiento1);
+		zonaCentro.registrarEstacionamiento(estacionamiento2);
+		zonaCentro.registrarEstacionamiento(estacionamiento3);
+		
+		ArrayList<Estacionamiento> list = new ArrayList<Estacionamiento>();
+		list.add(estacionamiento1);
+		list.add(estacionamiento2);
+		list.add(estacionamiento3);
+		assertTrue(list.equals(zonaCentro.getEstacionamientos()));
+	}
+	
+	@Test
+	void testGetPuntoDeVentaRandom() {
+		zonaCentro.registrarPuntoDeVenta(punto1);
+		zonaCentro.registrarPuntoDeVenta(punto1);
+		assertNotNull(zonaCentro.getPuntoDeVentaRandom());
+	}
+	
+	@Test
+	void testTieneAsignadoELInspector() {
+	//	assertFalse(zonaCentro.tieneAsignadoElInspector(inspector.getId()));
+		zonaCentro.registrarInspector(inspector);
+		assertTrue(zonaCentro.tieneAsignadoElInspector(inspector.getId()));
+		assertFalse(zonaCentro.tieneAsignadoElInspector(2));
+	}
+	
+	@Test
+	void testTieneAsignadoInspectorError() throws Exception{
+		zonaCentro.tieneAsignadoElInspector(inspector.getId());
 	}
 }
