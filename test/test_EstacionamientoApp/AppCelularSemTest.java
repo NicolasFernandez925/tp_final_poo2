@@ -55,7 +55,7 @@ class AppCelularSemTest {
 		sutApp.setModo(modoAppMock);
 		sutApp.setNroPatente(patente);
 		sutApp.setNroCelular(nroCelular);
-		sutApp.setEstadoMovimiento(any(EstadoApp.class));
+		//sutApp.setEstadoMovimiento(any(EstadoApp.class));
 	}
 
 	@Test
@@ -159,7 +159,7 @@ class AppCelularSemTest {
 	void testConsularSaldoALaApp()  {
 		
 		sutApp.consultarSaldo();
-		verify(gestorMock).consularSaldo(nroCelular);
+		verify(gestorMock).consultarSaldo(nroCelular);
 	}
 
 }

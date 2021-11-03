@@ -87,8 +87,4 @@ class EstacionamientoAppTest {
 		assertEquals(horaMaxima, sut.getHoraDeFinalizacion());
 	}
 	
-	
-
-
-
 }
