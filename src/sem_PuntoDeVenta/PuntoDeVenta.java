@@ -3,7 +3,6 @@ package sem_PuntoDeVenta;
 
 import java.util.ArrayList;
 
-import sem.GestorSem;
 import sem.IGestorSem;
 import sem_celular.ISemCelular;
 import sem_numerador.Numerador;
@@ -13,19 +12,18 @@ import sem_venta.VentaRecarga;
 
 public class PuntoDeVenta implements ISEMPuntoDeVenta{
 	private int coordenada;
-	private int id;
 	private Numerador numerador;
 	private ArrayList<Venta> ventas; 
 	private IGestorSem gestor;
 	private ISemCelular celular;
 
 	
-	public PuntoDeVenta(int id, int coordenada, IGestorSem gestor, ISemCelular celular) {
-		this.id = id;
+	public PuntoDeVenta(int coordenada, IGestorSem gestor, ISemCelular celular) {
 		this.coordenada = coordenada;
 		this.numerador = new Numerador();
 		this.gestor = gestor;
 		this.celular = celular;
+		this.ventas = new ArrayList<Venta>();
 	}
 
 	@Override
@@ -56,6 +54,11 @@ public class PuntoDeVenta implements ISEMPuntoDeVenta{
 
 	public int asignarSiguienteNroDeControl() {
 		return numerador.siguienteNumero();
+	}
+
+	@Override
+	public ArrayList<Venta> getVentas() {
+		return this.ventas;
 	}
 
 }

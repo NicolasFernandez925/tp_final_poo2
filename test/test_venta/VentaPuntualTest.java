@@ -49,7 +49,7 @@ class VentaPuntualTest {
 		gestor = mock(IGestorSem.class);
 		celular = mock(ISemCelular.class);
 		
-		pv = new PuntoDeVenta(idPV, coordenadaPV, gestor, celular);
+		pv = new PuntoDeVenta(coordenadaPV, gestor, celular);
 		patente = "las123";
 		horasCompradas = 4;
 		

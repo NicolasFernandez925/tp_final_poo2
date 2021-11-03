@@ -46,7 +46,7 @@ class VentaRecargaTest {
 		gestor = mock(GestorSem.class);
 		celularPV = mock(SemCelular.class);
 		
-		pv = new PuntoDeVenta(idPV, coordenadaPV, gestor, celularPV);
+		pv = new PuntoDeVenta(coordenadaPV, gestor, celularPV);
 		
 		celular = 12340022;
 		monto = 1000;

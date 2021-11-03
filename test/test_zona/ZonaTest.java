@@ -94,7 +94,7 @@ class ZonaTest {
 		gestor = mock(GestorSem.class);
 		celular = mock(SemCelular.class);
 		
-		punto1 = new PuntoDeVenta(idPV, coordenadaPV, gestor, celular);
+		punto1 = new PuntoDeVenta(coordenadaPV, gestor, celular);
 		
 		coordenada = 6;
 	}
