@@ -19,6 +19,7 @@ import sem_estacionamiento.*;
 import sem_Inspector.*;
 import sem_PuntoDeVenta.PuntoDeVenta;
 
+
 class ZonaTest {
 	
 	Zona zonaCentro; 
@@ -188,5 +189,16 @@ class ZonaTest {
 	@Test
 	void testTieneAsignadoInspectorError() throws Exception{
 		zonaCentro.tieneAsignadoElInspector(inspector.getId());
+	}
+	
+	@Test 
+	void testCoincidePuntoGeografico() {
+		int coordenadaEsperada = 1;
+		estacionamiento3 = new EstacionamientoCompraApp(patente3, horaFin,coordenadaEsperada, celular3);
+		zonaCentro.registrarEstacionamiento(estacionamiento3);
+		assertEquals(estacionamiento3.getPatente(),patente3);
+		assertEquals(estacionamiento3.getPuntoGeografico(), coordenadaEsperada);
+		assertTrue(zonaCentro.coincidePuntoGeografico(coordenadaEsperada, patente3));
+		assertFalse(zonaCentro.coincidePuntoGeografico(coordenadaEsperada, patente1));
 	}
 }
