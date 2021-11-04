@@ -6,6 +6,6 @@ public interface ISubject {
 	void suscribir(IObserver ob);
 	void desuscribir(IObserver ob);
 	void notificarInicioEstacionamiento(INotificacion notificacion);
-	void notificarFinalizacioNEstacionamiento(INotificacion notificacion);
+	void notificarFinalizacionEstacionamiento(INotificacion notificacion);
 	//void notiticacionRecargaSaldo(INotificacion notificacion);
 }

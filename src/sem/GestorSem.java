@@ -2,7 +2,6 @@ package sem;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 
 import sem_celular.ISemCelular;
 import sem_estacionamiento.Estacionamiento;
@@ -13,19 +12,17 @@ import sem_notificacion.NotificacionAlertaConsultaDeSaldo;
 import sem_notificacion.NotificacionError;
 import sem_notificacion.NotificacionFinalizacionEstacionamiento;
 import sem_notificacion.NotificacionInicioDeEstacionamiento;
-import sem_alarmas.IObserver;
 import sem_alarmas.ISubject;
 
-public class GestorSem implements IGestorSem, ISubject{
+public class GestorSem implements IGestorSem{
 
 	private LocalTime inicioDeJornada;
 	private LocalTime finDeJornada;
 	private LocalTime horaFinal;
 	private double costoPorHora;
 	private ISemEstacionamiento semEstacionamiento;
+	private ISubject alarmaEstacionamiento;
 	private ISemCelular celular;
-	private ArrayList<IObserver> subscriptores;
-	
 	
 	public GestorSem(ISemEstacionamiento semEstacionamiento, ISemCelular celular) {
 		this.costoPorHora = 40;
@@ -33,7 +30,7 @@ public class GestorSem implements IGestorSem, ISubject{
 		this.finDeJornada = LocalTime.of(20, 00);
 		this.semEstacionamiento = semEstacionamiento;
 		this.celular = celular;
-		this.subscriptores = new ArrayList<IObserver>();
+		
 	}
 
 	public Boolean tieneEstacionamientoVigente(String nroPatente) {
@@ -61,7 +58,7 @@ public class GestorSem implements IGestorSem, ISubject{
 			horaMaximaDeFin = this.calcularTiempoMaximo(celular.consultarSaldo(nroCelular), LocalTime.now());		
 			this.getSemEstacionamiento().registrarEstacionamiento(new EstacionamientoCompraApp(patente,horaMaximaDeFin, nroCelular, puntoGeografico));
 			INotificacion notificacion = new NotificacionInicioDeEstacionamiento(horaActual, horaMaximaDeFin);
-			this.notificarInicioEstacionamiento(notificacion);
+			this.alarmaEstacionamiento.notificarInicioEstacionamiento(notificacion);
 			return notificacion;
 		}
 		else {
@@ -127,12 +124,11 @@ public class GestorSem implements IGestorSem, ISubject{
 			double costo = this.costoEstacionamiento(e.getHoraDeInicio(), e.getHoraDeFinalizacion());
 			celular.descontarSaldo(nroCelular, costo);
 			INotificacion notificacion = new NotificacionFinalizacionEstacionamiento(horasConsumidas, e.getHoraDeInicio(), e.getHoraDeFinalizacion(), costo);
-			this.notificarInicioEstacionamiento(notificacion);
+			this.alarmaEstacionamiento.notificarFinalizacionEstacionamiento(notificacion);
 			return notificacion;
 		} catch (Exception e) {
 		  return new NotificacionError(e.getMessage());
-		}
-		
+		}		
 	}
 	
 	/**
@@ -199,29 +195,4 @@ public class GestorSem implements IGestorSem, ISubject{
 	public GestorSem getGestorSem() {
 		return this;
 	}
-
-	@Override
-	public void suscribir(IObserver ob) {
-		this.subscriptores.add(ob);
-		
-	}
-
-	@Override
-	public void desuscribir(IObserver ob) {
-		this.subscriptores.remove(ob);
-		
-	}
-
-	@Override
-	public void notificarInicioEstacionamiento(INotificacion notificacionInicio) {
-		this.subscriptores.stream().forEach(ob -> ob.recibirAlertaFinEstacionamiento(notificacionInicio));;
-	}
-
-	@Override
-	public void notificarFinalizacioNEstacionamiento(INotificacion notificacionFin) {
-
-		this.subscriptores.stream().forEach(ob -> ob.recibirAlertaFinEstacionamiento(notificacionFin));;
-		
-	}
-
 }

@@ -110,6 +110,7 @@ public class AppCelularSem implements MovementSensor {
 	public ModoApp getModo() {
 		return modo;
 	}
+	
 
 	public void setModo(ModoApp modo) {
 		this.modo = modo;

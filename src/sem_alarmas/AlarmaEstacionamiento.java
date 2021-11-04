@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import sem_notificacion.INotificacion;
 
-public class AlarmasEstacionamiento implements ISubject {
+public class AlarmaEstacionamiento implements ISubject {
 	Set<IObserver> suscriptores = new HashSet<IObserver> ();
 
 	@Override
@@ -26,7 +26,7 @@ public class AlarmasEstacionamiento implements ISubject {
 	}
 
 	@Override
-	public void notificarFinalizacioNEstacionamiento(INotificacion notificacion) {
+	public void notificarFinalizacionEstacionamiento(INotificacion notificacion) {
 		this.suscriptores.stream().forEach(s -> s.recibirAlertaFinEstacionamiento(notificacion));
 		
 	}
