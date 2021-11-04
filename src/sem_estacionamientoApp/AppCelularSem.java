@@ -20,35 +20,38 @@ public class AppCelularSem implements MovementSensor {
 		this.estadoMovimiento = estado;
 		this.modo = modo;
 	}
-
 	/**
 	 * Metodos que inician el estacionamiento y finaliza el estcionamiento
 	 * de forma manual 
 	 * */
 	
-	public INotificacion iniciarEstacionamiento(String nroPatente) {
-		return modo.iniciarEstacionamiento(nroPatente, this.getGestor(), this, this.getNroCelular());
+	public INotificacion iniciarEstacionamiento(String nroPatente, int nroCelular, int puntoGeografico) {
+		return gestor.iniciarEstacionamiento(nroPatente, nroCelular, puntoGeografico);
 	}
 	
-	public INotificacion finalizarEstacionamiento()  {
-		return modo.finalizarEstacionamiento(this.getGestor(), this.getNroCelular());
+	public INotificacion finalizarEstacionamiento(int nroCelular)  {
+		return gestor.finalizarEstacionamiento(nroCelular);
+	}
+	
+	public void informar(String msg)  {
+		System.out.println(msg);
 	}
 	
 	/**
 	 * Metodos que inician el estacionamiento y finaliza el estacionamiento
-	 * con la deteccion de movimiento 
+	 * con la deteccion de movimiento ( Modo manual, Modo Automático )
 	 * */
 	
 	public void comenzoACaminar(){	
 		if(!gestor.tieneEstacionamientoVigente(this.getNroPatente()) && this.coordenadaGPSDentroDeUnaZona()) {
-			this.getModo().alertaInicioDeEstacionamiento(this.getGestor(), this, this.getNroCelular());
+			this.getModo().iniciarEstacionamiento(this);
 		}
 		
 	}
 	
 	public void comenzoAManejar(){
 		if(gestor.tieneEstacionamientoVigente(this.getNroPatente()) && this.estaEnElMismoPuntoGeograficoDeInicioEstacionamiento()) {
-			this.getModo().alertaDeFinDeEstacionamiento(this.getGestor(), this.getNroCelular());
+			this.getModo().finalizarEstacionamiento(this);
 		}
 	}
 
@@ -60,7 +63,7 @@ public class AppCelularSem implements MovementSensor {
 		return gestor.estaDentroDeUnaZonaConLaCoordenada(this.getCoordenadaGPS());
 	}
 	
-	public INotificacion consultarSaldo() {
+	public INotificacion consultarSaldo() {	
 		return gestor.consultarSaldo(this.getNroCelular());
 	}
 	
@@ -107,6 +110,7 @@ public class AppCelularSem implements MovementSensor {
 	public ModoApp getModo() {
 		return modo;
 	}
+	
 
 	public void setModo(ModoApp modo) {
 		this.modo = modo;

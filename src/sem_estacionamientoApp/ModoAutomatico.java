@@ -1,28 +1,21 @@
 package sem_estacionamientoApp;
 
-import sem.GestorSem;
 import sem_notificacion.INotificacion;
-import sem_notificacion.NotificacionError;
 
 public class ModoAutomatico implements ModoApp {
 
 	@Override
-	public INotificacion alertaInicioDeEstacionamiento(GestorSem gestor, AppCelularSem app,  int nroCelular) {
-		 return gestor.iniciarEstacionamiento(app.getNroPatente(), nroCelular, app.getCoordenadaGPS());
+	public INotificacion iniciarEstacionamiento(AppCelularSem app) {
+		// Aca deberia ir el msg de que se detecto el inicio de forma automatica
+		app.informar("se inicio de forma automatica el inicio del estacionamiento");
+		return app.iniciarEstacionamiento(app.getNroPatente(), app.getNroCelular(), app.getCoordenadaGPS());
 	}
 
 	@Override
-	public INotificacion alertaDeFinDeEstacionamiento(GestorSem gestor, int nroCelular) {
-		 return gestor.finalizarEstacionamiento(nroCelular);
+	public INotificacion finalizarEstacionamiento(AppCelularSem app) {
+		// Aca deberia ir el msg de que se detecto la finalizacion de forma automatica
+		app.informar("se finalizo de forma automatica el inicio del estacionamiento");
+		return app.finalizarEstacionamiento(app.getNroCelular());
 	}
-
-	@Override
-	public INotificacion iniciarEstacionamiento(String patente, GestorSem gestor, AppCelularSem app, int nroCelular) {
-		return new NotificacionError("No se puede iniciar estacionamiento de forma manual en automatico! por favor, cambiar a Modo manual");
-	}
-
-	@Override
-	public INotificacion finalizarEstacionamiento(GestorSem gestor, int nroCelular) {
-		return new NotificacionError("No se puede finalizar estacionamiento de forma manual en automatico! por favor, cambiar a Modo manual");
-	}
+	
 }
