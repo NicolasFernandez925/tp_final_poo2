@@ -32,6 +32,7 @@ public class GestorSem implements IGestorSem, ISubject{
 		this.finDeJornada = LocalTime.of(20, 00);
 		this.semEstacionamiento = semEstacionamiento;
 		this.celular = celular;
+		this.subscriptores = new ArrayList<IObserver>();
 		
 	}
 
