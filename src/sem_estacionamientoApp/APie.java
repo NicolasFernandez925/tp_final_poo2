@@ -10,6 +10,9 @@ public class APie implements EstadoApp {
 	}
 
 	@Override
-	public void caminando(AppCelularSem app) {}
+	public void caminando(AppCelularSem app) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
