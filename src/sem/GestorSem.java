@@ -109,7 +109,8 @@ public class GestorSem implements IGestorSem, ISubject{
 	}
 
 	private boolean estaDentroDeFranjaHoraria(LocalTime horaMaxima) {
-		return this.getInicioDeJornada().isBefore(horaMaxima) && this.getFinDeJornada().isAfter(horaMaxima);
+		return this.getInicioDeJornada().isBefore(horaMaxima) 
+				&& this.getFinDeJornada().isAfter(horaMaxima);
 	}
 	
 	/**
@@ -204,6 +205,10 @@ public class GestorSem implements IGestorSem, ISubject{
 		// TODO Auto-generated method stub
 		this.subscriptores.add(ob);
 		
+	}
+	
+	public ArrayList<IObserver> getObserver(){
+		return this.subscriptores;
 	}
 
 	@Override

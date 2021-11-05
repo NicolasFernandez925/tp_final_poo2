@@ -87,4 +87,17 @@ class EstacionamientoAppTest {
 		assertEquals(horaMaxima, sut.getHoraDeFinalizacion());
 	}
 	
+	@Test
+	void testSonNumerosDeCelularesIguales() {
+		assertTrue(sut.sonNumerosIguales(numeroCelular));
+	}
+	
+	@Test
+	void testNoSonNumerosCelularesIguales() {
+		int otroNumeroCelular = 222222;
+		assertFalse(sut.sonNumerosIguales(otroNumeroCelular));
+	}
+
+
+	
 }

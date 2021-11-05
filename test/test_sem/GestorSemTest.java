@@ -20,6 +20,7 @@ import sem_notificacion.NotificacionAlertaConsultaDeSaldo;
 import sem_notificacion.NotificacionError;
 import sem_notificacion.NotificacionFinalizacionEstacionamiento;
 import sem_notificacion.NotificacionInicioDeEstacionamiento;
+import sem_observer.IObserver;
 
 class GestorSemTest {
 	
@@ -29,6 +30,8 @@ class GestorSemTest {
 	EstacionamientoCompraApp estacionamientoCompraAppMock;
 	ISemCelular celularMock;
 	INotificacion notificacionMock;
+	IObserver suscriptorMock;
+	
 	String patente;
 	int nroCelular;
 	LocalTime horaActual;
@@ -44,19 +47,20 @@ class GestorSemTest {
 		finJornada = LocalTime.of(20, 00);
 		inicioJornada = LocalTime.of(07, 00);
 		horaActual = LocalTime.now();
+		
 		semEstacionamientoMock = mock(ISemEstacionamiento.class);
 		estacionamientoCompraAppMock = mock(EstacionamientoCompraApp.class);
 		estacionamientoCompraPuntualMock = mock(EstacionamientoCompraPuntual.class);
 		notificacionMock = mock(INotificacion.class);
 		celularMock = mock(ISemCelular.class);
+		suscriptorMock = mock(IObserver.class);
+		
 		sutGestor = new GestorSem(semEstacionamientoMock, celularMock);
 	}
 	
-	/**
-	 * Este test solo funciona cuando al generar la compra puntual
-	 * esta dentro de horio laboral
-	 * */
 	
+	
+
 	@Test
 	void testMetodosGettersAndSetters() {	
 		assertEquals(sutGestor.getCostoPorHora(), 40);
@@ -80,7 +84,7 @@ class GestorSemTest {
 	
 	@Test
 	void testErrorAlGenerarEstacionamientoPuntualFueraDeLaJornadaLaboral() {	
-		int horasTotales = 10;
+		int horasTotales = 12;
 		sutGestor.generarEstacionamientoPuntual(patente, coordenadaEstacionamiento, horasTotales);
 		
 		verify(semEstacionamientoMock).registrarEstacionamiento(any(Estacionamiento.class));
@@ -189,5 +193,42 @@ class GestorSemTest {
 		sutGestor.estaEnElMismoPuntoGeograficoDeInicioEstaciomiento(coordenda, patente);
 		verify(semEstacionamientoMock).estaEnElMismoPuntoGeograficoDeInicioEstaciomiento(coordenda, patente);
 	}
+	
+	
+	// TEST PATRON OBSERVER
+	
+	
+	@Test
+	void testSuscribirObservador() {	
+		sutGestor.suscribir(suscriptorMock);
+		assertEquals(sutGestor.getObserver().size(), 1);
+	}
+	
+	@Test
+	void testDesuscribirObservador() {	
+		sutGestor.suscribir(suscriptorMock);	
+		sutGestor.desuscribir(suscriptorMock);
+		assertEquals(sutGestor.getObserver().size(), 0);
+	}
+	
+	@Test
+	void testNotificarATodosLosSubscriptoresElInicioDeEstacionamiento() {
+		sutGestor.suscribir(suscriptorMock);
+
+		sutGestor.notificarInicioEstacionamiento(notificacionMock);
+		verify(suscriptorMock).recibirAlertaInicioEstacionamiento(notificacionMock);
+		
+	}
+	
+	@Test
+	void testNotificarATodosLosSubscriptoresLFinalizacionDeEstacionamiento() {
+		sutGestor.suscribir(suscriptorMock);
+
+		sutGestor.notificarFinalizacionEstacionamiento(notificacionMock);
+		verify(suscriptorMock).recibirAlertaFinEstacionamiento(notificacionMock);
+		
+	}
+
+	
 
 }

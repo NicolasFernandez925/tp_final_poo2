@@ -16,14 +16,16 @@ class EstacionamientoCompraPuntualTest {
 	String patente;
 	int cantidadHoras;
 	int coordenada;
+	int nroCelular;
 	
 	@BeforeEach
 	void setUp() throws Exception {
 
 		LocalTime horaFinal = LocalTime.of(20, 00);
 		String patente = "VAS930";
-		int cantidadHoras = 2;
-		int coordenada = 5;
+		cantidadHoras = 2;
+		coordenada = 5;
+		nroCelular = 111111;
 		sut = new EstacionamientoCompraPuntual(patente, horaFinal, coordenada, cantidadHoras);
 		
 	}
@@ -61,7 +63,7 @@ class EstacionamientoCompraPuntualTest {
 	// Este test funciona cuando la hora actual es menor que la hora final, en este caso las 09 : 50
 	@Test
 	void testNoEsEstacionamientoPuntualVigente() {
-		LocalTime horaFinal = LocalTime.of(9, 50);
+		LocalTime horaFinal = LocalTime.of(7, 00);
 		sut.setHoraDeFinalizacion(horaFinal);
 		assertFalse(sut.estacionamientoVigente());
 	}
@@ -74,9 +76,9 @@ class EstacionamientoCompraPuntualTest {
 	
 	@Test
 	void testNoSonNumerosIgualesPorqueEstacionamientoPuntualNoTiene() {
-		assertFalse(sut.sonNumerosIguales(121212));
+		assertFalse(sut.sonNumerosIguales(nroCelular));
 	}
-
+	
 
 
 }
