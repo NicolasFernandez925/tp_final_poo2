@@ -32,17 +32,6 @@ class CelularTest {
 		assertEquals(0.0,sutCelular.getCelulares().get(nroCelular));
 	}
 	
-	@Test
-	void testCuandoSeIntentaBuscarElCelularQueYaFueRegistradoEsTrue() {
-		sutCelular.registrarNumero(nroCelular);
-		assertTrue(sutCelular.elCelularYaEstaRegistrado(nroCelular));
-	}
-	
-	@Test
-	void testCuandoSeIntentaBuscarElCelularQueNoFueRegistradoEsFalse() {
-		assertFalse(sutCelular.elCelularYaEstaRegistrado(nroCelular));
-	}
-	
 	// El monto al registrarlo es 0.0
 	@Test
 	void testRealizarRecargaConUnCelularYaRegistrado() {

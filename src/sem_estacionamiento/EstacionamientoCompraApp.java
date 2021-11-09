@@ -45,8 +45,4 @@ public class EstacionamientoCompraApp extends Estacionamiento {
 		this.numeroDeCelular = numeroDeCelular;
 	}
 
-	public void establecerHoraFinEstacionamiento(LocalTime horaFin) {
-		this.setHoraDeFinalizacion(horaFin);
-	}
-	
 }

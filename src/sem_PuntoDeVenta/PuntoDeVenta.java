@@ -56,7 +56,7 @@ public class PuntoDeVenta implements ISEMPuntoDeVenta{
 		return numerador.siguienteNumero();
 	}
 
-	@Override
+
 	public ArrayList<Venta> getVentas() {
 		return this.ventas;
 	}

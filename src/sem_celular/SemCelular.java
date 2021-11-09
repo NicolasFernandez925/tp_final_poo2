@@ -27,8 +27,6 @@ public class SemCelular implements ISemCelular {
 			this.registrarNumero(nroCelular);
 			this.recargar(creditoARecargar, nroCelular);
 		}
-		//alarmaEstacionamiento.notiticacionRecargaSaldo();
-	
 	}
 	
 	public void descontarSaldo(int nroCelular, double monto) {
@@ -37,7 +35,7 @@ public class SemCelular implements ISemCelular {
 		this.getCelulares().put(nroCelular, saldoAnterior);
 	}
 
-	public void recargar(double creditoARecargar, int nroCelular) {
+	private void recargar(double creditoARecargar, int nroCelular) {
 		double saldoAnterior = this.getSaldo(nroCelular);
 		saldoAnterior += creditoARecargar;
 		this.getCelulares().put(nroCelular, saldoAnterior);		
@@ -52,7 +50,7 @@ public class SemCelular implements ISemCelular {
 			this.getCelulares().put(nroCelular, 0.0);
 	}
 	
-	public boolean elCelularYaEstaRegistrado(int nroCelular) {
+	private boolean elCelularYaEstaRegistrado(int nroCelular) {
 		return this.getCelulares().containsKey(nroCelular);
 	}
 

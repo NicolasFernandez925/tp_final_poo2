@@ -63,11 +63,6 @@ public class SEMEstacionamiento implements ISemEstacionamiento {
 	}
 
 	@Override
-	public List<Zona> getZonas() {
-		return this.zonas;
-	}
-
-	@Override
 	public void finalizarTodosLosEstacionamientos(LocalTime horaFinDeJornada) {
 		List<Estacionamiento> estacionamientos = this.todosLosEstacionamientos();		
 		for(Estacionamiento e : estacionamientos) {
@@ -102,5 +97,9 @@ public class SEMEstacionamiento implements ISemEstacionamiento {
 	public void registrarEstacionamiento(Estacionamiento e) {
 		Zona zonaRandom = zonas.get(0);
 		zonaRandom.registrarEstacionamiento(e);		
+	}
+	
+	public ArrayList<Zona> getZonas(){
+		return this.zonas;
 	}
 }

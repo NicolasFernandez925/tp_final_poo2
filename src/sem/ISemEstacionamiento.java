@@ -1,13 +1,9 @@
 package sem;
-import sem_Zona.Zona;
 import sem_estacionamiento.Estacionamiento;
 
 import java.time.LocalTime;
-import java.util.List;
 
 public interface ISemEstacionamiento {
-	public void agregarZona(Zona zona);
-	public List<Zona> getZonas();
 	public void finalizarTodosLosEstacionamientos(LocalTime horaFinDeJornada);
 	public boolean estaDentroDeUnaZonaConLaCoordenada(int coordenada);
 	public boolean estaEnElMismoPuntoGeograficoDeInicioEstaciomiento(int coordenada, String patente);

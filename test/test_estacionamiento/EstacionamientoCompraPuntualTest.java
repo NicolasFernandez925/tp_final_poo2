@@ -69,12 +69,6 @@ class EstacionamientoCompraPuntualTest {
 	}
 	
 	@Test
-	void testEsEstablecerHoraFinEstacionamiento() {
-		sut.establecerHoraFinEstacionamiento(horaFinal);
-		assertEquals(sut.getHoraDeFinalizacion(), horaFinal);
-	}
-	
-	@Test
 	void testNoSonNumerosIgualesPorqueEstacionamientoPuntualNoTiene() {
 		assertFalse(sut.sonNumerosIguales(nroCelular));
 	}

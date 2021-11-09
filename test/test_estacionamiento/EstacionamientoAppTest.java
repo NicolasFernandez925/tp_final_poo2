@@ -53,12 +53,6 @@ class EstacionamientoAppTest {
 	}
 	
 	@Test
-	void testEstablecerHoraDeFinDeEstacionamiento() {
-		sut.establecerHoraFinEstacionamiento(horaMaxima);
-		assertEquals(sut.getHoraDeFinalizacion(), horaMaxima);
-	}
-
-	@Test
 	void testEsEstacionamientoAppFinalizadoPorEndeNoEstaVigente() {
 		LocalTime horafin = LocalTime.of(17, 00);
 		sut.finalizar(horafin);
