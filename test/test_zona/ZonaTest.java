@@ -154,7 +154,6 @@ class ZonaTest {
 	
 	@Test
 	void testRegistrarPuntoGeografico() {
-		//Revisar este test
 		zonaCentro.registrarPuntoGeografico(coordenada);
 	}
 	
@@ -180,7 +179,6 @@ class ZonaTest {
 	
 	@Test
 	void testTieneAsignadoELInspector() {
-	//	assertFalse(zonaCentro.tieneAsignadoElInspector(inspector.getId()));
 		zonaCentro.registrarInspector(inspector);
 		assertTrue(zonaCentro.tieneAsignadoElInspector(inspector.getId()));
 		assertFalse(zonaCentro.tieneAsignadoElInspector(2));
@@ -201,4 +199,6 @@ class ZonaTest {
 		assertTrue(zonaCentro.coincidePuntoGeografico(coordenadaEsperada, patente3));
 		assertFalse(zonaCentro.coincidePuntoGeografico(coordenadaEsperada, patente1));
 	}
+	
+	
 }
