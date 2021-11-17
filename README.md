@@ -3,7 +3,7 @@
 __Programación orientada a objetos II__  
 
 Integrantes:  
-* *Fernandez, Nicólas.*  
+* *Fernandez, Nicolás.*  
 * *Plastina, Federico Gonzalo.*  
 
 
